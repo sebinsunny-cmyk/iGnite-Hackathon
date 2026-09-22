@@ -1,20 +1,23 @@
 name: Deploy to GitHub Pages
 
-# Builds on every push to main and republishes the result to the gh-pages
-# branch, which is what GitHub Pages serves.
+# main        -> https://sebinsunny-cmyk.github.io/iGnite-Hackathon/
+# development -> https://sebinsunny-cmyk.github.io/iGnite-Hackathon/preview/
+#
+# Both publish to the gh-pages branch, into different folders, so neither
+# overwrites the other. The concurrency group serialises runs so two pushes
+# can never race on the same branch.
 #
 # One-time setup, in Settings -> Pages:
 #   Source = "Deploy from a branch",  Branch = gh-pages,  Folder = / (root)
 
 on:
   push:
-    branches: [main]
+    branches: [main, development]
   workflow_dispatch:
 
 permissions:
   contents: write
 
-# let a running publish finish rather than cancelling it half-written
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -38,18 +41,48 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Publish to gh-pages
+      - name: Publish
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          cd dist
-          touch .nojekyll
-          git init -q -b gh-pages
+          REMOTE="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          # take the current gh-pages so the other branch's folder survives
+          if git clone --depth 1 --branch gh-pages "$REMOTE" out 2>/dev/null; then
+            echo "gh-pages checked out"
+          else
+            echo "gh-pages does not exist yet — starting it"
+            mkdir out && cd out && git init -q -b gh-pages && git remote add origin "$REMOTE" && cd ..
+          fi
+
+          if [ "$GITHUB_REF_NAME" = "main" ]; then
+            echo "publishing to site root"
+            find out -mindepth 1 -maxdepth 1 ! -name .git ! -name preview -exec rm -rf {} +
+            cp -r dist/. out/
+          else
+            echo "publishing to /preview"
+            rm -rf out/preview
+            mkdir -p out/preview
+            cp -r dist/. out/preview/
+          fi
+
+          touch out/.nojekyll
+          cd out
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
+          if git diff --cached --quiet; then
+            echo "nothing changed — skipping"
+            exit 0
+          fi
           git commit -q -m "Publish ${GITHUB_SHA::7} from ${GITHUB_REF_NAME}"
-          # gh-pages holds only build output, so each run replaces it wholesale
-          git push -q --force "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
-          echo "Published $(git rev-parse --short HEAD) to gh-pages"
+          git push -q origin gh-pages
+
+          if [ "$GITHUB_REF_NAME" = "main" ]; then
+            echo "### Published to production" >> "$GITHUB_STEP_SUMMARY"
+            echo "https://sebinsunny-cmyk.github.io/iGnite-Hackathon/" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### Published to preview" >> "$GITHUB_STEP_SUMMARY"
+            echo "https://sebinsunny-cmyk.github.io/iGnite-Hackathon/preview/" >> "$GITHUB_STEP_SUMMARY"
+          fi
