@@ -26,20 +26,20 @@ export function RegisterClosed() {
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
               to="/"
-              className="flex min-h-[52px] items-center justify-center rounded-xl bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
+              className="flex min-h-[52px] items-center justify-center rounded-[11px] bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
             >
               Back to gIGNITE
             </Link>
             <Link
               to="/login"
-              className="flex min-h-[52px] items-center justify-center rounded-xl border border-line px-5 text-[15px] font-medium text-ink-2 transition hover:border-ink-3/40"
+              className="flex min-h-[52px] items-center justify-center rounded-[11px] border-[0.8px] border-line px-5 text-[15px] font-medium text-ink-2 transition hover:border-line-2"
             >
               Staff sign-in
             </Link>
           </div>
         </div>
 
-        <div className="rounded-2xl bg-navy p-6 text-white sm:p-10">
+        <div className="rounded-[16px] bg-ink p-6 text-white sm:p-10">
           <GigniteLogo size="lg" className="brightness-0 invert" />
           <p className="mt-8 text-[15.5px] leading-relaxed text-white/75">
             Already registered? Nothing more to do. Watch the inbox of the address your team leader
@@ -68,14 +68,14 @@ export function NotFound() {
         <div className="flex flex-wrap gap-3">
           <Link
             to="/register"
-            className="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-xl bg-ink px-6 text-[15px] font-bold text-white transition hover:bg-ink/90"
+            className="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-[11px] bg-ink px-6 text-[15px] font-bold text-white transition hover:bg-ink/90"
           >
             Go to registration
             <Icon.arrow className="h-4.5 w-4.5" />
           </Link>
           <Link
             to="/"
-            className="flex min-h-[52px] items-center justify-center rounded-xl border border-line px-5 text-[15px] font-medium text-ink-2 transition hover:border-ink-3/40"
+            className="flex min-h-[52px] items-center justify-center rounded-[11px] border-[0.8px] border-line px-5 text-[15px] font-medium text-ink-2 transition hover:border-line-2"
           >
             Home
           </Link>
@@ -101,17 +101,17 @@ export function ResetPassword() {
           </p>
           <p className="mt-8 text-[13.5px] text-ink-3">
             Participants do not have passwords — if you are registering a team,{" "}
-            <Link to="/register" className="font-medium text-navy hover:underline">
+            <Link to="/register" className="font-medium text-sub hover:underline">
               sign in here instead
             </Link>
             .
           </p>
         </div>
 
-        <div className="rounded-2xl border border-line bg-paper p-6 sm:p-8 xl:p-10">
+        <div className="rounded-[16px] border-[0.8px] border-line bg-paper p-6 sm:p-8 xl:p-10">
           <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
             <Field id="reset-email" label="Email" type="email" placeholder="you@fisat.ac.in" />
-            <button className="flex min-h-[52px] items-center justify-center rounded-xl bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90">
+            <button className="flex min-h-[52px] items-center justify-center rounded-[11px] bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90">
               Send reset link
             </button>
             <Link

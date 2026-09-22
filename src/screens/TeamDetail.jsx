@@ -45,12 +45,12 @@ export default function TeamDetail() {
 
         <div className="flex w-full flex-wrap items-center gap-2.5 sm:w-auto sm:ml-auto">
           <StatusPill status={team.status} size="md" />
-          <button className="min-h-[44px] flex-1 rounded-xl border border-line bg-paper px-4 text-[13.5px] font-medium text-ink-2 transition hover:border-ink-3/40 sm:flex-none">
+          <button className="min-h-[44px] flex-1 rounded-[11px] border-[0.8px] border-line bg-paper px-4 text-[13.5px] font-medium text-ink-2 transition hover:border-line-2 sm:flex-none">
             Message team
           </button>
           <button
             onClick={() => navigate("/dashboard")}
-            className="min-h-[44px] flex-1 rounded-xl border border-line bg-paper px-4 text-[13.5px] font-medium text-ink-2 transition hover:border-ink-3/40 sm:flex-none"
+            className="min-h-[44px] flex-1 rounded-[11px] border-[0.8px] border-line bg-paper px-4 text-[13.5px] font-medium text-ink-2 transition hover:border-line-2 sm:flex-none"
           >
             <span className="sm:hidden">Next &rarr;</span>
             <span className="hidden sm:inline">Next submission &rarr;</span>
@@ -62,15 +62,15 @@ export default function TeamDetail() {
         {/* ---- main column ---- */}
         <div className="flex flex-col gap-4">
           {/* deck */}
-          <section className="rounded-2xl border border-line bg-paper p-5 sm:p-7">
+          <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-7">
             <div className="flex flex-wrap items-center gap-4">
               <span className="lbl">Stage 1 deck</span>
-              <button className="ml-auto min-h-[44px] rounded-lg border border-line px-3.5 text-[13px] font-medium text-ink-2 transition hover:border-ink-3/40">
+              <button className="ml-auto min-h-[44px] rounded-[10px] border-[0.8px] border-line px-3.5 text-[13px] font-medium text-ink-2 transition hover:border-line-2">
                 Download
               </button>
             </div>
-            <div className="mt-5 flex flex-wrap items-center gap-5 rounded-xl border border-line bg-ground p-5">
-              <span className="grid h-16 w-13 shrink-0 place-items-center rounded-lg border border-line bg-paper px-4">
+            <div className="mt-5 flex flex-wrap items-center gap-5 rounded-[11px] border-[0.8px] border-line bg-ground p-5">
+              <span className="grid h-16 w-13 shrink-0 place-items-center rounded-[10px] border-[0.8px] border-line bg-paper px-4">
                 <Icon.doc className="h-6 w-6 text-rej" />
               </span>
               <div className="min-w-0">
@@ -79,7 +79,7 @@ export default function TeamDetail() {
                   {uploadRules.deck.split("·")[0].trim()} · signed link, expires in 60 minutes
                 </p>
               </div>
-              <div className="ml-auto h-24 w-40 shrink-0 rounded-lg border border-line bg-paper p-3">
+              <div className="ml-auto h-24 w-40 shrink-0 rounded-[10px] border-[0.8px] border-line bg-paper p-3">
                 <div className="h-2 w-2/3 rounded-full bg-sunk" />
                 <div className="mt-2 h-1.5 w-full rounded-full bg-line-2" />
                 <div className="mt-1.5 h-1.5 w-5/6 rounded-full bg-line-2" />
@@ -90,7 +90,7 @@ export default function TeamDetail() {
 
           {/* judge scoring */}
           {isJudge && (
-            <section className="rounded-2xl border-2 border-navy bg-paper p-5 sm:p-7">
+            <section className="rounded-[16px] border-[1.5px] border-viz-purple bg-paper p-5 sm:p-7">
               <div className="flex flex-wrap items-center gap-3">
                 <h2 className="text-[19px] font-bold tracking-[-0.014em]">Your evaluation</h2>
                 <span className="lbl">{scored} of 5 scored</span>
@@ -114,10 +114,10 @@ export default function TeamDetail() {
                         <button
                           key={n}
                           onClick={() => setScores({ ...scores, [c.key]: n })}
-                          className={`tnum h-11 rounded-lg border text-[13px] font-semibold transition sm:h-10 ${
+                          className={`tnum h-11 rounded-[10px] border text-[13px] font-semibold transition sm:h-10 ${
                             scores[c.key] === n
-                              ? "border-navy bg-navy text-white"
-                              : "border-line bg-paper text-ink-3 hover:border-navy/50 hover:text-navy"
+                              ? "border-viz-purple bg-ink text-white"
+                              : "border-line bg-paper text-ink-3 hover:border-viz-purple/50 hover:text-sub"
                           }`}
                         >
                           {n}
@@ -135,15 +135,15 @@ export default function TeamDetail() {
                     id="judge-comments"
                     rows={3}
                     placeholder="Visible to organisers, not to the team."
-                    className="resize-y rounded-xl border border-line px-4 py-3 text-[14.5px] leading-relaxed outline-none transition placeholder:text-ink-3 focus:border-navy"
+                    className="resize-y rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[14.5px] leading-relaxed outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
                   />
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 border-t border-line pt-5">
-                  <button className="rounded-xl bg-ink px-6 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
+                <div className="flex flex-wrap items-center gap-3 border-t-[0.8px] border-line pt-5">
+                  <button className="rounded-[11px] bg-ink px-6 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
                     Save score
                   </button>
-                  <button className="rounded-xl border border-line px-5 py-3 text-[14.5px] font-medium text-ink-2 transition hover:border-ink-3/40">
+                  <button className="rounded-[11px] border-[0.8px] border-line px-5 py-3 text-[14.5px] font-medium text-ink-2 transition hover:border-line-2">
                     Next submission →
                   </button>
                   <span className="lbl ml-auto">Press 1–10 to score the focused criterion</span>
@@ -153,7 +153,7 @@ export default function TeamDetail() {
           )}
 
           {/* members */}
-          <section className="rounded-2xl border border-line bg-paper p-5 sm:p-7">
+          <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-7">
             <span className="lbl">Team</span>
             <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 2xl:grid-cols-3">
               <MemberCard name={team.leader} role="Team leader" />
@@ -164,7 +164,7 @@ export default function TeamDetail() {
           </section>
 
           {/* submission */}
-          <section className="rounded-2xl border border-line bg-paper p-5 sm:p-7">
+          <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-7">
             <span className="lbl">Stage 1 submission</span>
             <div className="mt-6 grid grid-cols-1 gap-8 2xl:grid-cols-2">
               {ideaFields.map((f) => (
@@ -178,14 +178,14 @@ export default function TeamDetail() {
                 </div>
               ))}
             </div>
-            <p className="mt-6 border-t border-line-2 pt-4 text-[12.5px] text-ink-3">
+            <p className="mt-6 border-t-[0.8px] border-line-2 pt-4 text-[12.5px] text-ink-3">
               The team's full written answers render here.
             </p>
           </section>
 
           {/* ID cards — admin only */}
           {isAdmin && (
-            <section className="rounded-2xl border border-line bg-paper p-5 sm:p-7">
+            <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-7">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="lbl">ID cards</span>
                 <span className="rounded-full bg-rev-soft px-3 py-1 font-mono text-[10px] uppercase tracking-[0.07em] text-rev">
@@ -196,10 +196,10 @@ export default function TeamDetail() {
                 {Array.from({ length: team.members }, (_, i) => (
                   <div
                     key={i}
-                    className="flex h-24 w-36 flex-col justify-end rounded-lg border border-line bg-ground p-3"
+                    className="flex h-24 w-36 flex-col justify-end rounded-[10px] border-[0.8px] border-line bg-ground p-3"
                   >
                     <span className="lbl">Member {i + 1}</span>
-                    <span className="mt-1 text-[12px] font-medium text-navy">View</span>
+                    <span className="mt-1 text-[12px] font-medium text-sub">View</span>
                   </div>
                 ))}
               </div>
@@ -211,29 +211,29 @@ export default function TeamDetail() {
         <aside className="flex flex-col gap-4">
           {isAdmin && (
             <>
-              <section className="rounded-2xl border border-line bg-paper p-5 sm:p-6">
+              <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-6">
                 <span className="lbl">Registration status</span>
                 <div className="mt-4 flex flex-col gap-1">
                   {byStatus.map((s) => (
                     <button
                       key={s.key}
-                      className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[14px] transition ${
+                      className={`flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-left text-[14px] transition ${
                         s.label === team.status
-                          ? "bg-navy-soft font-semibold"
+                          ? "bg-sub-soft font-semibold"
                           : "text-ink-2 hover:bg-ground"
                       }`}
                     >
                       <StatusDot status={s.label} />
                       {s.label}
                       {s.label === team.status && (
-                        <Icon.check className="ml-auto h-4 w-4 text-navy" />
+                        <Icon.check className="ml-auto h-4 w-4 text-sub" />
                       )}
                     </button>
                   ))}
                 </div>
               </section>
 
-              <section className="rounded-2xl border border-line bg-paper p-5 sm:p-6">
+              <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-6">
                 <span className="lbl">Assigned judges</span>
                 {team.judges.length > 0 ? (
                   <div className="mt-4 flex flex-wrap gap-2">
@@ -244,13 +244,13 @@ export default function TeamDetail() {
                 ) : (
                   <p className="mt-4 text-[13.5px] text-ink-3">No judge assigned yet.</p>
                 )}
-                <div className="mt-4 flex flex-col gap-1 border-t border-line-2 pt-4">
+                <div className="mt-4 flex flex-col gap-1 border-t-[0.8px] border-line-2 pt-4">
                   {judgePool
                     .filter((j) => !team.judges.includes(j))
                     .map((j) => (
                       <button
                         key={j}
-                        className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-left text-[14px] text-ink-2 transition hover:bg-ground"
+                        className="flex items-center gap-2.5 rounded-[10px] px-3 py-2 text-left text-[14px] text-ink-2 transition hover:bg-ground"
                       >
                         <span className="text-ink-3">+</span>
                         {j}
@@ -264,7 +264,7 @@ export default function TeamDetail() {
             </>
           )}
 
-          <section className="rounded-2xl border border-line bg-paper p-5 sm:p-6">
+          <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-6">
             <span className="lbl">Judge scores</span>
             <div className="mt-4 flex flex-col gap-3">
               {scoringCriteria.map((c) => (
@@ -274,7 +274,7 @@ export default function TeamDetail() {
                 </div>
               ))}
             </div>
-            <div className="mt-4 flex items-baseline gap-3 border-t border-line pt-4">
+            <div className="mt-4 flex items-baseline gap-3 border-t-[0.8px] border-line pt-4">
               <span className="text-[13.5px] font-semibold">Weighted average</span>
               <span className="tnum ml-auto font-mono text-[15px] font-semibold text-ink-3">—</span>
             </div>
@@ -283,7 +283,7 @@ export default function TeamDetail() {
             </p>
           </section>
 
-          <section className="rounded-2xl border border-line bg-paper p-5 sm:p-6">
+          <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-6">
             <span className="lbl">Record</span>
             <dl className="mt-4 flex flex-col gap-3 text-[13.5px]">
               <Rec k="Members" v={`${team.members}`} />
@@ -300,10 +300,10 @@ export default function TeamDetail() {
 
 function MemberCard({ name, role, muted = false }) {
   return (
-    <div className="flex items-center gap-3.5 rounded-xl border border-line px-4 py-3.5">
+    <div className="flex items-center gap-3.5 rounded-[11px] border-[0.8px] border-line px-4 py-3.5">
       <span
         className={`grid h-9 w-9 shrink-0 place-items-center rounded-full font-mono text-[12px] font-semibold ${
-          muted ? "bg-sunk text-ink-3" : "bg-navy-soft text-navy"
+          muted ? "bg-sunk text-ink-3" : "bg-sub-soft text-sub"
         }`}
       >
         {name.slice(0, 1).toUpperCase()}
@@ -318,7 +318,7 @@ function MemberCard({ name, role, muted = false }) {
 
 function Rec({ k, v }) {
   return (
-    <div className="flex items-baseline justify-between gap-4 border-b border-line-2 pb-2.5 last:border-0 last:pb-0">
+    <div className="flex items-baseline justify-between gap-4 border-b-[0.8px] border-line-2 pb-2.5 last:border-0 last:pb-0">
       <dt className="text-ink-3">{k}</dt>
       <dd className="text-right font-medium">{v}</dd>
     </div>

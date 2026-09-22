@@ -24,7 +24,7 @@ export function GigniteLogo({ className = "h-9 sm:h-11 lg:h-14" }) {
 /** A single sponsor mark on its own white chip. */
 export function LogoChip({ src, alt, className = "h-7 sm:h-9" }) {
   return (
-    <span className="inline-flex items-center rounded-xl bg-white px-3 py-2 ring-1 ring-line sm:px-4 sm:py-2.5">
+    <span className="inline-flex items-center rounded-[11px] bg-white px-3 py-2 ring-1 ring-line sm:px-4 sm:py-2.5">
       <img src={src} alt={alt} className={`w-auto ${className}`} />
     </span>
   );
@@ -53,24 +53,21 @@ export function PartnerLogos({ className = "", label }) {
 /** Full-bleed footer band carrying the organiser marks at scale. */
 export function PartnerBand({ className = "" }) {
   return (
-    <footer className={`border-t border-line bg-paper ${className}`}>
-      <div className="flex flex-col gap-7 px-4 py-7 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:py-8 xl:px-10">
+    <footer className={`border-t-[0.8px] border-line bg-paper ${className}`}>
+      <div className="flex flex-col gap-6 px-4 py-9 sm:px-6 lg:flex-row lg:items-center lg:justify-between xl:px-10">
         <div className="flex flex-col gap-4">
           <span className="lbl">Presented by</span>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-4 sm:gap-x-8">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             {PARTNERS.map((p) => (
-              <img
-                key={p.src}
-                src={p.src}
-                alt={p.alt}
-                className="h-9 w-auto sm:h-11 lg:h-14"
-              />
+              <img key={p.src} src={p.src} alt={p.alt} className="h-8 w-auto sm:h-10" />
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-4 border-t border-line-2 pt-6 lg:border-t-0 lg:pt-0">
+        <div className="flex items-center gap-4 border-t-[0.8px] border-line pt-6 lg:border-t-0 lg:pt-0">
           <GigniteLogo className="h-9 sm:h-11" />
-          <span className="lbl max-w-[18ch] leading-relaxed">Fueling India's AI future</span>
+          <span className="text-[13px] leading-relaxed text-ink-4">
+            Fueling India&rsquo;s AI future
+          </span>
         </div>
       </div>
     </footer>

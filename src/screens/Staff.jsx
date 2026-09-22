@@ -5,8 +5,8 @@ import { useRole } from "../state/role";
 import { Link } from "react-router-dom";
 
 const roleTone = {
-  "Super Admin": "bg-navy-soft text-navy",
-  Admin: "bg-navy-soft text-navy",
+  "Super Admin": "bg-sub-soft text-sub",
+  Admin: "bg-sub-soft text-sub",
   Judge: "bg-shl-soft text-shl",
   Volunteer: "bg-rev-soft text-rev",
 };
@@ -26,14 +26,14 @@ export default function Staff() {
             sign-up for staff.
           </p>
         </div>
-        <button className="min-h-[48px] w-full rounded-xl bg-ink px-5 text-[14px] font-bold text-white transition hover:bg-ink/90 sm:w-auto">
+        <button className="min-h-[48px] w-full rounded-[11px] bg-ink px-5 text-[14px] font-bold text-white transition hover:bg-ink/90 sm:w-auto">
           Create account
         </button>
       </div>
 
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1fr)_360px]">
-        <section className="overflow-hidden rounded-2xl border border-line bg-paper">
-          <div className="border-b border-line px-5 py-4 sm:px-7">
+        <section className="overflow-hidden rounded-[16px] border-[0.8px] border-line bg-paper">
+          <div className="border-b-[0.8px] border-line px-5 py-4 sm:px-7">
             <span className="lbl">{staffMembers.length} accounts</span>
           </div>
           <div className="divide-y divide-line-2">
@@ -61,7 +61,7 @@ export default function Staff() {
                   {s.role}
                 </span>
                 <span className="lbl w-full sm:ml-auto sm:w-auto">Added {s.added}</span>
-                <button className="min-h-[44px] w-full rounded-lg border border-line px-3.5 text-[13px] font-medium text-ink-2 transition hover:border-ink-3/40 sm:w-auto">
+                <button className="min-h-[44px] w-full rounded-[10px] border-[0.8px] border-line px-3.5 text-[13px] font-medium text-ink-2 transition hover:border-line-2 sm:w-auto">
                   Reset password
                 </button>
               </div>
@@ -70,7 +70,7 @@ export default function Staff() {
         </section>
 
         <aside className="flex flex-col gap-4">
-          <section className="rounded-2xl border border-line bg-paper p-5 sm:p-7">
+          <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-7">
             <span className="lbl">Create an account</span>
             <form className="mt-5 flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
               <div className="flex flex-col gap-2">
@@ -80,7 +80,7 @@ export default function Staff() {
                 <input
                   id="new-name"
                   placeholder="Full name"
-                  className="rounded-xl border border-line px-4 py-3 text-[14.5px] outline-none transition placeholder:text-ink-3 focus:border-navy"
+                  className="rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[14.5px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -91,7 +91,7 @@ export default function Staff() {
                   id="new-email"
                   type="email"
                   placeholder="name@fisat.ac.in"
-                  className="rounded-xl border border-line px-4 py-3 text-[14.5px] outline-none transition placeholder:text-ink-3 focus:border-navy"
+                  className="rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[14.5px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -101,14 +101,14 @@ export default function Staff() {
                 <select
                   id="new-role"
                   defaultValue="Judge"
-                  className="rounded-xl border border-line bg-paper px-4 py-3 text-[14.5px] outline-none focus:border-navy"
+                  className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[14.5px] outline-none focus:border-viz-purple"
                 >
                   {["Super Admin", "Admin", "Judge", "Volunteer"].map((r) => (
                     <option key={r}>{r}</option>
                   ))}
                 </select>
               </div>
-              <button className="mt-1 rounded-xl bg-ink px-5 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
+              <button className="mt-1 rounded-[11px] bg-ink px-5 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
                 Send invitation
               </button>
               <p className="text-[12.5px] leading-relaxed text-ink-3">
@@ -118,7 +118,7 @@ export default function Staff() {
             </form>
           </section>
 
-          <section className="rounded-2xl bg-navy p-5 text-white sm:p-7">
+          <section className="rounded-[16px] bg-ink p-5 text-white sm:p-7">
             <span className="lbl !text-white/55">What each role sees</span>
             <dl className="mt-5 flex flex-col gap-4 text-[13.5px] leading-relaxed">
               <div>
@@ -148,7 +148,7 @@ export default function Staff() {
 export function Denied() {
   return (
     <AppShell>
-      <div className="mx-auto max-w-[52ch] rounded-2xl border border-dashed border-line bg-paper px-8 py-20 text-center">
+      <div className="mx-auto max-w-[52ch] rounded-[16px] border-[0.8px] border-dashed border-line bg-paper px-8 py-20 text-center">
         <span className="grid h-12 w-12 place-items-center rounded-full bg-rev-soft">
           <Icon.settings className="h-5 w-5 text-rev" />
         </span>
@@ -161,7 +161,7 @@ export function Denied() {
         </p>
         <Link
           to="/dashboard"
-          className="mt-7 inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-[14px] font-bold text-white transition hover:bg-ink/90"
+          className="mt-7 inline-flex items-center gap-2 rounded-[11px] bg-ink px-5 py-3 text-[14px] font-bold text-white transition hover:bg-ink/90"
         >
           Back to registrations
           <Icon.arrow className="h-4 w-4" />

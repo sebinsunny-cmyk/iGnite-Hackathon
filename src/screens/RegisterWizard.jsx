@@ -31,7 +31,7 @@ export default function RegisterWizard() {
     <PublicShell
       bare
       action={
-        <span className="flex items-center gap-2.5 rounded-xl bg-shl-soft px-3.5 py-2 text-[13px] font-medium text-shl">
+        <span className="flex items-center gap-2.5 rounded-[11px] bg-shl-soft px-3.5 py-2 text-[13px] font-medium text-shl">
           <Icon.check className="h-3.5 w-3.5" />
           Saved just now
         </span>
@@ -39,7 +39,7 @@ export default function RegisterWizard() {
     >
       <div className="grid grid-cols-1 xl:grid-cols-[280px_minmax(0,1fr)_300px]">
         {/* ---- step rail ---- */}
-        <aside className="border-b border-line bg-paper px-4 py-4 sm:px-6 sm:py-5 xl:border-b-0 xl:border-r xl:px-8 xl:py-10">
+        <aside className="border-b-[0.8px] border-line bg-paper px-4 py-4 sm:px-6 sm:py-5 xl:border-b-0 xl:border-r xl:px-8 xl:py-10">
           <span className="lbl hidden xl:block">Your entry</span>
 
           {/* phone / tablet: a compact horizontal stepper that never pushes the form down */}
@@ -53,7 +53,7 @@ export default function RegisterWizard() {
                     aria-current={state === "now" ? "step" : undefined}
                     className={`flex min-h-[44px] items-center gap-2.5 rounded-full border px-3.5 text-[13.5px] transition ${
                       state === "now"
-                        ? "border-navy bg-navy-soft font-semibold text-navy"
+                        ? "border-viz-purple bg-sub-soft font-semibold text-sub"
                         : state === "done"
                           ? "border-line bg-paper text-ink-2"
                           : "border-line bg-paper text-ink-3"
@@ -64,8 +64,8 @@ export default function RegisterWizard() {
                         state === "done"
                           ? "bg-shl text-white"
                           : state === "now"
-                            ? "bg-navy text-white"
-                            : "border border-line text-ink-3"
+                            ? "bg-ink text-white"
+                            : "border-[0.8px] border-line text-ink-3"
                       }`}
                     >
                       {state === "done" ? <Icon.check className="h-3 w-3" /> : s.n}
@@ -85,7 +85,7 @@ export default function RegisterWizard() {
                 <li key={s.key}>
                   <button
                     onClick={() => setStep(s.n)}
-                    className={`flex w-full items-start gap-3.5 rounded-xl px-3 py-3 text-left transition ${
+                    className={`flex w-full items-start gap-3.5 rounded-[11px] px-3 py-3 text-left transition ${
                       state === "now" ? "bg-ground" : "hover:bg-ground/60"
                     }`}
                   >
@@ -94,8 +94,8 @@ export default function RegisterWizard() {
                         state === "done"
                           ? "bg-shl text-white"
                           : state === "now"
-                            ? "bg-navy text-white"
-                            : "border border-line text-ink-3"
+                            ? "bg-ink text-white"
+                            : "border-[0.8px] border-line text-ink-3"
                       }`}
                     >
                       {state === "done" ? <Icon.check className="h-3.5 w-3.5" /> : s.n}
@@ -118,7 +118,7 @@ export default function RegisterWizard() {
             })}
           </ol>
 
-          <div className="mt-8 hidden rounded-xl border border-line bg-ground p-5 xl:block">
+          <div className="mt-8 hidden rounded-[11px] border-[0.8px] border-line bg-ground p-5 xl:block">
             <p className="text-[13px] font-semibold">Saves as you go</p>
             <p className="mt-2 text-[12.5px] leading-relaxed text-ink-2">
               Close the tab and come back from the same link — nothing is lost, and you can edit any
@@ -135,7 +135,7 @@ export default function RegisterWizard() {
               {wizardSteps.map((s) => (
                 <span
                   key={s.key}
-                  className={`h-1 flex-1 rounded-full ${s.n <= step ? "bg-orange" : "bg-line"}`}
+                  className={`h-1 flex-1 rounded-full ${s.n <= step ? "bg-ink" : "bg-line"}`}
                 />
               ))}
             </div>
@@ -154,22 +154,22 @@ export default function RegisterWizard() {
             )}
           </div>
 
-          <div className="safe-b sticky bottom-0 z-20 -mx-4 mt-10 flex flex-wrap items-center gap-2.5 border-t border-line bg-paper/95 px-4 pt-3 backdrop-blur sm:-mx-6 sm:px-6 xl:static xl:mx-0 xl:mt-12 xl:gap-3 xl:bg-transparent xl:px-0 xl:pb-0 xl:pt-7 xl:backdrop-blur-none">
+          <div className="safe-b sticky bottom-0 z-20 -mx-4 mt-10 flex flex-wrap items-center gap-2.5 border-t-[0.8px] border-line bg-paper/95 px-4 pt-3 backdrop-blur sm:-mx-6 sm:px-6 xl:static xl:mx-0 xl:mt-12 xl:gap-3 xl:bg-transparent xl:px-0 xl:pb-0 xl:pt-7 xl:backdrop-blur-none">
             {step > 1 && (
               <button
                 onClick={() => setStep(step - 1)}
-                className="min-h-[48px] rounded-xl border border-line px-5 text-[14.5px] font-medium text-ink-2 transition hover:border-ink-3/40"
+                className="min-h-[48px] rounded-[11px] border-[0.8px] border-line px-5 text-[14.5px] font-medium text-ink-2 transition hover:border-line-2"
               >
                 Back
               </button>
             )}
-            <button className="min-h-[48px] rounded-xl border border-line px-5 text-[14.5px] font-medium text-ink-2 transition hover:border-ink-3/40">
+            <button className="min-h-[48px] rounded-[11px] border-[0.8px] border-line px-5 text-[14.5px] font-medium text-ink-2 transition hover:border-line-2">
               Save draft
             </button>
             {step < 4 ? (
               <button
                 onClick={() => setStep(step + 1)}
-                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-xl bg-ink px-6 text-[14.5px] font-bold text-white transition hover:bg-ink/90 sm:flex-none"
+                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-[11px] bg-ink px-6 text-[14.5px] font-bold text-white transition hover:bg-ink/90 sm:flex-none"
               >
                 Continue
                 <Icon.arrow className="h-4 w-4" />
@@ -178,7 +178,7 @@ export default function RegisterWizard() {
               <button
                 disabled={!allChecked}
                 onClick={() => setDone(true)}
-                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-xl bg-orange px-6 text-[14.5px] font-bold text-white transition enabled:hover:bg-orange-2 disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-3 sm:flex-none"
+                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-[11px] bg-ink px-6 text-[14.5px] font-bold text-white transition enabled:hover:bg-ink disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-3 sm:flex-none"
               >
                 Submit registration
                 <Icon.arrow className="h-4 w-4" />
@@ -188,7 +188,7 @@ export default function RegisterWizard() {
         </section>
 
         {/* ---- summary rail ---- */}
-        <aside className="border-t border-line bg-paper px-4 py-6 sm:px-6 sm:py-8 xl:border-l xl:border-t-0 xl:px-7 xl:py-10">
+        <aside className="border-t-[0.8px] border-line bg-paper px-4 py-6 sm:px-6 sm:py-8 xl:border-l xl:border-t-0 xl:px-7 xl:py-10">
           <span className="lbl">Entry so far</span>
           <dl className="mt-5 flex flex-col gap-4 text-[13.5px]">
             <Sum k="Theme" v={theme} />
@@ -196,7 +196,7 @@ export default function RegisterWizard() {
             <Sum k="Deck" v={step >= 3 ? "Not uploaded" : "—"} muted={step < 3} />
             <Sum k="Declarations" v={`${Object.values(checks).filter(Boolean).length} of 4`} />
           </dl>
-          <p className="mt-7 border-t border-line pt-5 text-[12.5px] leading-relaxed text-ink-3">
+          <p className="mt-7 border-t-[0.8px] border-line pt-5 text-[12.5px] leading-relaxed text-ink-3">
             Everything here is editable until you press submit. After that, contact the organisers to
             change an entry.
           </p>
@@ -224,19 +224,19 @@ function StepTeam({ theme, setTheme }) {
             <button
               key={t}
               onClick={() => setTheme(t)}
-              className={`rounded-xl border px-5 py-4 text-left transition ${
+              className={`rounded-[11px] border px-5 py-4 text-left transition ${
                 theme === t
-                  ? "border-navy bg-navy-soft"
-                  : "border-line bg-paper hover:border-ink-3/40"
+                  ? "border-viz-purple bg-sub-soft"
+                  : "border-line bg-paper hover:border-line-2"
               }`}
             >
               <span className="flex items-center gap-3">
                 <span
                   className={`grid h-4 w-4 shrink-0 place-items-center rounded-full border-2 ${
-                    theme === t ? "border-navy" : "border-line"
+                    theme === t ? "border-viz-purple" : "border-line"
                   }`}
                 >
-                  {theme === t && <span className="h-1.5 w-1.5 rounded-full bg-navy" />}
+                  {theme === t && <span className="h-1.5 w-1.5 rounded-full bg-ink" />}
                 </span>
                 <span className="text-[14.5px] font-semibold">{t}</span>
               </span>
@@ -269,7 +269,7 @@ function StepMembers({ members, setMembers }) {
         on two teams.
       </p>
 
-      <div className="flex items-center gap-3.5 rounded-xl border border-line bg-paper px-5 py-4">
+      <div className="flex items-center gap-3.5 rounded-[11px] border-[0.8px] border-line bg-paper px-5 py-4">
         <span className="grid h-8 w-8 place-items-center rounded-full bg-shl text-white">
           <Icon.check className="h-4 w-4" />
         </span>
@@ -280,7 +280,7 @@ function StepMembers({ members, setMembers }) {
       </div>
 
       {members.map((m, i) => (
-        <fieldset key={m.id} className="rounded-2xl border border-line bg-paper p-6 xl:p-7">
+        <fieldset key={m.id} className="rounded-[16px] border-[0.8px] border-line bg-paper p-6 xl:p-7">
           <legend className="flex w-full items-center gap-3 px-1">
             <span className="lbl">Member {i + 2}</span>
             {members.length > 2 && (
@@ -301,7 +301,7 @@ function StepMembers({ members, setMembers }) {
             <Select id={`m${m.id}-role`} label="Role in team" options={teamRoles} />
           </div>
           <label className="mt-5 flex items-center gap-3 text-[14px]">
-            <input type="checkbox" defaultChecked className="h-4 w-4 accent-[#27459b]" />
+            <input type="checkbox" defaultChecked className="h-4 w-4 accent-[#A78CF7]" />
             Same college as the team
           </label>
           <Upload label="ID card" rule={uploadRules.idCard} className="mt-5" />
@@ -311,7 +311,7 @@ function StepMembers({ members, setMembers }) {
       {members.length < 4 && (
         <button
           onClick={() => setMembers([...members, { id: Date.now() }])}
-          className="rounded-xl border border-dashed border-line px-5 py-5 text-[14.5px] font-semibold text-ink-2 transition hover:border-navy hover:text-navy"
+          className="rounded-[11px] border-[0.8px] border-dashed border-line px-5 py-5 text-[14.5px] font-semibold text-ink-2 transition hover:border-viz-purple hover:text-sub"
         >
           + Add member {members.length + 2}
         </button>
@@ -323,7 +323,7 @@ function StepMembers({ members, setMembers }) {
 function StepIdea() {
   return (
     <div className="flex flex-col gap-9">
-      <p className="max-w-[62ch] rounded-xl bg-navy-soft px-5 py-4 text-[14px] leading-relaxed text-navy-ink">
+      <p className="max-w-[62ch] rounded-[11px] bg-sub-soft px-5 py-4 text-[14px] leading-relaxed text-sub">
         These four answers become your Stage 1 deck. <strong>No prototype needed</strong> — we are
         judging the thinking at this stage.
       </p>
@@ -338,7 +338,7 @@ function StepIdea() {
               id={f.key}
               rows={f.rows}
               placeholder={f.placeholder}
-              className="resize-y rounded-xl border border-line bg-paper px-4 py-3.5 text-[15px] leading-relaxed outline-none transition placeholder:text-ink-3 focus:border-navy"
+              className="resize-y rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3.5 text-[15px] leading-relaxed outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
             />
             <div className="flex items-center justify-between text-[12.5px] text-ink-3">
               <span>{f.help}</span>
@@ -364,7 +364,7 @@ function StepIdea() {
 function StepDeclare({ theme, members, checks, setChecks }) {
   return (
     <div className="flex flex-col gap-9">
-      <section className="rounded-2xl border border-line bg-paper p-7">
+      <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-7">
         <span className="lbl">Your entry</span>
         <dl className="mt-5 grid grid-cols-1 gap-x-10 gap-y-4 sm:grid-cols-2 2xl:grid-cols-4">
           <Sum k="Theme" v={theme} />
@@ -378,15 +378,15 @@ function StepDeclare({ theme, members, checks, setChecks }) {
         {declarations.map((d) => (
           <label
             key={d.key}
-            className={`flex cursor-pointer items-start gap-4 rounded-xl border px-5 py-4 transition ${
-              checks[d.key] ? "border-navy bg-navy-soft" : "border-line bg-paper hover:border-ink-3/40"
+            className={`flex cursor-pointer items-start gap-4 rounded-[11px] border px-5 py-4 transition ${
+              checks[d.key] ? "border-viz-purple bg-sub-soft" : "border-line bg-paper hover:border-line-2"
             }`}
           >
             <input
               type="checkbox"
               checked={!!checks[d.key]}
               onChange={(e) => setChecks({ ...checks, [d.key]: e.target.checked })}
-              className="mt-0.5 h-4.5 w-4.5 accent-[#27459b]"
+              className="mt-0.5 h-4.5 w-4.5 accent-[#A78CF7]"
             />
             <span>
               <span className="flex flex-wrap items-center gap-2.5">
@@ -403,7 +403,7 @@ function StepDeclare({ theme, members, checks, setChecks }) {
         ))}
       </div>
 
-      <div className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-ground px-4 py-5 sm:px-6">
+      <div className="flex flex-wrap items-center gap-4 rounded-[11px] border-[0.8px] border-line bg-ground px-4 py-5 sm:px-6">
         <div>
           <span className="lbl">Quick check</span>
           <p className="mt-2 text-[15px] font-semibold">
@@ -414,7 +414,7 @@ function StepDeclare({ theme, members, checks, setChecks }) {
           id="challenge"
           inputMode="numeric"
           placeholder="—"
-          className="tnum ml-auto w-20 rounded-xl border border-line bg-paper px-4 py-3 text-center text-[16px] font-bold outline-none focus:border-navy"
+          className="tnum ml-auto w-20 rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-center text-[16px] font-bold outline-none focus:border-viz-purple"
         />
       </div>
     </div>
@@ -439,14 +439,14 @@ function Submitted({ theme }) {
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
               to="/"
-              className="rounded-xl border border-line px-5 py-3.5 text-[15px] font-medium text-ink-2 transition hover:border-ink-3/40"
+              className="rounded-[11px] border-[0.8px] border-line px-5 py-3.5 text-[15px] font-medium text-ink-2 transition hover:border-line-2"
             >
               Back to gIGNITE
             </Link>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-line bg-paper p-8">
+        <div className="rounded-[16px] border-[0.8px] border-line bg-paper p-8">
           <span className="lbl">What we received</span>
           <dl className="mt-6 flex flex-col gap-4">
             <Sum k="Theme" v={theme} />
@@ -484,7 +484,7 @@ function Text({ id, label, help, type = "text", placeholder }) {
         id={id}
         type={type}
         placeholder={placeholder}
-        className="rounded-xl border border-line bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-navy"
+        className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
       />
       {help && <p className="text-[12.5px] leading-relaxed text-ink-3">{help}</p>}
     </div>
@@ -500,7 +500,7 @@ function Select({ id, label, options, help }) {
       <select
         id={id}
         defaultValue=""
-        className="rounded-xl border border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-navy"
+        className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-viz-purple"
       >
         <option value="" disabled>
           Select…
@@ -520,7 +520,7 @@ function Verified({ id, label, value }) {
       <label htmlFor={id} className="lbl">
         {label}
       </label>
-      <div className="flex items-center gap-3 rounded-xl border border-line bg-ground px-4 py-3">
+      <div className="flex items-center gap-3 rounded-[11px] border-[0.8px] border-line bg-ground px-4 py-3">
         <span className="truncate text-[15px] text-ink-2">{value}</span>
         <span className="ml-auto flex shrink-0 items-center gap-1.5 rounded-full bg-shl-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.07em] text-shl">
           <Icon.check className="h-3 w-3" />
@@ -535,8 +535,8 @@ function Upload({ label, rule, className = "" }) {
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
       <span className="lbl">{label}</span>
-      <button className="flex items-center gap-4 rounded-xl border border-dashed border-line bg-paper px-5 py-4 text-left transition hover:border-navy">
-        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-sunk">
+      <button className="flex items-center gap-4 rounded-[11px] border-[0.8px] border-dashed border-line bg-paper px-5 py-4 text-left transition hover:border-viz-purple">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[10px] bg-sunk">
           <Icon.download className="h-4 w-4 rotate-180 text-ink-2" />
         </span>
         <span>

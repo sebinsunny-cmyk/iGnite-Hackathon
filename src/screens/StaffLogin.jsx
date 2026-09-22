@@ -9,7 +9,7 @@ export default function StaffLogin() {
   return (
     <div className="grid min-h-full grid-cols-1 lg:grid-cols-[1.05fr_1fr]">
       {/* brand side — full bleed, logo carries it */}
-      <section className="flex flex-col justify-between gap-8 bg-navy px-4 py-8 text-white sm:gap-12 sm:px-8 sm:py-12 xl:px-14">
+      <section className="flex flex-col justify-between gap-8 bg-ink px-4 py-8 text-white sm:gap-12 sm:px-8 sm:py-12 xl:px-14">
         <GigniteLogo className="h-11 brightness-0 invert sm:h-16 lg:h-20" />
 
         <div>
@@ -28,7 +28,7 @@ export default function StaffLogin() {
             [LOGO.fisat, LOGO_ALT.fisat],
             [LOGO.ieee, LOGO_ALT.ieee],
           ].map(([src, alt]) => (
-            <span key={src} className="rounded-xl bg-white px-3 py-2 sm:px-4 sm:py-3">
+            <span key={src} className="rounded-[11px] bg-white px-3 py-2 sm:px-4 sm:py-3">
               <img src={src} alt={alt} className="h-7 w-auto sm:h-10" />
             </span>
           ))}
@@ -55,20 +55,20 @@ export default function StaffLogin() {
 
             <button
               type="submit"
-              className="mt-2 flex min-h-[52px] items-center justify-center gap-2.5 rounded-xl bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
+              className="mt-2 flex min-h-[52px] items-center justify-center gap-2.5 rounded-[11px] bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
             >
               Sign in
               <Icon.arrow className="h-4.5 w-4.5" />
             </button>
           </form>
 
-          <div className="mt-8 flex flex-col gap-3 border-t border-line pt-6 text-[13.5px]">
-            <Link to="/reset-password" className="font-medium text-navy hover:underline">
+          <div className="mt-8 flex flex-col gap-3 border-t-[0.8px] border-line pt-6 text-[13.5px]">
+            <Link to="/reset-password" className="font-medium text-sub hover:underline">
               Forgot your password?
             </Link>
             <p className="text-ink-3">
               Registering a team instead?{" "}
-              <Link to="/register" className="font-medium text-navy hover:underline">
+              <Link to="/register" className="font-medium text-sub hover:underline">
                 Go to team registration
               </Link>
             </p>
@@ -91,7 +91,7 @@ export function Field({ id, label, type = "text", placeholder, help, ...rest }) 
         id={id}
         type={type}
         placeholder={placeholder}
-        className="rounded-xl border border-line bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-navy"
+        className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
         {...rest}
       />
       {help && <p className="text-[12.5px] text-ink-3">{help}</p>}

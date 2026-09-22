@@ -6,7 +6,7 @@ import { LOGO, LOGO_ALT } from "../assets";
 export function GigniteMark({ className = "", tone = "dark" }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
-      <span className="grid h-6 w-6 place-items-center rounded-[6px] bg-orange">
+      <span className="grid h-6 w-6 place-items-center rounded-[6px] bg-ink">
         <span className="h-2 w-2 rounded-[2px] bg-white" />
       </span>
       <span
@@ -116,7 +116,7 @@ export function AddJudge({ full = false }) {
 export function Avatar({ initials, size = 32 }) {
   return (
     <span
-      className="grid shrink-0 place-items-center rounded-full bg-orange font-mono font-semibold text-white"
+      className="grid shrink-0 place-items-center rounded-full bg-ink font-mono font-semibold text-white"
       style={{ width: size, height: size, fontSize: size * 0.34 }}
     >
       {initials}
@@ -126,7 +126,7 @@ export function Avatar({ initials, size = 32 }) {
 
 /* ---------------- charts ---------------- */
 
-export function DailyBars({ data, max = 1, height = 56, accent = "bg-orange", rest = "bg-line", showDays = true }) {
+export function DailyBars({ data, max = 1, height = 56, accent = "bg-ink", rest = "bg-line", showDays = true }) {
   return (
     <div>
       <div className="flex items-stretch gap-1.5" style={{ height }}>
@@ -135,7 +135,7 @@ export function DailyBars({ data, max = 1, height = 56, accent = "bg-orange", re
           return (
             <div key={d.day} className="flex flex-1 flex-col justify-end">
               <div
-                className={`w-full rounded-[3px] ${d.today ? accent : d.count > 0 ? "bg-navy-2/70" : rest}`}
+                className={`w-full rounded-[3px] ${d.today ? accent : d.count > 0 ? "bg-ink-2/70" : rest}`}
                 style={{ height: `${pct}%` }}
                 title={`${d.day} Sept — ${d.count}`}
               />
@@ -156,7 +156,7 @@ export function DailyBars({ data, max = 1, height = 56, accent = "bg-orange", re
   );
 }
 
-export function RankBar({ label, count, max = 2, tone = "bg-navy" }) {
+export function RankBar({ label, count, max = 2, tone = "bg-ink" }) {
   return (
     <div className="flex items-center gap-3">
       <span className="w-[120px] shrink-0 truncate text-[12px] text-ink-2">{label}</span>

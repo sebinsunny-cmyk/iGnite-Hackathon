@@ -33,12 +33,12 @@ export default function AuditLogs() {
           </p>
         </div>
 
-        <div className="-mx-4 flex gap-1 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:rounded-xl sm:border sm:border-line sm:bg-paper sm:p-1 sm:px-1">
+        <div className="-mx-4 flex gap-1 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:rounded-[11px] sm:border sm:border-line sm:bg-paper sm:p-1 sm:px-1">
           {auditWindows.map((w) => (
             <button
               key={w}
               onClick={() => setWin(w)}
-              className={`min-h-[44px] shrink-0 rounded-lg border px-3.5 text-[13px] transition sm:border-0 ${
+              className={`min-h-[44px] shrink-0 rounded-[10px] border px-3.5 text-[13px] transition sm:border-0 ${
                 w === win
                   ? "border-ink bg-ink font-semibold text-white"
                   : "border-line bg-paper text-ink-2 hover:bg-sunk"
@@ -50,8 +50,8 @@ export default function AuditLogs() {
         </div>
       </div>
 
-      <section className="overflow-hidden rounded-2xl border border-line bg-paper">
-        <div className="flex items-center gap-3 border-b border-line px-5 py-4 sm:px-7">
+      <section className="overflow-hidden rounded-[16px] border-[0.8px] border-line bg-paper">
+        <div className="flex items-center gap-3 border-b-[0.8px] border-line px-5 py-4 sm:px-7">
           <span className="lbl">
             {rows.length} {rows.length === 1 ? "entry" : "entries"} · {win.toLowerCase()}
           </span>
@@ -68,7 +68,7 @@ export default function AuditLogs() {
           <div className="hidden overflow-x-auto sm:block">
             <table className="w-full min-w-[720px] border-collapse">
               <thead>
-                <tr className="border-b border-line">
+                <tr className="border-b-[0.8px] border-line">
                   {["When", "Activity", "Details"].map((h) => (
                     <th key={h} className="lbl px-7 py-3 text-left font-medium">
                       {h}
@@ -78,7 +78,7 @@ export default function AuditLogs() {
               </thead>
               <tbody>
                 {rows.map((r, i) => (
-                  <tr key={i} className="border-b border-line-2 transition hover:bg-ground/50">
+                  <tr key={i} className="border-b-[0.8px] border-line-2 transition hover:bg-ground/50">
                     <td className="tnum whitespace-nowrap px-7 py-4 font-mono text-[12.5px] text-ink-3">
                       {r.when}
                     </td>

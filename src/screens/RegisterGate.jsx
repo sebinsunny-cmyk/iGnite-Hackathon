@@ -38,7 +38,7 @@ export default function RegisterGate() {
           </ul>
         </div>
 
-        <div className="rounded-2xl border border-line bg-paper p-6 sm:p-8 xl:p-10">
+        <div className="rounded-[16px] border-[0.8px] border-line bg-paper p-6 sm:p-8 xl:p-10">
           {mode === "sent" ? (
             <div>
               <span className="grid h-12 w-12 place-items-center rounded-full bg-shl-soft">
@@ -53,7 +53,7 @@ export default function RegisterGate() {
               <div className="mt-8 flex flex-col gap-3">
                 <button
                   onClick={() => navigate("/register/entry")}
-                  className="min-h-[52px] rounded-xl bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
+                  className="min-h-[52px] rounded-[11px] bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
                 >
                   Open the link (prototype)
                 </button>
@@ -61,7 +61,7 @@ export default function RegisterGate() {
                   <span className="text-ink-3">Resend available in 0:42</span>
                   <button
                     onClick={() => setMode("email")}
-                    className="font-medium text-navy hover:underline"
+                    className="font-medium text-sub hover:underline"
                   >
                     Use a different email
                   </button>
@@ -77,7 +77,7 @@ export default function RegisterGate() {
 
               <button
                 onClick={() => navigate("/register/entry")}
-                className="mt-8 flex min-h-[52px] w-full items-center justify-center gap-3 rounded-xl border border-line px-5 text-[15px] font-semibold transition hover:border-ink-3/40"
+                className="mt-8 flex min-h-[52px] w-full items-center justify-center gap-3 rounded-[11px] border-[0.8px] border-line px-5 text-[15px] font-semibold transition hover:border-line-2"
               >
                 <GoogleG />
                 Continue with Google
@@ -88,7 +88,7 @@ export default function RegisterGate() {
                   <Divider />
                   <button
                     onClick={() => setMode("email")}
-                    className="flex min-h-[52px] w-full items-center justify-center rounded-xl border border-line px-5 text-[15px] font-semibold transition hover:border-ink-3/40"
+                    className="flex min-h-[52px] w-full items-center justify-center rounded-[11px] border-[0.8px] border-line px-5 text-[15px] font-semibold transition hover:border-line-2"
                   >
                     Continue with email
                   </button>
@@ -114,12 +114,12 @@ export default function RegisterGate() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@college.edu"
-                        className="rounded-xl border border-line px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-navy"
+                        className="rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
                       />
                     </div>
                     <button
                       type="submit"
-                      className="min-h-[52px] rounded-xl bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
+                      className="min-h-[52px] rounded-[11px] bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
                     >
                       Send sign-in link
                     </button>
@@ -134,9 +134,9 @@ export default function RegisterGate() {
                 </>
               )}
 
-              <p className="mt-8 border-t border-line pt-6 text-[13px] text-ink-3">
+              <p className="mt-8 border-t-[0.8px] border-line pt-6 text-[13px] text-ink-3">
                 Organiser, judge or volunteer?{" "}
-                <Link to="/login" className="font-medium text-navy hover:underline">
+                <Link to="/login" className="font-medium text-sub hover:underline">
                   Staff sign-in
                 </Link>
               </p>
