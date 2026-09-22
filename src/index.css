@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- neutrals: warm, not grey ---- */
+  --color-ground: #f7f6f3;
+  --color-paper: #ffffff;
+  --color-sunk: #f2f0ec;
+  --color-ink: #14181f;
+  --color-ink-2: #5a616b;
+  --color-ink-3: #8b919b;
+  --color-line: #e9e7e2;
+  --color-line-2: #f2f0ec;
+
+  /* ---- brand: sampled from the gIGNITE / GadgEon logos ---- */
+  --color-navy: #27459b;
+  --color-navy-2: #3a5cba;
+  --color-navy-ink: #1b3170; /* text-safe deep navy */
+  --color-navy-soft: #eaeef9;
+  --color-orange: #f47b20; /* fills, marks, bars — not small text */
+  --color-orange-2: #c25a0b; /* text-safe orange */
+  --color-orange-soft: #fdefe1;
+
+  /* ---- status ---- */
+  --color-sub: #2a4da8;
+  --color-sub-soft: #e9edf8;
+  --color-rev: #a4690f;
+  --color-rev-soft: #fbefd9;
+  --color-shl: #11734d;
+  --color-shl-soft: #e0f0e8;
+  --color-rej: #b02f39;
+  --color-rej-soft: #fae7e8;
+
+  --font-sans: "Poppins", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* uppercase micro-labels get air */
+.lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+  font-weight: 500;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-navy-2);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* never let a layout push the page sideways on a phone */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* stop iOS Safari inflating text in landscape */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* iOS zooms the page when a font under 16px gets focus */
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* touch devices get real hit areas regardless of visual size */
+@media (pointer: coarse) {
+  button,
+  select,
+  [role="button"] {
+    min-height: 44px;
+  }
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* respect the notch / home indicator when a bar is pinned */
+.safe-b {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #dedbd4;
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
