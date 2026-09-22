@@ -169,7 +169,7 @@ export default function RegisterWizard() {
             {step < 4 ? (
               <button
                 onClick={() => setStep(step + 1)}
-                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-[11px] bg-ink px-6 text-[14.5px] font-bold text-white transition hover:bg-ink/90 sm:flex-none"
+                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-full bg-ink px-6 text-[14.5px] font-bold text-white transition hover:bg-ink/90 sm:flex-none"
               >
                 Continue
                 <Icon.arrow className="h-4 w-4" />
@@ -178,7 +178,7 @@ export default function RegisterWizard() {
               <button
                 disabled={!allChecked}
                 onClick={() => setDone(true)}
-                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-[11px] bg-ink px-6 text-[14.5px] font-bold text-white transition enabled:hover:bg-ink disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-3 sm:flex-none"
+                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-full bg-ink px-6 text-[14.5px] font-bold text-white transition enabled:hover:bg-ink disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-3 sm:flex-none"
               >
                 Submit registration
                 <Icon.arrow className="h-4 w-4" />
@@ -439,7 +439,7 @@ function Submitted({ theme }) {
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
               to="/"
-              className="rounded-[11px] border-[0.8px] border-line px-5 py-3.5 text-[15px] font-medium text-ink-2 transition hover:border-line-2"
+              className="rounded-full border-[0.8px] border-line px-5 py-3.5 text-[15px] font-medium text-ink-2 transition hover:border-line-2"
             >
               Back to gIGNITE
             </Link>

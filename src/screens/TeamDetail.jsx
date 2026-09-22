@@ -140,7 +140,7 @@ export default function TeamDetail() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 border-t-[0.8px] border-line pt-5">
-                  <button className="rounded-[11px] bg-ink px-6 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
+                  <button className="rounded-full bg-ink px-6 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
                     Save score
                   </button>
                   <button className="rounded-[11px] border-[0.8px] border-line px-5 py-3 text-[14.5px] font-medium text-ink-2 transition hover:border-line-2">
@@ -310,7 +310,7 @@ function MemberCard({ name, role, muted = false }) {
       </span>
       <div className="min-w-0">
         <p className={`truncate text-[14px] font-semibold ${muted ? "text-ink-3" : ""}`}>{name}</p>
-        <p className="lbl mt-0.5">{role}</p>
+        <p className="mt-0.5 text-[12.5px] text-ink-4">{role}</p>
       </div>
     </div>
   );

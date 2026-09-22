@@ -84,7 +84,7 @@ export default function Settings() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3 border-t-[0.8px] border-line pt-7">
-              <button className="min-h-[48px] w-full rounded-[11px] bg-ink px-6 text-[14.5px] font-bold text-white transition hover:bg-ink/90 sm:w-auto">
+              <button className="min-h-[48px] w-full rounded-full bg-ink px-6 text-[14.5px] font-bold text-white transition hover:bg-ink/90 sm:w-auto">
                 Save
               </button>
               <Link

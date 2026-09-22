@@ -26,7 +26,7 @@ export default function Staff() {
             sign-up for staff.
           </p>
         </div>
-        <button className="min-h-[48px] w-full rounded-[11px] bg-ink px-5 text-[14px] font-bold text-white transition hover:bg-ink/90 sm:w-auto">
+        <button className="min-h-[48px] w-full rounded-full bg-ink px-5 text-[14px] font-bold text-white transition hover:bg-ink/90 sm:w-auto">
           Create account
         </button>
       </div>
@@ -34,7 +34,7 @@ export default function Staff() {
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1fr)_360px]">
         <section className="overflow-hidden rounded-[16px] border-[0.8px] border-line bg-paper">
           <div className="border-b-[0.8px] border-line px-5 py-4 sm:px-7">
-            <span className="lbl">{staffMembers.length} accounts</span>
+            <span className="text-[13px] text-ink-4">{staffMembers.length} accounts</span>
           </div>
           <div className="divide-y divide-line-2">
             {staffMembers.map((s) => (
@@ -60,7 +60,7 @@ export default function Staff() {
                 >
                   {s.role}
                 </span>
-                <span className="lbl w-full sm:ml-auto sm:w-auto">Added {s.added}</span>
+                <span className="w-full text-[13px] text-ink-4 sm:ml-auto sm:w-auto">Added {s.added}</span>
                 <button className="min-h-[44px] w-full rounded-[10px] border-[0.8px] border-line px-3.5 text-[13px] font-medium text-ink-2 transition hover:border-line-2 sm:w-auto">
                   Reset password
                 </button>
@@ -108,7 +108,7 @@ export default function Staff() {
                   ))}
                 </select>
               </div>
-              <button className="mt-1 rounded-[11px] bg-ink px-5 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
+              <button className="mt-1 rounded-full bg-ink px-5 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
                 Send invitation
               </button>
               <p className="text-[12.5px] leading-relaxed text-ink-3">
@@ -161,7 +161,7 @@ export function Denied() {
         </p>
         <Link
           to="/dashboard"
-          className="mt-7 inline-flex items-center gap-2 rounded-[11px] bg-ink px-5 py-3 text-[14px] font-bold text-white transition hover:bg-ink/90"
+          className="mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-[14px] font-bold text-white transition hover:bg-ink/90"
         >
           Back to registrations
           <Icon.arrow className="h-4 w-4" />

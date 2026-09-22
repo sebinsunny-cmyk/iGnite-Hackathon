@@ -2,6 +2,7 @@ import { useState } from "react";
 import AppShell from "../components/AppShell";
 import { auditLog, auditWindows } from "../data/content";
 import { useRole } from "../state/role";
+import { Segmented } from "../components/ui";
 import { Denied } from "./Staff";
 
 const tone = {
@@ -33,26 +34,14 @@ export default function AuditLogs() {
           </p>
         </div>
 
-        <div className="-mx-4 flex gap-1 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:rounded-[11px] sm:border sm:border-line sm:bg-paper sm:p-1 sm:px-1">
-          {auditWindows.map((w) => (
-            <button
-              key={w}
-              onClick={() => setWin(w)}
-              className={`min-h-[44px] shrink-0 rounded-[10px] border px-3.5 text-[13px] transition sm:border-0 ${
-                w === win
-                  ? "border-ink bg-ink font-semibold text-white"
-                  : "border-line bg-paper text-ink-2 hover:bg-sunk"
-              }`}
-            >
-              {w}
-            </button>
-          ))}
+        <div className="-mx-4 flex overflow-x-auto px-4 sm:mx-0 sm:px-0">
+          <Segmented options={auditWindows} value={win} onChange={setWin} />
         </div>
       </div>
 
       <section className="overflow-hidden rounded-[16px] border-[0.8px] border-line bg-paper">
         <div className="flex items-center gap-3 border-b-[0.8px] border-line px-5 py-4 sm:px-7">
-          <span className="lbl">
+          <span className="text-[13px] text-ink-4">
             {rows.length} {rows.length === 1 ? "entry" : "entries"} · {win.toLowerCase()}
           </span>
         </div>

@@ -9,7 +9,7 @@ import {
   totals,
   filterLabels,
 } from "../data/registrations";
-import { StatusPill, JudgeChip, AddJudge, Delta, Spark, Icon } from "../components/ui";
+import { StatusPill, JudgeChip, AddJudge, Delta, Spark, Segmented, Icon } from "../components/ui";
 import AppShell from "../components/AppShell";
 import { useRole } from "../state/role";
 
@@ -36,7 +36,7 @@ export default function Dashboard() {
       </nav>
 
       {/* ---------- KPI row ---------- */}
-      <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <Kpi
           label="Teams registered"
           value={totals.teams}
@@ -74,21 +74,7 @@ export default function Dashboard() {
           </div>
 
           <div className="ml-auto flex flex-wrap items-center gap-4">
-            <div className="flex rounded-[10px] bg-sunk p-[3px]">
-              {["7d", "30d", "All"].map((r) => (
-                <button
-                  key={r}
-                  onClick={() => setRange(r)}
-                  className={`rounded-[8px] px-2.5 py-1 text-[12.5px] font-medium transition ${
-                    r === range
-                      ? "bg-paper text-ink shadow-[0_1px_2px_rgba(14,14,20,0.06)]"
-                      : "text-ink-3"
-                  }`}
-                >
-                  {r}
-                </button>
-              ))}
-            </div>
+            <Segmented options={["7d", "30d", "All"]} value={range} onChange={setRange} />
             <div className="flex items-center gap-4 text-[12.5px]">
               <Legend color="var(--color-viz-pink)" label="Entries" />
               <Legend color="#D8D8DE" label="Target" dashed />
@@ -271,7 +257,7 @@ function Kpi({ label, value, delta, tone, points, stroke }) {
   return (
     <div className="card flex items-start gap-4 p-5">
       <div className="min-w-0 flex-1">
-        <div className="text-[13.5px] text-ink-3">{label}</div>
+        <div className="whitespace-nowrap text-[13.5px] text-ink-3">{label}</div>
         <div className="tnum mt-2 text-[32px] font-semibold leading-none tracking-[-0.035em]">
           {value}
         </div>

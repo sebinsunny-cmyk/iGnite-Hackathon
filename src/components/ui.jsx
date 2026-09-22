@@ -49,7 +49,7 @@ export function StatusPill({ status, size = "sm" }) {
 export function Delta({ value, tone = "pos" }) {
   const c = tone === "pos" ? "bg-shl-soft text-shl" : "bg-rej-soft text-rej";
   return (
-    <span className={`tnum inline-flex items-center rounded-full px-2 py-[3px] text-[12px] font-medium ${c}`}>
+    <span className={`tnum inline-flex items-center whitespace-nowrap rounded-full px-2 py-[3px] text-[12px] font-medium ${c}`}>
       {value}
     </span>
   );
@@ -116,11 +116,35 @@ export function AddJudge({ full = false }) {
 export function Avatar({ initials, size = 32 }) {
   return (
     <span
-      className="grid shrink-0 place-items-center rounded-full bg-ink font-mono font-semibold text-white"
-      style={{ width: size, height: size, fontSize: size * 0.34 }}
+      className="grid shrink-0 place-items-center rounded-full font-semibold text-white"
+      style={{
+        width: size,
+        height: size,
+        fontSize: size * 0.34,
+        background: "linear-gradient(135deg,var(--color-viz-pink),var(--color-viz-purple))",
+      }}
     >
       {initials}
     </span>
+  );
+}
+
+/** Segmented control — the one control style used for every range/window switch. */
+export function Segmented({ options, value, onChange }) {
+  return (
+    <div className="flex shrink-0 rounded-[10px] bg-sunk p-[3px]">
+      {options.map((o) => (
+        <button
+          key={o}
+          onClick={() => onChange(o)}
+          className={`h-9 whitespace-nowrap rounded-[8px] px-3 text-[12.5px] font-medium transition ${
+            o === value ? "bg-paper text-ink shadow-[0_1px_2px_rgba(14,14,20,0.06)]" : "text-ink-3"
+          }`}
+        >
+          {o}
+        </button>
+      ))}
+    </div>
   );
 }
 

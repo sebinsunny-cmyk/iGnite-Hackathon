@@ -152,7 +152,7 @@ export default function AppShell({ children }) {
           <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-ink">
             <Icon.board className="h-4 w-4 text-white" />
           </span>
-          <span className="hidden text-[16.5px] font-semibold tracking-[-0.02em] sm:block">
+          <span className="text-[16.5px] font-semibold tracking-[-0.02em]">
             gIGNITE
           </span>
         </button>
