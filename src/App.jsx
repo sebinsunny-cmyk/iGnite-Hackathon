@@ -12,7 +12,6 @@ import Settings from "./screens/Settings";
 import Staff from "./screens/Staff";
 import AuditLogs from "./screens/AuditLogs";
 import { RegisterClosed, NotFound, ResetPassword } from "./screens/Misc";
-import Compare from "./revamp/Compare";
 
 const SCREENS = [
   { group: "Public", to: "/", label: "Landing" },
@@ -27,7 +26,6 @@ const SCREENS = [
   { group: "Dashboard", to: "/dashboard/settings", label: "Registration window" },
   { group: "Dashboard", to: "/dashboard/staff", label: "Staff" },
   { group: "Dashboard", to: "/dashboard/audit-logs", label: "Audit logs" },
-  { group: "Revamp", to: "/revamp", label: "3 new art directions" },
 ];
 
 export default function App() {
@@ -46,7 +44,6 @@ export default function App() {
           <Route path="/dashboard/settings" element={<Settings />} />
           <Route path="/dashboard/staff" element={<Staff />} />
           <Route path="/dashboard/audit-logs" element={<AuditLogs />} />
-          <Route path="/revamp" element={<Compare />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
