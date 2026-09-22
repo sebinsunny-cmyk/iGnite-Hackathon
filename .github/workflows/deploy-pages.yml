@@ -1,22 +1,26 @@
 name: Deploy to GitHub Pages
 
+# Builds on every push to main and republishes the result to the gh-pages
+# branch, which is what GitHub Pages serves.
+#
+# One-time setup, in Settings -> Pages:
+#   Source = "Deploy from a branch",  Branch = gh-pages,  Folder = / (root)
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# let a running deploy finish rather than cancelling it half-published
+# let a running publish finish rather than cancelling it half-written
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -34,24 +38,18 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-        with:
-          # turns Pages on and points it at Actions, so no manual setup is needed
-          enablement: true
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publish to gh-pages
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          cd dist
+          touch .nojekyll
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Publish ${GITHUB_SHA::7} from ${GITHUB_REF_NAME}"
+          # gh-pages holds only build output, so each run replaces it wholesale
+          git push -q --force "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+          echo "Published $(git rev-parse --short HEAD) to gh-pages"
