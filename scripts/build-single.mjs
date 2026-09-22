@@ -30,12 +30,20 @@ for (const name of images) {
   uris[name] = dataUri(await readFile(join(dist, name)), ".png");
 }
 
+const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 let jsInlined = js;
 for (const [name, uri] of Object.entries(uris)) {
-  // source writes them as "/name.png"; the build may also emit "./name.png"
+  // plain string refs
   for (const ref of [`"/${name}"`, `'/${name}'`, `"./${name}"`, `'./${name}'`]) {
     jsInlined = jsInlined.split(ref).join(`"${uri}"`);
   }
+  // assets.js builds them from BASE_URL, so the bundle keeps a template literal
+  // like `${b}gignite-logo.png` with a minified variable name
+  jsInlined = jsInlined.replace(
+    new RegExp("`\\$\\{[A-Za-z0-9_$]+\\}" + esc(name) + "`", "g"),
+    JSON.stringify(uri)
+  );
   html = html.split(`./${name}`).join(uri).split(`/${name}`).join(uri);
   css = css.split(`./${name}`).join(uri).split(`/${name}`).join(uri);
 }

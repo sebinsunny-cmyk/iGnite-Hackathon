@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { GigniteLogo, PartnerLogos } from "../components/Brand";
+import { LOGO, LOGO_ALT } from "../assets";
 import { Icon } from "../components/ui";
 
 export default function StaffLogin() {
@@ -23,9 +24,9 @@ export default function StaffLogin() {
 
         <div className="flex flex-wrap items-center gap-4 sm:gap-8">
           {[
-            ["/gadgeon-logo.png", "Gadgeon"],
-            ["/fisat-sb-logo.png", "FISAT IEEE Student Branch"],
-            ["/ieee_sps_kc_logo.png", "IEEE SPS Kerala Chapter"],
+            [LOGO.gadgeon, LOGO_ALT.gadgeon],
+            [LOGO.fisat, LOGO_ALT.fisat],
+            [LOGO.ieee, LOGO_ALT.ieee],
           ].map(([src, alt]) => (
             <span key={src} className="rounded-xl bg-white px-3 py-2 sm:px-4 sm:py-3">
               <img src={src} alt={alt} className="h-7 w-auto sm:h-10" />

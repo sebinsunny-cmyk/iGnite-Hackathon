@@ -1,4 +1,5 @@
 import { statusTone } from "../data/registrations";
+import { LOGO, LOGO_ALT } from "../assets";
 
 /* ---------------- brand ---------------- */
 
@@ -23,11 +24,11 @@ export function SponsorRibbon({ className = "", compact = false }) {
   const h = compact ? "h-5" : "h-7";
   return (
     <div className={`flex flex-wrap items-center gap-x-7 gap-y-3 ${className}`}>
-      <img src="/gadgeon-logo.png" alt="Gadgeon" className={`${h} w-auto opacity-80`} />
+      <img src={LOGO.gadgeon} alt={LOGO_ALT.gadgeon} className={`${h} w-auto opacity-80`} />
       <span className="h-4 w-px bg-line" />
-      <img src="/fisat-sb-logo.png" alt="FISAT IEEE Student Branch" className={`${h} w-auto opacity-80`} />
+      <img src={LOGO.fisat} alt={LOGO_ALT.fisat} className={`${h} w-auto opacity-80`} />
       <span className="h-4 w-px bg-line" />
-      <img src="/ieee_sps_kc_logo.png" alt="IEEE Signal Processing Society Kerala Chapter" className={`${h} w-auto opacity-80`} />
+      <img src={LOGO.ieee} alt={LOGO_ALT.ieee} className={`${h} w-auto opacity-80`} />
     </div>
   );
 }

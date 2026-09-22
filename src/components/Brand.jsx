@@ -1,3 +1,5 @@
+import { LOGO, LOGO_ALT } from "../assets";
+
 /**
  * Brand lockups.
  *
@@ -12,8 +14,8 @@
 export function GigniteLogo({ className = "h-9 sm:h-11 lg:h-14" }) {
   return (
     <img
-      src="/gignite-logo.png"
-      alt="gIGNITE 2026 — Fueling India's AI Future"
+      src={LOGO.gignite}
+      alt={LOGO_ALT.gignite}
       className={`w-auto max-w-full ${className}`}
     />
   );
@@ -29,9 +31,9 @@ export function LogoChip({ src, alt, className = "h-7 sm:h-9" }) {
 }
 
 const PARTNERS = [
-  { src: "/gadgeon-logo.png", alt: "Gadgeon — Engineering Smartness" },
-  { src: "/fisat-sb-logo.png", alt: "FISAT IEEE Student Branch" },
-  { src: "/ieee_sps_kc_logo.png", alt: "IEEE Signal Processing Society, Kerala Chapter" },
+  { src: LOGO.gadgeon, alt: LOGO_ALT.gadgeon },
+  { src: LOGO.fisat, alt: LOGO_ALT.fisat },
+  { src: LOGO.ieee, alt: LOGO_ALT.ieee },
 ];
 
 /** The three organiser marks, given real room. */
