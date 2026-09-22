@@ -1,37 +1,64 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Design tokens read directly off the Cadence reference (computed styles, not
+   guessed): Inter 400/500/600/700, ink #0A0A0C, ground #FAFAFB, hairline
+   0.8px borders at #F0F0F3, 16px card radius, and a 1px/2px micro-shadow.
+   --------------------------------------------------------------------------- */
+
 @theme {
-  /* ---- neutrals: warm, not grey ---- */
-  --color-ground: #f7f6f3;
+  /* neutrals */
+  --color-ground: #fafafb;
   --color-paper: #ffffff;
-  --color-sunk: #f2f0ec;
-  --color-ink: #14181f;
-  --color-ink-2: #5a616b;
-  --color-ink-3: #8b919b;
-  --color-line: #e9e7e2;
-  --color-line-2: #f2f0ec;
+  --color-sunk: #f4f4f6;
+  --color-ink: #0a0a0c;
+  --color-ink-2: #3d3d44;
+  --color-ink-3: #6c6c76;
+  --color-ink-4: #9b9ba5;
+  --color-line: #f0f0f3;
+  --color-line-2: #e8e8ec;
 
-  /* ---- brand: sampled from the gIGNITE / GadgEon logos ---- */
+  /* data-viz ramp: warm to cool */
+  --color-viz-orange: #ffb27e;
+  --color-viz-pink: #ff7ea8;
+  --color-viz-purple: #a78cf7;
+  --color-viz-blue: #7cc0ff;
+  --color-viz-green: #3fb27f;
+
+  /* pastel tints for icon tiles and fills */
+  --color-tint-orange: #fdeee2;
+  --color-tint-pink: #fdeaf1;
+  --color-tint-purple: #f0ebfe;
+  --color-tint-blue: #e8f3ff;
+  --color-tint-green: #eefaf3;
+
+  /* chip text is a dark variant of its own hue, not a generic grey */
+  --color-on-orange: #7a4b2c;
+  --color-on-pink: #8d4a76;
+  --color-on-purple: #4a51a0;
+  --color-on-green: #256b56;
+  --color-on-red: #a33a3a;
+  --color-tint-red: #fdecec;
+
+  /* brand — kept for the logos and event identity */
   --color-navy: #27459b;
-  --color-navy-2: #3a5cba;
-  --color-navy-ink: #1b3170; /* text-safe deep navy */
-  --color-navy-soft: #eaeef9;
-  --color-orange: #f47b20; /* fills, marks, bars — not small text */
-  --color-orange-2: #c25a0b; /* text-safe orange */
-  --color-orange-soft: #fdefe1;
+  --color-orange: #f47b20;
 
-  /* ---- status ---- */
-  --color-sub: #2a4da8;
-  --color-sub-soft: #e9edf8;
-  --color-rev: #a4690f;
-  --color-rev-soft: #fbefd9;
-  --color-shl: #11734d;
-  --color-shl-soft: #e0f0e8;
-  --color-rej: #b02f39;
-  --color-rej-soft: #fae7e8;
+  /* status */
+  --color-sub: #4a51a0;
+  --color-sub-soft: #f0ebfe;
+  --color-rev: #7a4b2c;
+  --color-rev-soft: #fdeee2;
+  --color-shl: #256b56;
+  --color-shl-soft: #eefaf3;
+  --color-rej: #a33a3a;
+  --color-rej-soft: #fdecec;
 
-  --font-sans: "Poppins", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Inter", -apple-system, sans-serif;
+
+  --radius-card: 16px;
+  --radius-control: 11px;
 }
 
 html,
@@ -45,43 +72,81 @@ body {
   background: var(--color-ground);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-size: 16px;
+  font-feature-settings: "cv05" 1, "ss03" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* uppercase micro-labels get air */
+/* Column headers and eyebrows: uppercase letterspaced SANS — the reference
+   never uses a monospace here, which is a large part of why it reads cleaner. */
 .lbl {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: var(--color-ink-3);
+  font-size: 11.5px;
   font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-4);
 }
 
 .tnum {
   font-variant-numeric: tabular-nums;
 }
 
-*:focus-visible {
-  outline: 2px solid var(--color-navy-2);
-  outline-offset: 2px;
-  border-radius: 4px;
+/* hairline border + the reference's barely-there elevation */
+.card {
+  background: var(--color-paper);
+  border: 0.8px solid var(--color-line);
+  border-radius: var(--radius-card);
+  box-shadow:
+    rgba(14, 14, 20, 0.04) 0 1px 2px 0,
+    rgba(14, 14, 20, 0.03) 0 2px 6px 0;
 }
 
-/* never let a layout push the page sideways on a phone */
+.hairline {
+  border-color: var(--color-line);
+  border-width: 0.8px;
+}
+
+/* the headline treatment: one clause carries the warm-to-cool ramp */
+.grad-text {
+  background: linear-gradient(
+    100deg,
+    var(--color-viz-orange) 0%,
+    var(--color-viz-pink) 45%,
+    var(--color-viz-purple) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* soft pastel wash behind heroes, with the faint ruled grid */
+.wash {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #ffffff 100%),
+    radial-gradient(60% 80% at 12% 0%, #fdeee2 0%, rgba(253, 238, 226, 0) 60%),
+    radial-gradient(55% 75% at 88% 10%, #f0ebfe 0%, rgba(240, 235, 254, 0) 60%),
+    radial-gradient(45% 60% at 50% 0%, #fdeaf1 0%, rgba(253, 234, 241, 0) 70%),
+    #ffffff;
+}
+
+.wash-grid {
+  background-image:
+    linear-gradient(rgba(10, 10, 12, 0.032) 0.8px, transparent 0.8px),
+    linear-gradient(90deg, rgba(10, 10, 12, 0.032) 0.8px, transparent 0.8px);
+  background-size: 76px 76px;
+}
+
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
 }
 
-/* stop iOS Safari inflating text in landscape */
 html {
   -webkit-text-size-adjust: 100%;
 }
 
-/* iOS zooms the page when a font under 16px gets focus */
 @media (max-width: 640px) {
   input,
   select,
@@ -90,7 +155,6 @@ html {
   }
 }
 
-/* touch devices get real hit areas regardless of visual size */
 @media (pointer: coarse) {
   button,
   select,
@@ -104,9 +168,28 @@ html {
   }
 }
 
-/* respect the notch / home indicator when a bar is pinned */
+*:focus-visible {
+  outline: 2px solid var(--color-viz-purple);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
 .safe-b {
   padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #dcdce1;
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -116,18 +199,4 @@ html {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background: #dedbd4;
-  border-radius: 6px;
-  border: 3px solid transparent;
-  background-clip: content-box;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
 }

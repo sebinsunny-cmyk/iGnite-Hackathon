@@ -37,13 +37,52 @@ export function SponsorRibbon({ className = "", compact = false }) {
 
 export function StatusPill({ status, size = "sm" }) {
   const t = statusTone[status] ?? statusTone.Submitted;
-  const pad = size === "sm" ? "px-2 py-[3px] text-[10px]" : "px-2.5 py-1 text-[11px]";
+  const pad = size === "sm" ? "px-2 py-[3px] text-[11.5px]" : "px-2.5 py-1 text-[12px]";
   return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full font-mono font-medium uppercase tracking-[0.07em] ${pad} ${t.bg} ${t.text}`}
-    >
+    <span className={`inline-flex items-center rounded-full font-medium ${pad} ${t.bg} ${t.text}`}>
       {status}
     </span>
+  );
+}
+
+/** Soft delta chip — green for gains, red for losses, in the reference style. */
+export function Delta({ value, tone = "pos" }) {
+  const c = tone === "pos" ? "bg-shl-soft text-shl" : "bg-rej-soft text-rej";
+  return (
+    <span className={`tnum inline-flex items-center rounded-full px-2 py-[3px] text-[12px] font-medium ${c}`}>
+      {value}
+    </span>
+  );
+}
+
+/** Pastel rounded-square icon tile. */
+export function IconTile({ tint = "orange", children }) {
+  return (
+    <span
+      className="grid h-10 w-10 place-items-center rounded-[11px]"
+      style={{ background: `var(--color-tint-${tint})`, color: `var(--color-on-${tint === "blue" ? "purple" : tint})` }}
+    >
+      {children}
+    </span>
+  );
+}
+
+/** Gradient sparkline, stroke only, as used beside each KPI. */
+export function Spark({ points, stroke = "var(--color-viz-pink)", w = 120, h = 40 }) {
+  const max = Math.max(...points, 1);
+  const min = Math.min(...points, 0);
+  const span = max - min || 1;
+  const d = points
+    .map((p, i) => {
+      const x = (i / (points.length - 1)) * w;
+      const y = h - 4 - ((p - min) / span) * (h - 8);
+      return `${i ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="overflow-visible">
+      <path d={d} fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 
@@ -54,9 +93,9 @@ export function StatusDot({ status, className = "" }) {
 
 export function JudgeChip({ name, removable = false }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-navy-soft px-2.5 py-1 font-mono text-[10px] font-medium text-navy">
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-sub-soft px-2.5 py-1 text-[12px] font-medium text-sub">
       {name}
-      {removable && <span className="text-navy-2/50">×</span>}
+      {removable && <span className="opacity-45">×</span>}
     </span>
   );
 }
@@ -65,7 +104,7 @@ export function AddJudge({ full = false }) {
   return (
     <button
       type="button"
-      className={`inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-dashed border-line px-3.5 font-mono text-[11px] font-medium text-ink-3 transition hover:border-navy-2 hover:text-navy-2 lg:min-h-[30px] lg:px-2.5 lg:text-[10px] ${
+      className={`inline-flex min-h-[40px] items-center gap-1.5 rounded-full border-[0.8px] border-dashed border-line-2 px-3.5 text-[12px] font-medium text-ink-4 transition hover:border-viz-purple hover:text-sub lg:min-h-[30px] lg:px-2.5 ${
         full ? "w-full justify-center" : ""
       }`}
     >
@@ -185,6 +224,11 @@ export const Icon = {
   list: (p) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...p}>
       <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+    </svg>
+  ),
+  bell: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" />
     </svg>
   ),
   check: (p) => (
