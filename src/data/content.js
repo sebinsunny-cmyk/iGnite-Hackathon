@@ -56,6 +56,8 @@ export const wizardSteps = [
 export const ideaFields = [
   {
     key: "problem",
+    info:
+      "Name who has this problem and how you know it is real. Judges look for one specific user and some evidence — a statistic, an interview, something you observed — not a whole category.",
     label: "Problem statement",
     help: "At least 50 characters, up to 1500.",
     min: 50,
@@ -65,6 +67,8 @@ export const ideaFields = [
   },
   {
     key: "solution",
+    info:
+      "Describe what you will build and how it works end to end. Say what already exists today and what your team is actually adding on top of it.",
     label: "Proposed solution",
     help: "At least 50 characters.",
     min: 50,
@@ -73,6 +77,8 @@ export const ideaFields = [
   },
   {
     key: "approach",
+    info:
+      "Which models, datasets or techniques, and why those over the obvious alternative. Mention anything you have already tried, including what did not work.",
     label: "AI approach / technology",
     help: "At least 30 characters.",
     min: 30,
@@ -81,6 +87,8 @@ export const ideaFields = [
   },
   {
     key: "impact",
+    info:
+      "Who benefits and by how much. Give one number you could actually measure after the event, rather than a general claim about the sector.",
     label: "Expected impact",
     help: "At least 30 characters.",
     min: 30,

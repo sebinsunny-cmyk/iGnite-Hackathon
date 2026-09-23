@@ -1,3 +1,4 @@
+import { useEffect, useId, useState } from "react";
 import { statusTone } from "../data/registrations";
 import { LOGO, LOGO_ALT } from "../assets";
 
@@ -250,6 +251,32 @@ export const Icon = {
       <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
     </svg>
   ),
+  info: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <circle cx="12" cy="12" r="9.25" />
+      <path d="M12 16v-4.5M12 8.2h.01" />
+    </svg>
+  ),
+  bold: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M6.5 4h6a4 4 0 0 1 0 8h-6zM6.5 12h7a4 4 0 0 1 0 8h-7z" />
+    </svg>
+  ),
+  italic: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M15 4h4M5 20h4M14.5 4 9.5 20" />
+    </svg>
+  ),
+  bullets: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01" />
+    </svg>
+  ),
+  numbers: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M10 6h10M10 12h10M10 18h10M4 6V4h-.8M3.4 18H5.4M3.4 18c0-1.2 2-1.4 2-2.6 0-.6-.6-1-1.2-.8" />
+    </svg>
+  ),
   bell: (p) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...p}>
       <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" />
@@ -267,3 +294,57 @@ export const Icon = {
     </svg>
   ),
 };
+
+
+/* ---------------- tooltip ---------------- */
+
+/**
+ * Info tooltip. Opens on hover and on focus for pointer users, and on tap for
+ * touch users (where hover does not exist). Escape closes it.
+ */
+export function InfoTip({ text, label = "More about this field" }) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  return (
+    <span className="relative inline-flex">
+      <button
+        type="button"
+        aria-label={label}
+        aria-expanded={open}
+        aria-describedby={open ? id : undefined}
+        onClick={() => setOpen((v) => !v)}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+        className={`grid h-5 w-5 place-items-center rounded-full transition ${
+          open ? "bg-sub-soft text-sub" : "text-ink-4 hover:text-ink-3"
+        }`}
+      >
+        <Icon.info className="h-[15px] w-[15px]" />
+      </button>
+
+      {open && (
+        <span
+          id={id}
+          role="tooltip"
+          className="absolute left-1/2 top-[calc(100%+9px)] z-30 w-[min(280px,72vw)] -translate-x-1/2 rounded-[11px] border-[0.8px] border-line bg-paper px-3.5 py-3 text-[13px] font-normal normal-case leading-relaxed tracking-normal text-ink-2 shadow-[0_10px_28px_rgba(14,14,20,0.13)]"
+        >
+          <span
+            className="absolute -top-[5px] left-1/2 h-[9px] w-[9px] -translate-x-1/2 rotate-45 border-l-[0.8px] border-t-[0.8px] border-line bg-paper"
+            aria-hidden="true"
+          />
+          {text}
+        </span>
+      )}
+    </span>
+  );
+}

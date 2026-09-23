@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import PublicShell from "../components/PublicShell";
-import { Icon } from "../components/ui";
+import { Icon, InfoTip } from "../components/ui";
 import {
   wizardSteps,
   themes,
@@ -321,6 +321,63 @@ function StepMembers({ members, setMembers }) {
 }
 
 function StepIdea() {
+  const [vals, setVals] = useState({});
+  const refs = useRef({});
+
+  const setVal = (key, v) => setVals((p) => ({ ...p, [key]: v }));
+
+  /* Selection has to be restored AFTER React commits the new value, or the
+     re-render drops the caret at the end and the next click formats the wrong
+     thing. A layout effect runs at exactly the right moment; rAF does not. */
+  const pending = useRef(null);
+  const restore = (key, from, to) => {
+    pending.current = { key, from, to };
+  };
+
+  useLayoutEffect(() => {
+    const p = pending.current;
+    if (!p) return;
+    pending.current = null;
+    const el = refs.current[p.key];
+    if (!el) return;
+    el.focus();
+    el.setSelectionRange(p.from, p.to);
+  });
+
+  const format = (key, kind) => {
+    const el = refs.current[key];
+    if (!el) return;
+    const value = vals[key] ?? "";
+    const { selectionStart: a, selectionEnd: b } = el;
+
+    if (kind === "bold" || kind === "italic") {
+      const mark = kind === "bold" ? "**" : "_";
+      const sel = value.slice(a, b) || (kind === "bold" ? "bold text" : "italic text");
+      setVal(key, value.slice(0, a) + mark + sel + mark + value.slice(b));
+      restore(key, a + mark.length, a + mark.length + sel.length);
+      return;
+    }
+
+    // lists act on every line the selection touches, and toggle off if already applied
+    const lineStart = value.lastIndexOf("\n", a - 1) + 1;
+    const nextBreak = value.indexOf("\n", b);
+    const lineEnd = nextBreak === -1 ? value.length : nextBreak;
+    const lines = value.slice(lineStart, lineEnd).split("\n");
+    const strip = (l) => l.replace(/^\s*(?:\d+\.\s|-\s)?/, "");
+    const isBullets = lines.every((l) => /^\s*-\s/.test(l));
+    const isNumbers = lines.every((l) => /^\s*\d+\.\s/.test(l));
+
+    let out;
+    if (kind === "bullets") {
+      out = isBullets ? lines.map(strip) : lines.map((l) => `- ${strip(l)}`);
+    } else {
+      out = isNumbers ? lines.map(strip) : lines.map((l, i) => `${i + 1}. ${strip(l)}`);
+    }
+    const block = out.join("\n");
+    setVal(key, value.slice(0, lineStart) + block + value.slice(lineEnd));
+    restore(key, lineStart, lineStart + block.length);
+  };
+
   return (
     <div className="flex flex-col gap-9">
       <p className="max-w-[62ch] rounded-[11px] bg-sub-soft px-5 py-4 text-[14px] leading-relaxed text-sub">
@@ -329,23 +386,63 @@ function StepIdea() {
       </p>
 
       <div className="grid grid-cols-1 gap-7 2xl:grid-cols-2">
-        {ideaFields.map((f) => (
-          <div key={f.key} className="flex flex-col gap-2">
-            <label htmlFor={f.key} className="lbl">
-              {f.label}
-            </label>
-            <textarea
-              id={f.key}
-              rows={f.rows}
-              placeholder={f.placeholder}
-              className="resize-y rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3.5 text-[15px] leading-relaxed outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
-            />
-            <div className="flex items-center justify-between text-[12.5px] text-ink-3">
-              <span>{f.help}</span>
-              <span className="tnum font-mono">0 / {f.max ?? f.min}</span>
+        {ideaFields.map((f) => {
+          const v = vals[f.key] ?? "";
+          const len = v.length;
+          const over = f.max && len > f.max;
+          const met = len >= f.min && !over;
+          return (
+            <div key={f.key} className="flex flex-col gap-2">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+                <label htmlFor={f.key} className="lbl">
+                  {f.label}
+                </label>
+                <InfoTip text={f.info} label={`About ${f.label}`} />
+
+                <div className="ml-auto flex items-center gap-0.5 rounded-[9px] bg-sunk p-[3px]">
+                  <FmtBtn onClick={() => format(f.key, "bold")} title="Bold">
+                    <Icon.bold className="h-[13px] w-[13px]" />
+                  </FmtBtn>
+                  <FmtBtn onClick={() => format(f.key, "italic")} title="Italic">
+                    <Icon.italic className="h-[13px] w-[13px]" />
+                  </FmtBtn>
+                  <span className="mx-0.5 h-4 w-px bg-line-2" />
+                  <FmtBtn onClick={() => format(f.key, "bullets")} title="Bulleted list">
+                    <Icon.bullets className="h-[14px] w-[14px]" />
+                  </FmtBtn>
+                  <FmtBtn onClick={() => format(f.key, "numbers")} title="Numbered list">
+                    <Icon.numbers className="h-[14px] w-[14px]" />
+                  </FmtBtn>
+                </div>
+              </div>
+
+              <textarea
+                id={f.key}
+                ref={(el) => (refs.current[f.key] = el)}
+                rows={f.rows}
+                value={v}
+                onChange={(e) => setVal(f.key, e.target.value)}
+                placeholder={f.placeholder}
+                className={`resize-y rounded-[11px] border-[0.8px] bg-paper px-4 py-3.5 text-[15px] leading-relaxed outline-none transition placeholder:text-ink-4 focus:border-viz-purple ${
+                  over ? "border-rej" : "border-line"
+                }`}
+              />
+
+              <div className="flex items-center justify-between gap-3 text-[12.5px]">
+                <span className={over ? "text-rej" : "text-ink-4"}>
+                  {over ? `${len - f.max} characters over the limit.` : f.help}
+                </span>
+                <span
+                  className={`tnum shrink-0 ${
+                    over ? "text-rej" : met ? "text-shl" : "text-ink-4"
+                  }`}
+                >
+                  {len} / {f.max ?? f.min}
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="grid grid-cols-1 gap-7 2xl:grid-cols-2">
@@ -358,6 +455,20 @@ function StepIdea() {
         <Upload label="Stage 1 deck" rule={uploadRules.deck} />
       </div>
     </div>
+  );
+}
+
+function FmtBtn({ onClick, title, children }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={title}
+      aria-label={title}
+      className="grid h-[26px] w-[26px] place-items-center rounded-[6px] text-ink-3 transition hover:bg-paper hover:text-ink hover:shadow-[0_1px_2px_rgba(14,14,20,0.06)]"
+    >
+      {children}
+    </button>
   );
 }
 
