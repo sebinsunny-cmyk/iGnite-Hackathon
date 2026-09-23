@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { PartnerBand } from "./Brand";
+import { GigniteLogo, PartnerBand } from "./Brand";
 import { Icon } from "./ui";
 
 const NAV = [
@@ -16,10 +16,7 @@ export default function PublicShell({ children, action = null, bare = false }) {
       <header className="sticky top-0 z-30 border-b-[0.8px] border-line bg-paper/85 backdrop-blur">
         <div className="flex items-center gap-4 px-4 py-3 sm:gap-7 sm:px-6 xl:px-10">
           <Link to="/" aria-label="gIGNITE 2026 home" className="flex shrink-0 items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-[9px] bg-ink">
-              <Icon.board className="h-4 w-4 text-white" />
-            </span>
-            <span className="text-[16.5px] font-semibold tracking-[-0.02em]">gIGNITE</span>
+            <GigniteLogo className="h-8 w-auto object-contain sm:h-9" />
           </Link>
 
           {!bare && (
