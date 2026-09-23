@@ -380,7 +380,7 @@ function StepIdea() {
 
   return (
     <div className="flex flex-col gap-9">
-      <p className="max-w-[62ch] rounded-[11px] bg-sub-soft px-5 py-4 text-[14px] leading-relaxed text-sub">
+      <p className="rounded-[11px] bg-sub-soft px-5 py-4 text-[14px] leading-relaxed text-sub">
         These four answers become your Stage 1 deck. <strong>No prototype needed</strong> — we are
         judging the thinking at this stage.
       </p>
