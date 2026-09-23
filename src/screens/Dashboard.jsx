@@ -9,7 +9,9 @@ import {
   totals,
   filterLabels,
 } from "../data/registrations";
-import { StatusPill, JudgeChip, AddJudge, Delta, Spark, Segmented, Icon } from "../components/ui";
+import {
+  StatusPill, JudgeChip, AddJudge, Delta, Spark, Segmented, ViewToggle, useMediaQuery, Icon,
+} from "../components/ui";
 import AppShell from "../components/AppShell";
 import { useRole } from "../state/role";
 
@@ -22,6 +24,12 @@ const DOT = ["viz-pink", "viz-purple", "viz-blue", "viz-orange", "viz-green"];
 export default function Dashboard() {
   const { role } = useRole();
   const [range, setRange] = useState("7d");
+
+  /* Cards are the default below lg, where a seven-column table can only be read
+     by scrolling sideways. null means "follow the viewport" until someone picks. */
+  const narrow = useMediaQuery("(max-width: 1023px)");
+  const [picked, setPicked] = useState(null);
+  const view = picked ?? (narrow ? "card" : "table");
 
   if (role === "Judge") return <JudgeView />;
 
@@ -169,9 +177,11 @@ export default function Dashboard() {
                 <Icon.chevron className="h-3.5 w-3.5 text-ink-4" />
               </button>
             ))}
+            <ViewToggle value={view} onChange={setPicked} />
           </div>
         </div>
 
+        {view === "table" ? (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] border-collapse">
             <thead>
@@ -224,6 +234,64 @@ export default function Dashboard() {
             </tbody>
           </table>
         </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 border-t-[0.8px] border-line p-5 sm:grid-cols-2 sm:p-6 2xl:grid-cols-3">
+            {teams.map((t, i) => (
+              <article
+                key={t.name}
+                className="flex flex-col rounded-[13px] border-[0.8px] border-line p-5 transition hover:border-line-2 hover:shadow-[0_2px_10px_rgba(14,14,20,0.06)]"
+              >
+                <div className="flex items-start gap-3">
+                  <Link
+                    to={`/dashboard/teams/${encodeURIComponent(t.name)}`}
+                    className="flex min-w-0 items-center gap-2.5 text-[16px] font-semibold tracking-[-0.02em]"
+                  >
+                    <span
+                      className="h-[7px] w-[7px] shrink-0 rounded-full"
+                      style={{ background: `var(--color-${DOT[i % DOT.length]})` }}
+                    />
+                    <span className="truncate">{t.name}</span>
+                  </Link>
+                  <span className="ml-auto shrink-0">
+                    <StatusPill status={t.status} />
+                  </span>
+                </div>
+
+                <p className="mt-2 text-[13.5px] text-ink-3">{t.theme}</p>
+
+                <dl className="mt-4 flex flex-col gap-2 text-[13px]">
+                  <div className="flex gap-3">
+                    <dt className="w-[74px] shrink-0 text-ink-4">Team lead</dt>
+                    <dd className="truncate">{t.leader}</dd>
+                  </div>
+                  <div className="flex gap-3">
+                    <dt className="w-[74px] shrink-0 text-ink-4">Size</dt>
+                    <dd className="tnum">{t.members} members</dd>
+                  </div>
+                  <div className="flex gap-3">
+                    <dt className="w-[74px] shrink-0 text-ink-4">Entered</dt>
+                    <dd className="tnum">{t.submitted}</dd>
+                  </div>
+                </dl>
+
+                <div className="mt-4 flex flex-wrap items-center gap-1.5 border-t-[0.8px] border-line pt-4">
+                  {t.judges.length ? (
+                    t.judges.map((j) => <JudgeChip key={j} name={j} />)
+                  ) : (
+                    <AddJudge />
+                  )}
+                  <Link
+                    to={`/dashboard/teams/${encodeURIComponent(t.name)}`}
+                    className="ml-auto flex items-center gap-1.5 text-[13px] font-medium text-sub transition hover:gap-2.5"
+                  >
+                    Open
+                    <Icon.arrow className="h-4 w-4" />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* ---------- status strip ---------- */}

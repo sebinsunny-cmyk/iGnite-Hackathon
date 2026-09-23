@@ -277,6 +277,21 @@ export const Icon = {
       <path d="M10 6h10M10 12h10M10 18h10M4 6V4h-.8M3.4 18H5.4M3.4 18c0-1.2 2-1.4 2-2.6 0-.6-.6-1-1.2-.8" />
     </svg>
   ),
+  grid: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <rect x="3" y="3" width="7.5" height="7.5" rx="1.6" />
+      <rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6" />
+      <rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6" />
+      <rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6" />
+    </svg>
+  ),
+  rows: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <rect x="3" y="4" width="18" height="4.5" rx="1.4" />
+      <rect x="3" y="12" width="18" height="4.5" rx="1.4" />
+      <path d="M3 20h18" />
+    </svg>
+  ),
   bell: (p) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...p}>
       <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" />
@@ -346,5 +361,49 @@ export function InfoTip({ text, label = "More about this field" }) {
         </span>
       )}
     </span>
+  );
+}
+
+
+/** Subscribes to a media query. Returns false during SSR-less first paint. */
+export function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return;
+    const mq = window.matchMedia(query);
+    const sync = () => setMatches(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, [query]);
+  return matches;
+}
+
+/** Table / card switch for a collection. */
+export function ViewToggle({ value, onChange }) {
+  const opts = [
+    { key: "table", label: "Table view", I: Icon.rows },
+    { key: "card", label: "Card view", I: Icon.grid },
+  ];
+  return (
+    <div className="flex shrink-0 rounded-[10px] bg-sunk p-[3px]">
+      {opts.map(({ key, label, I }) => (
+        <button
+          key={key}
+          type="button"
+          onClick={() => onChange(key)}
+          title={label}
+          aria-label={label}
+          aria-pressed={value === key}
+          className={`grid h-9 w-9 place-items-center rounded-[8px] transition ${
+            value === key
+              ? "bg-paper text-ink shadow-[0_1px_2px_rgba(14,14,20,0.06)]"
+              : "text-ink-3 hover:text-ink-2"
+          }`}
+        >
+          <I className="h-[17px] w-[17px]" />
+        </button>
+      ))}
+    </div>
   );
 }
