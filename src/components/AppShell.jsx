@@ -37,20 +37,7 @@ export default function AppShell({ children }) {
 
   const sidebar = (
     <div className="flex h-full flex-col">
-      <div className="px-3.5 pb-1 pt-4">
-        <div className="flex h-10 items-center gap-2.5 rounded-[11px] border-[0.8px] border-line bg-paper px-3">
-          <Icon.search className="h-4 w-4 shrink-0 text-ink-4" />
-          <input
-            placeholder="Search..."
-            className="min-w-0 flex-1 bg-transparent text-[13.5px] outline-none placeholder:text-ink-4"
-          />
-          <kbd className="shrink-0 rounded-[6px] bg-sunk px-1.5 py-0.5 text-[10.5px] font-medium text-ink-4">
-            ⌘K
-          </kbd>
-        </div>
-      </div>
-
-      <nav className="flex-1 overflow-y-auto px-3.5 pt-4">
+      <nav className="flex-1 overflow-y-auto px-3.5 pt-5">
         {GROUPS.map((g) => {
           const items = g.items.filter((i) => i.roles.includes(role));
           if (!items.length) return null;
