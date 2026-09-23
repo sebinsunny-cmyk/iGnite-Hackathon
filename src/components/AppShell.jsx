@@ -32,6 +32,17 @@ export default function AppShell({ children }) {
 
   useEffect(() => setDrawer(false), [pathname]);
 
+  // the search field is ~110px of text room below 414px — a longer hint clips
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return;
+    const mq = window.matchMedia("(max-width: 413px)");
+    const sync = () => setNarrow(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   const judged = teams.filter((t) => t.judges.length > 0).length;
   const pct = Math.round((judged / teams.length) * 100);
 
@@ -143,10 +154,10 @@ export default function AppShell({ children }) {
           />
         </button>
 
-        <div className="ml-1 hidden h-9 min-w-0 flex-1 max-w-[340px] items-center gap-2.5 rounded-[10px] bg-sunk px-3 lg:flex">
+        <div className="ml-1 flex h-9 min-w-0 max-w-[340px] flex-1 items-center gap-2.5 rounded-[10px] bg-sunk px-2.5 sm:px-3">
           <Icon.search className="h-4 w-4 shrink-0 text-ink-4" />
           <input
-            placeholder="Search teams, themes, judges..."
+            placeholder={narrow ? "Search teams..." : "Search teams, judges..."}
             className="min-w-0 flex-1 bg-transparent text-[13.5px] outline-none placeholder:text-ink-4"
           />
         </div>
@@ -174,19 +185,19 @@ export default function AppShell({ children }) {
             </select>
           </label>
 
-          <button className="relative grid h-9 w-9 place-items-center rounded-[10px] text-ink-3 transition hover:bg-sunk">
+          <button className="relative hidden h-9 w-9 place-items-center rounded-[10px] text-ink-3 transition hover:bg-sunk sm:grid">
             <Icon.bell className="h-[18px] w-[18px]" />
             <span className="absolute right-2 top-2 h-[6px] w-[6px] rounded-full bg-viz-pink ring-2 ring-white" />
           </button>
 
-          <div className="flex items-center gap-2.5">
+          <div className="hidden items-center gap-2.5 lg:flex">
             <span
               className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-[12.5px] font-semibold text-white"
               style={{ background: "linear-gradient(135deg,var(--color-viz-pink),var(--color-viz-purple))" }}
             >
               {account.initials}
             </span>
-            <div className="hidden leading-tight sm:block">
+            <div className="leading-tight">
               <div className="text-[13.5px] font-semibold tracking-[-0.01em]">{account.name}</div>
               <div className="text-[12px] text-ink-4">{role}</div>
             </div>
