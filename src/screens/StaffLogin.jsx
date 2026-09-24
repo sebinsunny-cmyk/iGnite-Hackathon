@@ -55,7 +55,7 @@ export default function StaffLogin() {
 
             <button
               type="submit"
-              className="mt-2 flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
+              className="mt-2 flex min-h-[52px] items-center justify-center gap-2.5 pressable rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
             >
               Sign in
               <Icon.arrow className="h-4.5 w-4.5" />

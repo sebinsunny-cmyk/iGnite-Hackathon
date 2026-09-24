@@ -10,7 +10,8 @@ import {
   filterLabels,
 } from "../data/registrations";
 import {
-  StatusPill, StatusDot, JudgeChip, AddJudge, Delta, Spark, Segmented, ViewToggle, TrackDot, useMediaQuery, Icon,
+  StatusPill, StatusDot, JudgeChip, AddJudge, Delta, Spark, Segmented, ViewToggle, TrackDot,
+  CountUp, useMediaQuery, Icon,
 } from "../components/ui";
 import AppShell from "../components/AppShell";
 import { useRole } from "../state/role";
@@ -43,7 +44,7 @@ export default function Dashboard() {
       </nav>
 
       {/* ---------- KPI row ---------- */}
-      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 [&>*:nth-child(1)]:[--d:0ms] [&>*:nth-child(2)]:[--d:70ms] [&>*:nth-child(3)]:[--d:140ms]">
         <Kpi
           label="Teams registered"
           value={totals.teams}
@@ -71,7 +72,7 @@ export default function Dashboard() {
       </div>
 
       {/* ---------- main chart ---------- */}
-      <section className="card mt-4 p-5 sm:p-6">
+      <section className="card anim-rise mt-4 p-5 sm:p-6" style={{ "--d": "180ms" }}>
         <div className="flex flex-wrap items-start gap-4">
           <div>
             <h2 className="text-[17px] font-semibold tracking-[-0.02em]">Entries to date</h2>
@@ -93,7 +94,7 @@ export default function Dashboard() {
       </section>
 
       {/* ---------- theme share ---------- */}
-      <section className="card mt-4">
+      <section className="card anim-rise mt-4" style={{ "--d": "240ms" }}>
         <div className="flex flex-wrap items-center gap-3 px-5 py-4 sm:px-6">
           <h2 className="text-[17px] font-semibold tracking-[-0.02em]">Entries by track</h2>
           <span className="text-[13px] text-ink-4">5 tracks</span>
@@ -159,7 +160,7 @@ export default function Dashboard() {
       </section>
 
       {/* ---------- teams ---------- */}
-      <section className="card mt-4">
+      <section className="card anim-rise mt-4" style={{ "--d": "300ms" }}>
         <div className="flex flex-wrap items-center gap-3 px-5 py-4 sm:px-6">
           <h2 className="text-[17px] font-semibold tracking-[-0.02em]">All teams</h2>
           <span className="text-[13px] text-ink-4">{totals.shown}</span>
@@ -239,7 +240,7 @@ export default function Dashboard() {
             {teams.map((t, i) => (
               <article
                 key={t.name}
-                className="flex flex-col rounded-[13px] border-[0.8px] border-line p-5 transition hover:border-line-2 hover:shadow-[0_2px_10px_rgba(14,14,20,0.06)]"
+                className="liftable flex flex-col rounded-[13px] border-[0.8px] border-line p-5 hover:border-line-2"
               >
                 <div className="flex items-start gap-3">
                   <Link
@@ -296,8 +297,8 @@ export default function Dashboard() {
 
       {/* ---------- status strip ---------- */}
       <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        {byStatus.map((s) => (
-          <div key={s.key} className="card p-5">
+        {byStatus.map((s, i) => (
+          <div key={s.key} className="card anim-rise p-5" style={{ "--d": `${340 + i * 60}ms` }}>
             <div className="flex items-center gap-2">
               {s.count ? (
                 <StatusDot status={s.label} />
@@ -311,7 +312,7 @@ export default function Dashboard() {
                 s.count ? "" : "text-ink-4"
               }`}
             >
-              {s.count}
+              <CountUp value={s.count} duration={700} delay={340 + i * 60} />
             </div>
           </div>
         ))}
@@ -324,11 +325,11 @@ export default function Dashboard() {
 
 function Kpi({ label, value, delta, tone, points, stroke }) {
   return (
-    <div className="card flex items-start gap-4 p-5">
+    <div className="card anim-rise flex items-start gap-4 p-5">
       <div className="min-w-0 flex-1">
         <div className="whitespace-nowrap text-[13.5px] text-ink-3">{label}</div>
         <div className="tnum mt-2 text-[32px] font-semibold leading-none tracking-[-0.035em]">
-          {value}
+          <CountUp value={value} duration={800} />
         </div>
         <div className="mt-3">
           <Delta value={delta} tone={tone} />
@@ -395,8 +396,18 @@ function EntriesChart() {
           return <line key={v} x1={PAD.l} y1={y} x2={W - PAD.r} y2={y} stroke="#F0F0F3" strokeWidth="1" />;
         })}
 
-        <path d={target} fill="none" stroke="#D8D8DE" strokeWidth="2" strokeDasharray="3 5" strokeLinecap="round" />
-        <path d={line} fill="none" stroke="url(#entriesStroke)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={target} fill="none" stroke="#D8D8DE" strokeWidth="2" strokeDasharray="3 5" strokeLinecap="round" className="anim-fade" style={{ "--d": "700ms" }} />
+        <path
+          d={line}
+          pathLength="1"
+          className="anim-draw"
+          style={{ "--d": "260ms" }}
+          fill="none"
+          stroke="url(#entriesStroke)"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
 
         {pts.map((p, i) => (
           <g key={p.day}>
@@ -469,7 +480,7 @@ function JudgeView() {
           <Link
             key={t.name}
             to={`/dashboard/teams/${encodeURIComponent(t.name)}`}
-            className="card flex flex-col p-5 transition hover:shadow-[0_4px_16px_rgba(14,14,20,0.08)]"
+            className="card liftable anim-rise flex flex-col p-5"
           >
             <div className="flex items-start gap-3">
               <h3 className="text-[18px] font-semibold tracking-[-0.02em]">{t.name}</h3>

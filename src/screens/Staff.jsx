@@ -26,7 +26,7 @@ export default function Staff() {
             sign-up for staff.
           </p>
         </div>
-        <button className="min-h-[48px] w-full rounded-full bg-primary px-5 text-[14px] font-bold text-white transition hover:bg-primary-600 sm:w-auto">
+        <button className="min-h-[48px] w-full pressable rounded-full bg-primary px-5 text-[14px] font-bold text-white transition hover:bg-primary-600 sm:w-auto">
           Create account
         </button>
       </div>
@@ -108,7 +108,7 @@ export default function Staff() {
                   ))}
                 </select>
               </div>
-              <button className="mt-1 rounded-full bg-primary px-5 py-3 text-[14.5px] font-bold text-white transition hover:bg-primary-600">
+              <button className="mt-1 pressable rounded-full bg-primary px-5 py-3 text-[14.5px] font-bold text-white transition hover:bg-primary-600">
                 Send invitation
               </button>
               <p className="text-[12.5px] leading-relaxed text-ink-3">
@@ -161,7 +161,7 @@ export function Denied() {
         </p>
         <Link
           to="/dashboard"
-          className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-[14px] font-bold text-white transition hover:bg-primary-600"
+          className="mt-7 inline-flex items-center gap-2 pressable rounded-full bg-primary px-5 py-3 text-[14px] font-bold text-white transition hover:bg-primary-600"
         >
           Back to registrations
           <Icon.arrow className="h-4 w-4" />

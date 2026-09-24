@@ -32,6 +32,7 @@ export default function App() {
   return (
     <HashRouter>
       <RoleProvider>
+        <RouteFade>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<StaffLogin />} />
@@ -47,9 +48,21 @@ export default function App() {
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </RouteFade>
         <ScreenIndex />
       </RoleProvider>
     </HashRouter>
+  );
+}
+
+/** Fades each screen in on navigation. Keyed on pathname so the animation
+    restarts per route; height:100% keeps the app-shell layout intact. */
+function RouteFade({ children }) {
+  const { pathname } = useLocation();
+  return (
+    <div key={pathname} className="anim-fade" style={{ height: "100%" }}>
+      {children}
+    </div>
   );
 }
 

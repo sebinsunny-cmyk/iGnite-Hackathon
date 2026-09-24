@@ -53,7 +53,7 @@ export default function RegisterGate() {
               <div className="mt-8 flex flex-col gap-3">
                 <button
                   onClick={() => navigate("/register/entry")}
-                  className="min-h-[52px] rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
+                  className="min-h-[52px] pressable rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
                 >
                   Open the link (prototype)
                 </button>
@@ -119,7 +119,7 @@ export default function RegisterGate() {
                     </div>
                     <button
                       type="submit"
-                      className="min-h-[52px] rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
+                      className="min-h-[52px] pressable rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
                     >
                       Send sign-in link
                     </button>

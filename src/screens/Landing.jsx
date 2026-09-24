@@ -69,14 +69,14 @@ export default function Landing() {
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/register"
-              className="flex h-12 items-center gap-2.5 rounded-full bg-primary px-7 text-[15px] font-medium text-white transition hover:bg-primary-600"
+              className="flex h-12 items-center gap-2.5 pressable rounded-full bg-primary px-7 text-[15px] font-medium text-white hover:bg-primary-600"
             >
               Register your team
               <Icon.arrow className="h-4 w-4" />
             </Link>
             <a
               href="#how"
-              className="flex h-12 items-center rounded-full border-[0.8px] border-line bg-paper px-7 text-[15px] font-medium text-ink-2 transition hover:bg-sunk"
+              className="flex h-12 items-center pressable rounded-full border-[0.8px] border-line bg-paper px-7 text-[15px] font-medium text-ink-2 hover:bg-sunk"
             >
               See how it works
             </a>
@@ -112,10 +112,11 @@ export default function Landing() {
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {tracks.map((t) => (
+          {tracks.map((t, i) => (
             <article
               key={t.key}
-              className="card group flex min-h-[210px] flex-col p-5 transition hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(14,14,20,0.08)]"
+              className="card liftable anim-rise group flex min-h-[210px] flex-col p-5"
+              style={{ "--d": `${i * 70}ms` }}
             >
               <TrackMark track={t} />
               <h3 className="mt-auto pt-6 text-[17px] font-semibold leading-snug tracking-[-0.02em]">
@@ -140,7 +141,7 @@ export default function Landing() {
 
         <ol className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
           {steps.map((s, i) => (
-            <li key={s.t} className="card p-6">
+            <li key={s.t} className="card anim-rise p-6" style={{ "--d": `${i * 80}ms` }}>
               <span
                 className="grid h-8 w-8 place-items-center rounded-full text-[13px] font-semibold"
                 style={{
@@ -165,7 +166,7 @@ export default function Landing() {
           </div>
           <Link
             to="/register"
-            className="flex h-12 shrink-0 items-center gap-2.5 rounded-full bg-primary px-7 text-[15px] font-medium text-white transition hover:bg-primary-600 sm:ml-auto"
+            className="flex h-12 shrink-0 items-center gap-2.5 pressable rounded-full bg-primary px-7 text-[15px] font-medium text-white hover:bg-primary-600 sm:ml-auto"
           >
             Register your team
             <Icon.arrow className="h-4 w-4" />

@@ -50,7 +50,7 @@ export default function TeamDetail() {
           </button>
           <button
             onClick={() => navigate("/dashboard")}
-            className="min-h-[44px] flex-1 rounded-full bg-primary px-5 text-[13.5px] font-semibold text-white transition hover:bg-primary-600 sm:flex-none"
+            className="min-h-[44px] flex-1 pressable rounded-full bg-primary px-5 text-[13.5px] font-semibold text-white transition hover:bg-primary-600 sm:flex-none"
           >
             <span className="sm:hidden">Next &rarr;</span>
             <span className="hidden sm:inline">Next submission &rarr;</span>
@@ -65,7 +65,7 @@ export default function TeamDetail() {
           <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-7">
             <div className="flex flex-wrap items-center gap-4">
               <span className="lbl">Stage 1 deck</span>
-              <button className="ml-auto flex min-h-[44px] items-center gap-2 rounded-full bg-primary px-5 text-[13px] font-semibold text-white transition hover:bg-primary-600">
+              <button className="ml-auto flex min-h-[44px] items-center gap-2 pressable rounded-full bg-primary px-5 text-[13px] font-semibold text-white transition hover:bg-primary-600">
                 <Icon.download className="h-4 w-4" />
                 Download
               </button>
@@ -141,7 +141,7 @@ export default function TeamDetail() {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 border-t-[0.8px] border-line pt-5">
-                  <button className="rounded-full bg-primary px-6 py-3 text-[14.5px] font-bold text-white transition hover:bg-primary-600">
+                  <button className="pressable rounded-full bg-primary px-6 py-3 text-[14.5px] font-bold text-white transition hover:bg-primary-600">
                     Save score
                   </button>
                   <button className="rounded-[11px] border-[0.8px] border-line px-5 py-3 text-[14.5px] font-medium text-ink-2 transition hover:border-line-2">

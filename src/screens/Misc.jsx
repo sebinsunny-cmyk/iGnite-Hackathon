@@ -26,7 +26,7 @@ export function RegisterClosed() {
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
               to="/"
-              className="flex min-h-[52px] items-center justify-center rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
+              className="flex min-h-[52px] items-center justify-center pressable rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
             >
               Back to gIGNITE
             </Link>
@@ -68,7 +68,7 @@ export function NotFound() {
         <div className="flex flex-wrap gap-3">
           <Link
             to="/register"
-            className="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-primary px-6 text-[15px] font-bold text-white transition hover:bg-primary-600"
+            className="inline-flex min-h-[52px] items-center justify-center gap-2.5 pressable rounded-full bg-primary px-6 text-[15px] font-bold text-white transition hover:bg-primary-600"
           >
             Go to registration
             <Icon.arrow className="h-4.5 w-4.5" />
@@ -111,7 +111,7 @@ export function ResetPassword() {
         <div className="rounded-[16px] border-[0.8px] border-line bg-paper p-6 sm:p-8 xl:p-10">
           <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
             <Field id="reset-email" label="Email" type="email" placeholder="you@fisat.ac.in" />
-            <button className="flex min-h-[52px] items-center justify-center rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600">
+            <button className="flex min-h-[52px] items-center justify-center pressable rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600">
               Send reset link
             </button>
             <Link

@@ -82,7 +82,17 @@ export function Spark({ points, stroke = "var(--color-viz-pink)", w = 120, h = 4
     .join(" ");
   return (
     <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="overflow-visible">
-      <path d={d} fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d={d}
+        pathLength="1"
+        className="anim-draw"
+        style={{ "--d": "120ms" }}
+        fill="none"
+        stroke={stroke}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -482,5 +492,74 @@ export function TrackChip({ track, showIcon = false }) {
       {showIcon ? <I className="h-[14px] w-[14px]" /> : <TrackDot track={track} />}
       {track.short}
     </span>
+  );
+}
+
+
+/* ---------------- motion ---------------- */
+
+const prefersReducedMotion = () =>
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/**
+ * Counts from 0 up to `value`. Skips straight to the number when the viewer
+ * asked for reduced motion, so the figure is never withheld.
+ */
+export function useCountUp(value, { duration = 900, delay = 0 } = {}) {
+  const [n, setN] = useState(prefersReducedMotion() ? value : 0);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) {
+      setN(value);
+      return;
+    }
+    let raf;
+    let start;
+    const tick = (t) => {
+      if (start === undefined) start = t;
+      const p = Math.min(1, (t - start - delay) / duration);
+      if (p < 0) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+      // ease-out cubic, so it decelerates into the final figure
+      setN(Math.round(value * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    /* rAF is paused in background tabs and throttled when the window is
+       hidden, which would leave a partly-counted — and therefore wrong —
+       figure on screen. A missing animation is cosmetic; a wrong number is
+       not. This guarantees the true value lands either way. */
+    const settle = setTimeout(() => setN(value), delay + duration + 200);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(settle);
+    };
+  }, [value, duration, delay]);
+
+  return n;
+}
+
+export function CountUp({ value, duration, delay }) {
+  const n = useCountUp(value, { duration, delay });
+  return <>{n}</>;
+}
+
+/** Wraps a list so its children rise in one after another. */
+export function Stagger({ children, step = 55, initial = 0, className = "" }) {
+  return (
+    <div className={className}>
+      {Array.isArray(children)
+        ? children.map((child, i) => (
+            <div key={i} className="anim-rise" style={{ "--d": `${initial + i * step}ms` }}>
+              {child}
+            </div>
+          ))
+        : children}
+    </div>
   );
 }

@@ -31,8 +31,10 @@ export default function RegisterWizard() {
     <PublicShell
       bare
       action={
-        <span className="flex items-center gap-2.5 rounded-[11px] bg-shl-soft px-3.5 py-2 text-[13px] font-medium text-shl">
-          <Icon.check className="h-3.5 w-3.5" />
+        <span className="flex items-center gap-2.5 rounded-full bg-shl-soft px-3.5 py-2 text-[13px] font-medium text-shl">
+          <span className="anim-pulse grid h-4 w-4 place-items-center rounded-full bg-shl text-white">
+            <Icon.check className="h-2.5 w-2.5" />
+          </span>
           Saved just now
         </span>
       }
@@ -135,7 +137,7 @@ export default function RegisterWizard() {
               {wizardSteps.map((s) => (
                 <span
                   key={s.key}
-                  className={`h-1 flex-1 rounded-full ${s.n <= step ? "bg-primary" : "bg-line"}`}
+                  className={`h-1 flex-1 rounded-full transition-colors duration-[var(--dur-slow)] ${s.n <= step ? "bg-primary" : "bg-line"}`}
                 />
               ))}
             </div>
@@ -145,7 +147,7 @@ export default function RegisterWizard() {
             {wizardSteps[step - 1].title}
           </h1>
 
-          <div className="mt-9">
+          <div key={step} className="anim-rise mt-9">
             {step === 1 && <StepTeam theme={theme} setTheme={setTheme} />}
             {step === 2 && <StepMembers members={members} setMembers={setMembers} />}
             {step === 3 && <StepIdea />}
@@ -169,7 +171,7 @@ export default function RegisterWizard() {
             {step < 4 ? (
               <button
                 onClick={() => setStep(step + 1)}
-                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-full bg-primary px-6 text-[14.5px] font-bold text-white transition hover:bg-primary-600 sm:flex-none"
+                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 pressable rounded-full bg-primary px-6 text-[14.5px] font-bold text-white transition hover:bg-primary-600 sm:flex-none"
               >
                 Continue
                 <Icon.arrow className="h-4 w-4" />
@@ -178,7 +180,7 @@ export default function RegisterWizard() {
               <button
                 disabled={!allChecked}
                 onClick={() => setDone(true)}
-                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-full bg-primary px-6 text-[14.5px] font-bold text-white transition enabled:hover:bg-primary-600 disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-3 sm:flex-none"
+                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 pressable rounded-full bg-primary px-6 text-[14.5px] font-bold text-white transition enabled:hover:bg-primary-600 disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-3 sm:flex-none"
               >
                 Submit registration
                 <Icon.arrow className="h-4 w-4" />
@@ -228,7 +230,7 @@ function StepTeam({ theme, setTheme }) {
                 type="button"
                 onClick={() => setTheme(t.name)}
                 aria-pressed={on}
-                className={`flex items-start gap-3.5 rounded-[13px] border p-4 text-left transition ${
+                className={`pressable flex items-start gap-3.5 rounded-[13px] border p-4 text-left ${
                   on
                     ? "border-[1.5px] bg-paper shadow-[0_2px_10px_rgba(14,14,20,0.06)]"
                     : "border-[0.8px] border-line bg-paper hover:border-line-2 hover:shadow-[0_2px_8px_rgba(14,14,20,0.05)]"
