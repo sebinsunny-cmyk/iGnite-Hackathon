@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { Icon } from "./ui";
+import { Icon, ShortcutHelp } from "./ui";
 import { account, teams, totals } from "../data/registrations";
 import { useRole } from "../state/role";
 import { LOGO, LOGO_ALT } from "../assets";
@@ -42,6 +42,61 @@ export default function AppShell({ children }) {
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
   }, []);
+
+  /* Staff live in this screen, so the fast paths are keyboard ones. "g" then a
+     letter jumps; "/" focuses search; "?" lists them. Ignored while typing. */
+  const [help, setHelp] = useState(false);
+  useEffect(() => {
+    let awaitingG = false;
+    let timer;
+    const onKey = (e) => {
+      const el = e.target;
+      const typing =
+        el instanceof HTMLInputElement ||
+        el instanceof HTMLTextAreaElement ||
+        el instanceof HTMLSelectElement ||
+        el?.isContentEditable;
+
+      if (e.key === "Escape") {
+        setHelp(false);
+        if (typing) el.blur();
+        return;
+      }
+      if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
+
+      if (e.key === "/") {
+        e.preventDefault();
+        document.getElementById("global-search")?.focus();
+        return;
+      }
+      if (e.key === "?") {
+        e.preventDefault();
+        setHelp((v) => !v);
+        return;
+      }
+      if (e.key.toLowerCase() === "g") {
+        awaitingG = true;
+        clearTimeout(timer);
+        timer = setTimeout(() => (awaitingG = false), 1200);
+        return;
+      }
+      if (awaitingG) {
+        const to = { r: "/dashboard", w: "/dashboard/settings", s: "/dashboard/staff", a: "/dashboard/audit-logs" }[
+          e.key.toLowerCase()
+        ];
+        awaitingG = false;
+        if (to) {
+          e.preventDefault();
+          navigate(to);
+        }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      clearTimeout(timer);
+    };
+  }, [navigate]);
 
   const judged = teams.filter((t) => t.judges.length > 0).length;
   const pct = Math.round((judged / teams.length) * 100);
@@ -157,9 +212,13 @@ export default function AppShell({ children }) {
         <div className="ml-1 flex h-9 min-w-0 max-w-[340px] flex-1 items-center gap-2.5 rounded-[10px] bg-sunk px-2.5 sm:px-3">
           <Icon.search className="h-4 w-4 shrink-0 text-ink-4" />
           <input
+            id="global-search"
             placeholder={narrow ? "Search teams..." : "Search teams, judges..."}
             className="min-w-0 flex-1 bg-transparent text-[13.5px] outline-none placeholder:text-ink-4"
           />
+          <kbd className="hidden shrink-0 rounded-[5px] border-[0.8px] border-line bg-paper px-1.5 text-[11px] text-ink-4 lg:block">
+            /
+          </kbd>
         </div>
 
         <div className="mx-auto hidden text-center xl:block">
@@ -249,6 +308,8 @@ export default function AppShell({ children }) {
           </div>
         </main>
       </div>
+
+      <ShortcutHelp open={help} onClose={() => setHelp(false)} />
     </div>
   );
 }

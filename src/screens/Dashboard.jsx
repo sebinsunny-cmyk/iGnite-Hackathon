@@ -11,7 +11,7 @@ import {
 } from "../data/registrations";
 import {
   StatusPill, StatusDot, JudgeChip, AddJudge, Delta, Spark, Segmented, ViewToggle, TrackDot,
-  CountUp, useMediaQuery, Icon,
+  CountUp, EmptyState, useMediaQuery, Icon,
 } from "../components/ui";
 import AppShell from "../components/AppShell";
 import { useRole } from "../state/role";
@@ -30,6 +30,21 @@ export default function Dashboard() {
   const narrow = useMediaQuery("(max-width: 1023px)");
   const [picked, setPicked] = useState(null);
   const view = picked ?? (narrow ? "card" : "table");
+
+  /* The search and status filter actually filter. They were inert controls,
+     which also meant the no-results state could never be reached. */
+  const [query, setQuery] = useState("");
+  const [status, setStatus] = useState("All statuses");
+  const q = query.trim().toLowerCase();
+  const shown = teams.filter(
+    (t) =>
+      (status === "All statuses" || t.status === status) &&
+      (!q ||
+        t.name.toLowerCase().includes(q) ||
+        t.theme.toLowerCase().includes(q) ||
+        t.leader.toLowerCase().includes(q) ||
+        t.judges.some((j) => j.toLowerCase().includes(q)))
+  );
 
   if (role === "Judge") return <JudgeView />;
 
@@ -163,29 +178,64 @@ export default function Dashboard() {
       <section className="card anim-rise mt-4" style={{ "--d": "300ms" }}>
         <div className="flex flex-wrap items-center gap-3 px-5 py-4 sm:px-6">
           <h2 className="text-[17px] font-semibold tracking-[-0.02em]">All teams</h2>
-          <span className="text-[13px] text-ink-4">{totals.shown}</span>
+          <span className="text-[13px] text-ink-4">
+            {shown.length} of {teams.length} teams shown
+          </span>
           <div className="ml-auto flex flex-wrap items-center gap-2">
             <div className="flex h-9 min-w-0 items-center gap-2 rounded-[10px] bg-sunk px-3">
               <Icon.search className="h-4 w-4 shrink-0 text-ink-4" />
               <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
                 placeholder={filterLabels.search}
                 className="w-full min-w-0 bg-transparent text-[13px] outline-none placeholder:text-ink-4 sm:w-[190px]"
               />
+              {query && (
+                <button
+                  onClick={() => setQuery("")}
+                  aria-label="Clear search"
+                  className="shrink-0 text-[15px] leading-none text-ink-4 hover:text-ink-2"
+                >
+                  ×
+                </button>
+              )}
             </div>
-            {[filterLabels.statuses, filterLabels.themes].map((f) => (
-              <button
-                key={f}
-                className="flex h-9 items-center gap-1.5 rounded-[10px] border-[0.8px] border-line px-3 text-[13px] text-ink-2 transition hover:bg-sunk"
-              >
-                {f}
-                <Icon.chevron className="h-3.5 w-3.5 text-ink-4" />
-              </button>
-            ))}
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              aria-label="Filter by status"
+              className="h-9 rounded-[10px] border-[0.8px] border-line bg-paper px-3 text-[13px] text-ink-2 outline-none transition hover:bg-sunk"
+            >
+              <option>{filterLabels.statuses}</option>
+              {byStatus.map((x) => (
+                <option key={x.key}>{x.label}</option>
+              ))}
+            </select>
             <ViewToggle value={view} onChange={setPicked} />
           </div>
         </div>
 
-        {view === "table" ? (
+        {shown.length === 0 ? (
+          <div className="border-t-[0.8px] border-line">
+            <EmptyState
+              title="No teams match that"
+              body={`Nothing matches ${q ? `“${query}”` : "this filter"}${
+                status !== "All statuses" ? ` in ${status.toLowerCase()}` : ""
+              }. Try a different spelling, or clear the filters.`}
+              action={
+                <button
+                  onClick={() => {
+                    setQuery("");
+                    setStatus("All statuses");
+                  }}
+                  className="pressable rounded-full bg-primary px-5 py-2.5 text-[13.5px] font-semibold text-white hover:bg-primary-600"
+                >
+                  Clear filters
+                </button>
+              }
+            />
+          </div>
+        ) : view === "table" ? (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] border-collapse">
             <thead>
@@ -198,7 +248,7 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {teams.map((t, i) => (
+              {shown.map((t, i) => (
                 <tr
                   key={t.name}
                   className="border-b-[0.8px] border-line transition last:border-0 hover:bg-ground"
@@ -237,7 +287,7 @@ export default function Dashboard() {
         </div>
         ) : (
           <div className="grid grid-cols-1 gap-4 border-t-[0.8px] border-line p-5 sm:grid-cols-2 sm:p-6 2xl:grid-cols-3">
-            {teams.map((t, i) => (
+            {shown.map((t, i) => (
               <article
                 key={t.name}
                 className="liftable flex flex-col rounded-[13px] border-[0.8px] border-line p-5 hover:border-line-2"
@@ -504,11 +554,11 @@ function JudgeView() {
           </Link>
         ))}
         {mine.length === 0 && (
-          <div className="card col-span-full px-6 py-16 text-center">
-            <h2 className="text-[17px] font-semibold">Nothing assigned yet</h2>
-            <p className="mx-auto mt-2 max-w-[44ch] text-[14px] text-ink-3">
-              An organiser will assign submissions to you before the round opens.
-            </p>
+          <div className="card col-span-full">
+            <EmptyState
+              title="Nothing assigned yet"
+              body="An organiser will assign submissions to you before the round opens. They will appear here."
+            />
           </div>
         )}
       </div>

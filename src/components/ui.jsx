@@ -687,3 +687,105 @@ export function CircuitField({
     </svg>
   );
 }
+
+
+/* ---------------- empty states ---------------- */
+
+/**
+ * Empty state with a mark drawn from the circuit motif — traces that rise and
+ * stop short, which is the point being made.
+ */
+export function EmptyState({ title, body, action = null, tone = "primary" }) {
+  return (
+    <div className="flex flex-col items-center px-6 py-16 text-center">
+      <span className="relative mb-6 grid h-16 w-16 place-items-center">
+        <span
+          className="absolute inset-0 rounded-full opacity-[0.09]"
+          style={{ background: `var(--color-${tone === "primary" ? "primary" : `viz-${tone}`})` }}
+        />
+        <svg viewBox="0 0 48 48" className="h-9 w-9" aria-hidden="true">
+          {[
+            [10, 30],
+            [19, 18],
+            [29, 24],
+            [38, 14],
+          ].map(([x, run]) => (
+            <g key={x}>
+              <path
+                d={`M24,44 L24,${44 - run * 0.5} L${x},${44 - run * 0.5 - Math.abs(24 - x) * 0.4} L${x},${44 - run}`}
+                fill="none"
+                stroke="var(--color-ink-4)"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                opacity="0.5"
+              />
+              <circle cx={x} cy={44 - run} r="2.4" fill="var(--color-ink-4)" opacity="0.32" />
+            </g>
+          ))}
+        </svg>
+      </span>
+      <h3 className="text-[16.5px] font-semibold tracking-[-0.02em]">{title}</h3>
+      <p className="mx-auto mt-2 max-w-[46ch] text-[14px] leading-relaxed text-ink-3">{body}</p>
+      {action && <div className="mt-6">{action}</div>}
+    </div>
+  );
+}
+
+/* ---------------- keyboard shortcuts ---------------- */
+
+export const SHORTCUTS = [
+  { keys: ["/"], label: "Focus search" },
+  { keys: ["g", "r"], label: "Go to registrations" },
+  { keys: ["g", "w"], label: "Go to registration window" },
+  { keys: ["g", "s"], label: "Go to staff" },
+  { keys: ["g", "a"], label: "Go to audit logs" },
+  { keys: ["?"], label: "Show this list" },
+  { keys: ["Esc"], label: "Close" },
+];
+
+export function ShortcutHelp({ open, onClose }) {
+  if (!open) return null;
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/25 px-4"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="anim-rise w-full max-w-[420px] overflow-hidden rounded-[16px] border-[0.8px] border-line bg-paper shadow-[var(--elev-3)]"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-label="Keyboard shortcuts"
+      >
+        <div className="flex items-center gap-3 border-b-[0.8px] border-line px-5 py-4">
+          <h2 className="text-[15.5px] font-semibold tracking-[-0.02em]">Keyboard shortcuts</h2>
+          <button
+            onClick={onClose}
+            className="ml-auto text-[18px] leading-none text-ink-4 hover:text-ink"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+        <ul className="divide-y divide-line">
+          {SHORTCUTS.map((s) => (
+            <li key={s.label} className="flex items-center gap-4 px-5 py-3">
+              <span className="text-[14px] text-ink-2">{s.label}</span>
+              <span className="ml-auto flex gap-1.5">
+                {s.keys.map((k) => (
+                  <kbd
+                    key={k}
+                    className="rounded-[6px] border-[0.8px] border-line bg-sunk px-2 py-0.5 text-[12px] font-medium text-ink-3"
+                  >
+                    {k}
+                  </kbd>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}

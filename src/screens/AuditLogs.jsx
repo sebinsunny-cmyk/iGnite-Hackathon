@@ -2,7 +2,7 @@ import { useState } from "react";
 import AppShell from "../components/AppShell";
 import { auditLog, auditWindows } from "../data/content";
 import { useRole } from "../state/role";
-import { Segmented } from "../components/ui";
+import { Segmented, EmptyState } from "../components/ui";
 import { Denied } from "./Staff";
 
 const tone = {
@@ -47,12 +47,10 @@ export default function AuditLogs() {
         </div>
 
         {rows.length === 0 ? (
-          <div className="px-8 py-20 text-center">
-            <h2 className="text-[18px] font-bold">No activity in this window.</h2>
-            <p className="mx-auto mt-2.5 max-w-[46ch] text-[14px] leading-relaxed text-ink-2">
-              Widen the range above to see earlier events.
-            </p>
-          </div>
+          <EmptyState
+            title="No activity in this window"
+            body="Nothing was logged in the range you picked. Widen it above to see earlier events."
+          />
         ) : (
           <div className="hidden overflow-x-auto sm:block">
             <table className="w-full min-w-[720px] border-collapse">
