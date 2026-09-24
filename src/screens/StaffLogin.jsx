@@ -9,7 +9,7 @@ export default function StaffLogin() {
   return (
     <div className="grid min-h-full grid-cols-1 lg:grid-cols-[1.05fr_1fr]">
       {/* brand side — full bleed, logo carries it */}
-      <section className="flex flex-col justify-between gap-8 bg-ink px-4 py-8 text-white sm:gap-12 sm:px-8 sm:py-12 xl:px-14">
+      <section className="flex flex-col justify-between gap-8 bg-primary px-4 py-8 text-white sm:gap-12 sm:px-8 sm:py-12 xl:px-14">
         <GigniteLogo className="h-11 brightness-0 invert sm:h-16 lg:h-20" />
 
         <div>
@@ -55,7 +55,7 @@ export default function StaffLogin() {
 
             <button
               type="submit"
-              className="mt-2 flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
+              className="mt-2 flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
             >
               Sign in
               <Icon.arrow className="h-4.5 w-4.5" />
@@ -91,7 +91,7 @@ export function Field({ id, label, type = "text", placeholder, help, ...rest }) 
         id={id}
         type={type}
         placeholder={placeholder}
-        className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
+        className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-primary"
         {...rest}
       />
       {help && <p className="text-[12.5px] text-ink-3">{help}</p>}

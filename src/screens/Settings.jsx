@@ -65,7 +65,7 @@ export default function Settings() {
               <input
                 id="closes-at"
                 type="datetime-local"
-                className="w-full max-w-[380px] rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[15px] outline-none transition focus:border-viz-purple"
+                className="w-full max-w-[380px] rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[15px] outline-none transition focus:border-primary"
               />
               <p className="text-[12.5px] text-ink-3">{registrationWindow.closesAtHelp}</p>
             </div>
@@ -78,13 +78,13 @@ export default function Settings() {
                 id="closed-message"
                 rows={3}
                 placeholder={registrationWindow.closedMessagePlaceholder}
-                className="w-full resize-y rounded-[11px] border-[0.8px] border-line px-4 py-3.5 text-[15px] leading-relaxed outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
+                className="w-full resize-y rounded-[11px] border-[0.8px] border-line px-4 py-3.5 text-[15px] leading-relaxed outline-none transition placeholder:text-ink-3 focus:border-primary"
               />
               <p className="text-[12.5px] text-ink-3">{registrationWindow.closedMessageHelp}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3 border-t-[0.8px] border-line pt-7">
-              <button className="min-h-[48px] w-full rounded-full bg-ink px-6 text-[14.5px] font-bold text-white transition hover:bg-ink/90 sm:w-auto">
+              <button className="min-h-[48px] w-full rounded-full bg-primary px-6 text-[14.5px] font-bold text-white transition hover:bg-primary-600 sm:w-auto">
                 Save
               </button>
               <Link

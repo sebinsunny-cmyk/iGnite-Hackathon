@@ -64,7 +64,7 @@ export default function RegisterWizard() {
                         state === "done"
                           ? "bg-shl text-white"
                           : state === "now"
-                            ? "bg-ink text-white"
+                            ? "bg-primary text-white"
                             : "border-[0.8px] border-line text-ink-3"
                       }`}
                     >
@@ -94,7 +94,7 @@ export default function RegisterWizard() {
                         state === "done"
                           ? "bg-shl text-white"
                           : state === "now"
-                            ? "bg-ink text-white"
+                            ? "bg-primary text-white"
                             : "border-[0.8px] border-line text-ink-3"
                       }`}
                     >
@@ -135,7 +135,7 @@ export default function RegisterWizard() {
               {wizardSteps.map((s) => (
                 <span
                   key={s.key}
-                  className={`h-1 flex-1 rounded-full ${s.n <= step ? "bg-ink" : "bg-line"}`}
+                  className={`h-1 flex-1 rounded-full ${s.n <= step ? "bg-primary" : "bg-line"}`}
                 />
               ))}
             </div>
@@ -169,7 +169,7 @@ export default function RegisterWizard() {
             {step < 4 ? (
               <button
                 onClick={() => setStep(step + 1)}
-                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-full bg-ink px-6 text-[14.5px] font-bold text-white transition hover:bg-ink/90 sm:flex-none"
+                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-full bg-primary px-6 text-[14.5px] font-bold text-white transition hover:bg-primary-600 sm:flex-none"
               >
                 Continue
                 <Icon.arrow className="h-4 w-4" />
@@ -178,7 +178,7 @@ export default function RegisterWizard() {
               <button
                 disabled={!allChecked}
                 onClick={() => setDone(true)}
-                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-full bg-ink px-6 text-[14.5px] font-bold text-white transition enabled:hover:bg-ink disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-3 sm:flex-none"
+                className="ml-auto inline-flex min-h-[48px] flex-1 items-center justify-center gap-2.5 rounded-full bg-primary px-6 text-[14.5px] font-bold text-white transition enabled:hover:bg-primary-600 disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-3 sm:flex-none"
               >
                 Submit registration
                 <Icon.arrow className="h-4 w-4" />
@@ -236,7 +236,7 @@ function StepTeam({ theme, setTheme }) {
                     theme === t ? "border-viz-purple" : "border-line"
                   }`}
                 >
-                  {theme === t && <span className="h-1.5 w-1.5 rounded-full bg-ink" />}
+                  {theme === t && <span className="h-1.5 w-1.5 rounded-full bg-primary" />}
                 </span>
                 <span className="text-[14.5px] font-semibold">{t}</span>
               </span>
@@ -311,7 +311,7 @@ function StepMembers({ members, setMembers }) {
       {members.length < 4 && (
         <button
           onClick={() => setMembers([...members, { id: Date.now() }])}
-          className="rounded-[11px] border-[0.8px] border-dashed border-line px-5 py-5 text-[14.5px] font-semibold text-ink-2 transition hover:border-viz-purple hover:text-sub"
+          className="rounded-[11px] border-[0.8px] border-dashed border-line px-5 py-5 text-[14.5px] font-semibold text-ink-2 transition hover:border-primary hover:text-sub"
         >
           + Add member {members.length + 2}
         </button>
@@ -423,7 +423,7 @@ function StepIdea() {
                 value={v}
                 onChange={(e) => setVal(f.key, e.target.value)}
                 placeholder={f.placeholder}
-                className={`resize-y rounded-[11px] border-[0.8px] bg-paper px-4 py-3.5 text-[15px] leading-relaxed outline-none transition placeholder:text-ink-4 focus:border-viz-purple ${
+                className={`resize-y rounded-[11px] border-[0.8px] bg-paper px-4 py-3.5 text-[15px] leading-relaxed outline-none transition placeholder:text-ink-4 focus:border-primary ${
                   over ? "border-rej" : "border-line"
                 }`}
               />
@@ -525,7 +525,7 @@ function StepDeclare({ theme, members, checks, setChecks }) {
           id="challenge"
           inputMode="numeric"
           placeholder="—"
-          className="tnum ml-auto w-20 rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-center text-[16px] font-bold outline-none focus:border-viz-purple"
+          className="tnum ml-auto w-20 rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-center text-[16px] font-bold outline-none focus:border-primary"
         />
       </div>
     </div>
@@ -595,7 +595,7 @@ function Text({ id, label, help, type = "text", placeholder }) {
         id={id}
         type={type}
         placeholder={placeholder}
-        className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
+        className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-primary"
       />
       {help && <p className="text-[12.5px] leading-relaxed text-ink-3">{help}</p>}
     </div>
@@ -611,7 +611,7 @@ function Select({ id, label, options, help }) {
       <select
         id={id}
         defaultValue=""
-        className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-viz-purple"
+        className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[15px] outline-none transition focus:border-primary"
       >
         <option value="" disabled>
           Select…
@@ -646,7 +646,7 @@ function Upload({ label, rule, className = "" }) {
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
       <span className="lbl">{label}</span>
-      <button className="flex items-center gap-4 rounded-[11px] border-[0.8px] border-dashed border-line bg-paper px-5 py-4 text-left transition hover:border-viz-purple">
+      <button className="flex items-center gap-4 rounded-[11px] border-[0.8px] border-dashed border-line bg-paper px-5 py-4 text-left transition hover:border-primary">
         <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[10px] bg-sunk">
           <Icon.download className="h-4 w-4 rotate-180 text-ink-2" />
         </span>

@@ -53,7 +53,7 @@ export default function RegisterGate() {
               <div className="mt-8 flex flex-col gap-3">
                 <button
                   onClick={() => navigate("/register/entry")}
-                  className="min-h-[52px] rounded-full bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
+                  className="min-h-[52px] rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
                 >
                   Open the link (prototype)
                 </button>
@@ -114,12 +114,12 @@ export default function RegisterGate() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@college.edu"
-                        className="rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
+                        className="rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[15px] outline-none transition placeholder:text-ink-3 focus:border-primary"
                       />
                     </div>
                     <button
                       type="submit"
-                      className="min-h-[52px] rounded-full bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
+                      className="min-h-[52px] rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
                     >
                       Send sign-in link
                     </button>

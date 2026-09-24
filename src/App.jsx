@@ -87,7 +87,7 @@ function ScreenIndex() {
                     onClick={() => setOpen(false)}
                     className={`block px-4 py-2 text-[13px] transition ${
                       pathname === s.to.split("%20").join(" ")
-                        ? "bg-navy-soft font-semibold text-navy"
+                        ? "bg-primary-soft font-semibold text-primary"
                         : "text-ink-2 hover:bg-ground"
                     }`}
                   >
@@ -102,7 +102,7 @@ function ScreenIndex() {
 
       <button
         onClick={() => setOpen((v) => !v)}
-        className="rounded-full bg-ink px-5 py-3 text-[13px] font-semibold text-white shadow-[0_8px_24px_rgba(20,24,31,0.22)] transition hover:bg-ink/90"
+        className="rounded-full bg-primary px-5 py-3 text-[13px] font-semibold text-white shadow-[0_8px_24px_rgba(20,24,31,0.22)] transition hover:bg-primary-600"
       >
         {open ? "Hide screens" : "All screens"}
       </button>

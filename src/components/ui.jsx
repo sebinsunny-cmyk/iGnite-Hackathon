@@ -105,7 +105,7 @@ export function AddJudge({ full = false }) {
   return (
     <button
       type="button"
-      className={`inline-flex min-h-[40px] items-center gap-1.5 rounded-full border-[0.8px] border-dashed border-line-2 px-3.5 text-[12px] font-medium text-ink-4 transition hover:border-viz-purple hover:text-sub lg:min-h-[30px] lg:px-2.5 ${
+      className={`inline-flex min-h-[40px] items-center gap-1.5 rounded-full border-[0.8px] border-dashed border-line-2 px-3.5 text-[12px] font-medium text-ink-4 transition hover:border-primary hover:text-sub lg:min-h-[30px] lg:px-2.5 ${
         full ? "w-full justify-center" : ""
       }`}
     >

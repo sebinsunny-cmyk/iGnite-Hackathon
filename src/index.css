@@ -35,18 +35,22 @@
   /* chip text is a dark variant of its own hue, not a generic grey */
   --color-on-orange: #7a4b2c;
   --color-on-pink: #8d4a76;
-  --color-on-purple: #4a51a0;
+  --color-on-purple: #20419a;
   --color-on-green: #256b56;
   --color-on-red: #a33a3a;
   --color-tint-red: #fdecec;
 
-  /* brand — kept for the logos and event identity */
+  /* brand */
+  --color-primary: #20419a;        /* every call to action, link and active state */
+  --color-primary-600: #1a3580;    /* hover / pressed */
+  --color-primary-700: #142a66;
+  --color-primary-soft: #eaeef8;   /* tint for chips and quiet fills */
   --color-navy: #27459b;
   --color-orange: #f47b20;
 
   /* status */
-  --color-sub: #4a51a0;
-  --color-sub-soft: #f0ebfe;
+  --color-sub: #20419a;
+  --color-sub-soft: #eaeef8;
   --color-rev: #7a4b2c;
   --color-rev-soft: #fdeee2;
   --color-shl: #256b56;
@@ -169,7 +173,7 @@ html {
 }
 
 *:focus-visible {
-  outline: 2px solid var(--color-viz-purple);
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
   border-radius: 6px;
 }

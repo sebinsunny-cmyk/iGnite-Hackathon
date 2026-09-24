@@ -26,7 +26,7 @@ export function RegisterClosed() {
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
               to="/"
-              className="flex min-h-[52px] items-center justify-center rounded-full bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90"
+              className="flex min-h-[52px] items-center justify-center rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600"
             >
               Back to gIGNITE
             </Link>
@@ -39,7 +39,7 @@ export function RegisterClosed() {
           </div>
         </div>
 
-        <div className="rounded-[16px] bg-ink p-6 text-white sm:p-10">
+        <div className="rounded-[16px] bg-primary p-6 text-white sm:p-10">
           <GigniteLogo size="lg" className="brightness-0 invert" />
           <p className="mt-8 text-[15.5px] leading-relaxed text-white/75">
             Already registered? Nothing more to do. Watch the inbox of the address your team leader
@@ -68,7 +68,7 @@ export function NotFound() {
         <div className="flex flex-wrap gap-3">
           <Link
             to="/register"
-            className="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-ink px-6 text-[15px] font-bold text-white transition hover:bg-ink/90"
+            className="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-full bg-primary px-6 text-[15px] font-bold text-white transition hover:bg-primary-600"
           >
             Go to registration
             <Icon.arrow className="h-4.5 w-4.5" />
@@ -111,7 +111,7 @@ export function ResetPassword() {
         <div className="rounded-[16px] border-[0.8px] border-line bg-paper p-6 sm:p-8 xl:p-10">
           <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
             <Field id="reset-email" label="Email" type="email" placeholder="you@fisat.ac.in" />
-            <button className="flex min-h-[52px] items-center justify-center rounded-full bg-ink px-5 text-[15px] font-bold text-white transition hover:bg-ink/90">
+            <button className="flex min-h-[52px] items-center justify-center rounded-full bg-primary px-5 text-[15px] font-bold text-white transition hover:bg-primary-600">
               Send reset link
             </button>
             <Link

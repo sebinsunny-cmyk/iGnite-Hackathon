@@ -33,7 +33,7 @@ export default function Landing() {
       action={
         <Link
           to="/register"
-          className="flex h-10 items-center gap-2 rounded-full bg-ink px-4 text-[13.5px] font-medium text-white transition hover:bg-ink/90 sm:px-5"
+          className="flex h-10 items-center gap-2 rounded-full bg-primary px-4 text-[13.5px] font-medium text-white transition hover:bg-primary-600 sm:px-5"
         >
           Start free
           <Icon.arrow className="h-4 w-4" />
@@ -69,7 +69,7 @@ export default function Landing() {
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/register"
-              className="flex h-12 items-center gap-2.5 rounded-full bg-ink px-7 text-[15px] font-medium text-white transition hover:bg-ink/90"
+              className="flex h-12 items-center gap-2.5 rounded-full bg-primary px-7 text-[15px] font-medium text-white transition hover:bg-primary-600"
             >
               Register your team
               <Icon.arrow className="h-4 w-4" />
@@ -168,7 +168,7 @@ export default function Landing() {
           </div>
           <Link
             to="/register"
-            className="flex h-12 shrink-0 items-center gap-2.5 rounded-full bg-ink px-7 text-[15px] font-medium text-white transition hover:bg-ink/90 sm:ml-auto"
+            className="flex h-12 shrink-0 items-center gap-2.5 rounded-full bg-primary px-7 text-[15px] font-medium text-white transition hover:bg-primary-600 sm:ml-auto"
           >
             Register your team
             <Icon.arrow className="h-4 w-4" />

@@ -90,7 +90,7 @@ export default function TeamDetail() {
 
           {/* judge scoring */}
           {isJudge && (
-            <section className="rounded-[16px] border-[1.5px] border-viz-purple bg-paper p-5 sm:p-7">
+            <section className="rounded-[16px] border-[1.5px] border-primary bg-paper p-5 sm:p-7">
               <div className="flex flex-wrap items-center gap-3">
                 <h2 className="text-[19px] font-bold tracking-[-0.014em]">Your evaluation</h2>
                 <span className="lbl">{scored} of 5 scored</span>
@@ -116,8 +116,8 @@ export default function TeamDetail() {
                           onClick={() => setScores({ ...scores, [c.key]: n })}
                           className={`tnum h-11 rounded-[10px] border text-[13px] font-semibold transition sm:h-10 ${
                             scores[c.key] === n
-                              ? "border-viz-purple bg-ink text-white"
-                              : "border-line bg-paper text-ink-3 hover:border-viz-purple/50 hover:text-sub"
+                              ? "border-viz-purple bg-primary text-white"
+                              : "border-line bg-paper text-ink-3 hover:border-primary/50 hover:text-sub"
                           }`}
                         >
                           {n}
@@ -135,12 +135,12 @@ export default function TeamDetail() {
                     id="judge-comments"
                     rows={3}
                     placeholder="Visible to organisers, not to the team."
-                    className="resize-y rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[14.5px] leading-relaxed outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
+                    className="resize-y rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[14.5px] leading-relaxed outline-none transition placeholder:text-ink-3 focus:border-primary"
                   />
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 border-t-[0.8px] border-line pt-5">
-                  <button className="rounded-full bg-ink px-6 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
+                  <button className="rounded-full bg-primary px-6 py-3 text-[14.5px] font-bold text-white transition hover:bg-primary-600">
                     Save score
                   </button>
                   <button className="rounded-[11px] border-[0.8px] border-line px-5 py-3 text-[14.5px] font-medium text-ink-2 transition hover:border-line-2">

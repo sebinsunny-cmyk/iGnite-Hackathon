@@ -26,7 +26,7 @@ export default function Staff() {
             sign-up for staff.
           </p>
         </div>
-        <button className="min-h-[48px] w-full rounded-full bg-ink px-5 text-[14px] font-bold text-white transition hover:bg-ink/90 sm:w-auto">
+        <button className="min-h-[48px] w-full rounded-full bg-primary px-5 text-[14px] font-bold text-white transition hover:bg-primary-600 sm:w-auto">
           Create account
         </button>
       </div>
@@ -80,7 +80,7 @@ export default function Staff() {
                 <input
                   id="new-name"
                   placeholder="Full name"
-                  className="rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[14.5px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
+                  className="rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[14.5px] outline-none transition placeholder:text-ink-3 focus:border-primary"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -91,7 +91,7 @@ export default function Staff() {
                   id="new-email"
                   type="email"
                   placeholder="name@fisat.ac.in"
-                  className="rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[14.5px] outline-none transition placeholder:text-ink-3 focus:border-viz-purple"
+                  className="rounded-[11px] border-[0.8px] border-line px-4 py-3 text-[14.5px] outline-none transition placeholder:text-ink-3 focus:border-primary"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -101,14 +101,14 @@ export default function Staff() {
                 <select
                   id="new-role"
                   defaultValue="Judge"
-                  className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[14.5px] outline-none focus:border-viz-purple"
+                  className="rounded-[11px] border-[0.8px] border-line bg-paper px-4 py-3 text-[14.5px] outline-none focus:border-primary"
                 >
                   {["Super Admin", "Admin", "Judge", "Volunteer"].map((r) => (
                     <option key={r}>{r}</option>
                   ))}
                 </select>
               </div>
-              <button className="mt-1 rounded-full bg-ink px-5 py-3 text-[14.5px] font-bold text-white transition hover:bg-ink/90">
+              <button className="mt-1 rounded-full bg-primary px-5 py-3 text-[14.5px] font-bold text-white transition hover:bg-primary-600">
                 Send invitation
               </button>
               <p className="text-[12.5px] leading-relaxed text-ink-3">
@@ -118,7 +118,7 @@ export default function Staff() {
             </form>
           </section>
 
-          <section className="rounded-[16px] bg-ink p-5 text-white sm:p-7">
+          <section className="rounded-[16px] bg-primary p-5 text-white sm:p-7">
             <span className="lbl !text-white/55">What each role sees</span>
             <dl className="mt-5 flex flex-col gap-4 text-[13.5px] leading-relaxed">
               <div>
@@ -161,7 +161,7 @@ export function Denied() {
         </p>
         <Link
           to="/dashboard"
-          className="mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-[14px] font-bold text-white transition hover:bg-ink/90"
+          className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-[14px] font-bold text-white transition hover:bg-primary-600"
         >
           Back to registrations
           <Icon.arrow className="h-4 w-4" />
