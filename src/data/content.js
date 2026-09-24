@@ -2,13 +2,57 @@
 // taken from the product's own specification. Values that the live dashboard
 // never showed (judge scores, entry IDs) are left as empty states rather than invented.
 
-export const themes = [
-  "AI for Disaster Management",
-  "AI for Healthcare",
-  "AI for Mobility & Transportation",
-  "AI for Smart Cities",
-  "Open Innovation Track",
+/**
+ * The five tracks, each with its own colour, icon and promise.
+ *
+ * This is the identity system the rest of the UI inherits: landing cards, the
+ * wizard's theme picker, dashboard dots, team cards and team detail all read
+ * from here rather than colouring by array position, so a track looks the same
+ * everywhere it appears.
+ */
+export const tracks = [
+  {
+    key: "disaster",
+    name: "AI for Disaster Management",
+    short: "Disaster Management",
+    hue: "pink",
+    promise: "Get people moving before the water does.",
+  },
+  {
+    key: "healthcare",
+    name: "AI for Healthcare",
+    short: "Healthcare",
+    hue: "green",
+    promise: "Shorten the distance from symptom to diagnosis.",
+  },
+  {
+    key: "mobility",
+    name: "AI for Mobility & Transportation",
+    short: "Mobility & Transportation",
+    hue: "blue",
+    promise: "Make one commute shorter, safer or cheaper.",
+  },
+  {
+    key: "cities",
+    name: "AI for Smart Cities",
+    short: "Smart Cities",
+    hue: "orange",
+    promise: "Make a public system answer faster.",
+  },
+  {
+    key: "open",
+    name: "Open Innovation Track",
+    short: "Open Innovation",
+    hue: "purple",
+    promise: "The good idea that fits nowhere else.",
+  },
 ];
+
+/** Look a track up by either its full name or its short label. */
+export const trackBy = (label) =>
+  tracks.find((t) => t.name === label || t.short === label) ?? tracks[tracks.length - 1];
+
+export const themes = tracks.map((t) => t.name);
 
 export const districts = [
   "Thiruvananthapuram", "Kollam", "Pathanamthitta", "Alappuzha", "Kottayam",

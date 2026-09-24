@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import AppShell from "../components/AppShell";
 import { teams, byStatus, judgePool } from "../data/registrations";
-import { scoringCriteria, ideaFields, uploadRules } from "../data/content";
-import { StatusPill, StatusDot, JudgeChip, Icon } from "../components/ui";
+import { scoringCriteria, ideaFields, uploadRules, trackBy } from "../data/content";
+import { StatusPill, StatusDot, JudgeChip, TrackChip, Icon } from "../components/ui";
 import { useRole } from "../state/role";
 
 export default function TeamDetail() {
@@ -34,7 +34,7 @@ export default function TeamDetail() {
             {team.name}
           </h1>
           <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[14.5px] text-ink-2">
-            <span>{team.theme}</span>
+            <TrackChip track={trackBy(team.theme)} showIcon />
             <span className="text-line">·</span>
             <span>{team.members} members</span>
             <span className="text-line">·</span>

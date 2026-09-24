@@ -36,6 +36,7 @@
   --color-on-orange: #7a4b2c;
   --color-on-pink: #8d4a76;
   --color-on-purple: #20419a;
+  --color-on-blue: #23567f;
   --color-on-green: #256b56;
   --color-on-red: #a33a3a;
   --color-tint-red: #fdecec;
@@ -63,6 +64,34 @@
 
   --radius-card: 16px;
   --radius-control: 11px;
+}
+
+/* Tailwind v4 drops @theme variables it cannot see referenced by a utility
+   class. These are used only from inline style strings (track hues, tints and
+   their matching text colours), so they are declared again here to guarantee
+   they reach the stylesheet. */
+:root {
+  --color-viz-orange: #ffb27e;
+  --color-viz-pink: #ff7ea8;
+  --color-viz-purple: #a78cf7;
+  --color-viz-blue: #7cc0ff;
+  --color-viz-green: #3fb27f;
+
+  --color-tint-orange: #fdeee2;
+  --color-tint-pink: #fdeaf1;
+  --color-tint-purple: #f0ebfe;
+  --color-tint-blue: #e8f3ff;
+  --color-tint-green: #eefaf3;
+
+  --color-on-orange: #7a4b2c;
+  --color-on-pink: #8d4a76;
+  --color-on-purple: #20419a;
+  --color-on-blue: #23567f;
+  --color-on-green: #256b56;
+
+  --color-primary: #20419a;
+  --color-primary-600: #1a3580;
+  --color-primary-soft: #eaeef8;
 }
 
 html,

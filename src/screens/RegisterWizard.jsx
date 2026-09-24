@@ -1,10 +1,10 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import PublicShell from "../components/PublicShell";
-import { Icon, InfoTip } from "../components/ui";
+import { Icon, InfoTip, TrackMark } from "../components/ui";
 import {
   wizardSteps,
-  themes,
+  tracks,
   colleges,
   districts,
   years,
@@ -17,7 +17,7 @@ import {
 
 export default function RegisterWizard() {
   const [step, setStep] = useState(1);
-  const [theme, setTheme] = useState(themes[3]);
+  const [theme, setTheme] = useState(tracks[3].name);
   const [members, setMembers] = useState([{ id: 1 }, { id: 2 }]);
   const [checks, setChecks] = useState({});
   const [done, setDone] = useState(false);
@@ -220,28 +220,41 @@ function StepTeam({ theme, setTheme }) {
 
       <Group title="Theme" help="One theme per entry.">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 2xl:grid-cols-3">
-          {themes.map((t) => (
-            <button
-              key={t}
-              onClick={() => setTheme(t)}
-              className={`rounded-[11px] border px-5 py-4 text-left transition ${
-                theme === t
-                  ? "border-viz-purple bg-sub-soft"
-                  : "border-line bg-paper hover:border-line-2"
-              }`}
-            >
-              <span className="flex items-center gap-3">
-                <span
-                  className={`grid h-4 w-4 shrink-0 place-items-center rounded-full border-2 ${
-                    theme === t ? "border-viz-purple" : "border-line"
-                  }`}
-                >
-                  {theme === t && <span className="h-1.5 w-1.5 rounded-full bg-primary" />}
+          {tracks.map((t) => {
+            const on = theme === t.name;
+            return (
+              <button
+                key={t.key}
+                type="button"
+                onClick={() => setTheme(t.name)}
+                aria-pressed={on}
+                className={`flex items-start gap-3.5 rounded-[13px] border p-4 text-left transition ${
+                  on
+                    ? "border-[1.5px] bg-paper shadow-[0_2px_10px_rgba(14,14,20,0.06)]"
+                    : "border-[0.8px] border-line bg-paper hover:border-line-2 hover:shadow-[0_2px_8px_rgba(14,14,20,0.05)]"
+                }`}
+                style={on ? { borderColor: `var(--color-viz-${t.hue})` } : undefined}
+              >
+                <TrackMark track={t} size={38} />
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-center gap-2">
+                    <span className="text-[14.5px] font-semibold">{t.short}</span>
+                    {on && (
+                      <span
+                        className="ml-auto grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full text-white"
+                        style={{ background: `var(--color-viz-${t.hue})` }}
+                      >
+                        <Icon.check className="h-2.5 w-2.5" />
+                      </span>
+                    )}
+                  </span>
+                  <span className="mt-1 block text-[12.5px] leading-relaxed text-ink-3">
+                    {t.promise}
+                  </span>
                 </span>
-                <span className="text-[14.5px] font-semibold">{t}</span>
-              </span>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </Group>
 

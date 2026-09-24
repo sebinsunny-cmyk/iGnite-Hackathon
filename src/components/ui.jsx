@@ -292,6 +292,38 @@ export const Icon = {
       <path d="M3 20h18" />
     </svg>
   ),
+  disaster: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M2 15.5c1.8 0 1.8-1.4 3.7-1.4s1.8 1.4 3.6 1.4 1.8-1.4 3.7-1.4 1.8 1.4 3.6 1.4 1.9-1.4 3.7-1.4M2 20c1.8 0 1.8-1.4 3.7-1.4s1.8 1.4 3.6 1.4 1.8-1.4 3.7-1.4 1.8 1.4 3.6 1.4 1.9-1.4 3.7-1.4" />
+      <path d="M12 2.5 15.5 9h-7z" />
+      <path d="M12 5.8v1.4" />
+    </svg>
+  ),
+  healthcare: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M20.6 5.6a5 5 0 0 0-7.1 0L12 7.1l-1.5-1.5a5 5 0 1 0-7.1 7.1l1.5 1.5L12 21.3l7.1-7.1 1.5-1.5a5 5 0 0 0 0-7.1z" />
+      <path d="M3.5 13h3.9l1.5-2.4L11 15l2-3h4.4" />
+    </svg>
+  ),
+  mobility: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <circle cx="5.5" cy="18.5" r="2.5" />
+      <circle cx="18.5" cy="5.5" r="2.5" />
+      <path d="M8 18.5h6.5a4 4 0 0 0 0-8h-5a4 4 0 0 1 0-8H16" />
+    </svg>
+  ),
+  cities: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M3 21h18M5 21V9l5-3v15M14 21V11h5v10" />
+      <path d="M7.5 11h.01M7.5 14.5h.01M16.5 14.5h.01M16.5 18h.01" />
+    </svg>
+  ),
+  open: (p) => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" {...p}>
+      <path d="M12 2.5 13.9 8 19.5 9.9 13.9 11.8 12 17.3 10.1 11.8 4.5 9.9 10.1 8z" />
+      <path d="M18.5 15.5 19.3 18l2.5.8-2.5.8-.8 2.4-.8-2.4-2.4-.8 2.4-.8z" />
+    </svg>
+  ),
   bell: (p) => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...p}>
       <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" />
@@ -405,5 +437,50 @@ export function ViewToggle({ value, onChange }) {
         </button>
       ))}
     </div>
+  );
+}
+
+
+/* ---------------- track identity ---------------- */
+
+/** The 7px dot used in tables and beside team names. */
+export function TrackDot({ track, className = "" }) {
+  return (
+    <span
+      className={`inline-block h-[7px] w-[7px] shrink-0 rounded-full ${className}`}
+      style={{ background: `var(--color-viz-${track.hue})` }}
+    />
+  );
+}
+
+/** Tinted rounded square carrying the track's own icon. */
+export function TrackMark({ track, size = 40 }) {
+  const I = Icon[track.key] ?? Icon.open;
+  return (
+    <span
+      className="grid shrink-0 place-items-center rounded-[11px]"
+      style={{
+        width: size,
+        height: size,
+        background: `var(--color-tint-${track.hue})`,
+        color: `var(--color-on-${track.hue})`,
+      }}
+    >
+      <I style={{ width: size * 0.5, height: size * 0.5 }} />
+    </span>
+  );
+}
+
+/** Inline pill — icon, dot and name — for headers and detail pages. */
+export function TrackChip({ track, showIcon = false }) {
+  const I = Icon[track.key] ?? Icon.open;
+  return (
+    <span
+      className="inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-[12.5px] font-medium"
+      style={{ background: `var(--color-tint-${track.hue})`, color: `var(--color-on-${track.hue})` }}
+    >
+      {showIcon ? <I className="h-[14px] w-[14px]" /> : <TrackDot track={track} />}
+      {track.short}
+    </span>
   );
 }

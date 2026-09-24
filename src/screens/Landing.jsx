@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import PublicShell from "../components/PublicShell";
-import { themes } from "../data/content";
-import { Icon } from "../components/ui";
+import { tracks } from "../data/content";
+import { Icon, TrackMark } from "../components/ui";
 
 const facts = [
   { k: "Team size", v: "2–5", note: "all from one college" },
@@ -10,7 +10,7 @@ const facts = [
   { k: "Entry", v: "Free", note: "one per team" },
 ];
 
-const tints = ["orange", "pink", "purple", "blue", "green"];
+
 
 const steps = [
   {
@@ -112,23 +112,20 @@ export default function Landing() {
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {themes.map((t, i) => (
-            <article key={t} className="card flex min-h-[176px] flex-col p-5">
-              <span
-                className="grid h-10 w-10 place-items-center rounded-[11px]"
-                style={{ background: `var(--color-tint-${tints[i]})` }}
-              >
-                <span
-                  className="h-[9px] w-[9px] rounded-full"
-                  style={{ background: `var(--color-viz-${tints[i]})` }}
-                />
-              </span>
+          {tracks.map((t) => (
+            <article
+              key={t.key}
+              className="card group flex min-h-[210px] flex-col p-5 transition hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(14,14,20,0.08)]"
+            >
+              <TrackMark track={t} />
               <h3 className="mt-auto pt-6 text-[17px] font-semibold leading-snug tracking-[-0.02em]">
-                {t.replace("AI for ", "")}
+                {t.short}
               </h3>
-              <p className="mt-1.5 text-[13px] text-ink-4">
-                {t.startsWith("AI for") ? "AI for …" : "Anything else"}
-              </p>
+              <p className="mt-2 text-[13.5px] leading-relaxed text-ink-3">{t.promise}</p>
+              <span
+                className="mt-4 h-[3px] w-10 rounded-full transition-all group-hover:w-16"
+                style={{ background: `var(--color-viz-${t.hue})` }}
+              />
             </article>
           ))}
         </div>
@@ -147,8 +144,8 @@ export default function Landing() {
               <span
                 className="grid h-8 w-8 place-items-center rounded-full text-[13px] font-semibold"
                 style={{
-                  background: `var(--color-tint-${tints[i]})`,
-                  color: `var(--color-on-${tints[i] === "blue" ? "purple" : tints[i]})`,
+                  background: "var(--color-primary-soft)",
+                  color: "var(--color-primary)",
                 }}
               >
                 {i + 1}

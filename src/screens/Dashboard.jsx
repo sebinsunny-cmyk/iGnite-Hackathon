@@ -10,16 +10,15 @@ import {
   filterLabels,
 } from "../data/registrations";
 import {
-  StatusPill, JudgeChip, AddJudge, Delta, Spark, Segmented, ViewToggle, useMediaQuery, Icon,
+  StatusPill, StatusDot, JudgeChip, AddJudge, Delta, Spark, Segmented, ViewToggle, TrackDot, useMediaQuery, Icon,
 } from "../components/ui";
 import AppShell from "../components/AppShell";
 import { useRole } from "../state/role";
+import { trackBy } from "../data/content";
 
 /* Cumulative entries read better than a 0/1 spike series, and it is the number
    organisers actually watch: how many are in so far. */
 const cumulative = daily.reduce((acc, d) => [...acc, (acc.at(-1) ?? 0) + d.count], []);
-
-const DOT = ["viz-pink", "viz-purple", "viz-blue", "viz-orange", "viz-green"];
 
 export default function Dashboard() {
   const { role } = useRole();
@@ -123,7 +122,11 @@ export default function Dashboard() {
                       <span className="flex items-center gap-2.5">
                         <span
                           className="h-[7px] w-[7px] shrink-0 rounded-full"
-                          style={{ background: t.count ? `var(--color-${DOT[i]})` : "#DEDEE3" }}
+                          style={{
+                            background: t.count
+                              ? `var(--color-viz-${trackBy(t.label).hue})`
+                              : "#DEDEE3",
+                          }}
                         />
                         <span className={`text-[14px] ${t.count ? "" : "text-ink-4"}`}>{t.label}</span>
                       </span>
@@ -138,7 +141,7 @@ export default function Dashboard() {
                             className="h-full rounded-full"
                             style={{
                               width: `${share}%`,
-                              background: "linear-gradient(90deg,var(--color-viz-orange),var(--color-viz-pink))",
+                              background: `var(--color-viz-${trackBy(t.label).hue})`,
                             }}
                           />
                         )}
@@ -204,10 +207,7 @@ export default function Dashboard() {
                       to={`/dashboard/teams/${encodeURIComponent(t.name)}`}
                       className="flex items-center gap-2.5 text-[14px] font-medium tracking-[-0.01em]"
                     >
-                      <span
-                        className="h-[7px] w-[7px] shrink-0 rounded-full"
-                        style={{ background: `var(--color-${DOT[i % DOT.length]})` }}
-                      />
+                      <TrackDot track={trackBy(t.theme)} />
                       {t.name}
                     </Link>
                   </td>
@@ -246,10 +246,7 @@ export default function Dashboard() {
                     to={`/dashboard/teams/${encodeURIComponent(t.name)}`}
                     className="flex min-w-0 items-center gap-2.5 text-[16px] font-semibold tracking-[-0.02em]"
                   >
-                    <span
-                      className="h-[7px] w-[7px] shrink-0 rounded-full"
-                      style={{ background: `var(--color-${DOT[i % DOT.length]})` }}
-                    />
+                    <TrackDot track={trackBy(t.theme)} />
                     <span className="truncate">{t.name}</span>
                   </Link>
                   <span className="ml-auto shrink-0">
@@ -257,7 +254,10 @@ export default function Dashboard() {
                   </span>
                 </div>
 
-                <p className="mt-2 text-[13.5px] text-ink-3">{t.theme}</p>
+                <p className="mt-2 flex items-center gap-2 text-[13.5px] text-ink-3">
+                  <TrackDot track={trackBy(t.theme)} />
+                  {t.theme}
+                </p>
 
                 <dl className="mt-4 flex flex-col gap-2 text-[13px]">
                   <div className="flex gap-3">
@@ -296,13 +296,14 @@ export default function Dashboard() {
 
       {/* ---------- status strip ---------- */}
       <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        {byStatus.map((s, i) => (
+        {byStatus.map((s) => (
           <div key={s.key} className="card p-5">
             <div className="flex items-center gap-2">
-              <span
-                className="h-[7px] w-[7px] rounded-full"
-                style={{ background: s.count ? `var(--color-${DOT[i]})` : "#DEDEE3" }}
-              />
+              {s.count ? (
+                <StatusDot status={s.label} />
+              ) : (
+                <span className="h-[7px] w-[7px] rounded-full bg-[#DEDEE3]" />
+              )}
               <span className="lbl !text-ink-3">{s.label}</span>
             </div>
             <div
