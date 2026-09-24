@@ -100,6 +100,9 @@ export const filterLabels = {
 
 export const registrationWindow = {
   status: "Open",
+  // The live portal has no scheduled close, so the countdown renders its
+  // "no date announced" state. Set an ISO string here and it starts ticking.
+  closesAt: null,
   closesAtPlaceholder: "dd-mm-yyyy --:--",
   closesAtHelp: "Leave blank for no scheduled closing date. Your local time.",
   closedMessagePlaceholder: "Registration for gIGNITE 2026 is no longer open.",

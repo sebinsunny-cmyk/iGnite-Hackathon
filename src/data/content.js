@@ -202,3 +202,56 @@ export const uploadRules = {
 };
 
 export const closedMessage = "Registration for gIGNITE 2026 is no longer open.";
+
+
+/** What happens after a team submits — drawn from the real judging rules. */
+export const whatNext = [
+  {
+    title: "You submit four answers and a deck",
+    body: "No prototype. Stage 1 is judged on the thinking, not on working code.",
+  },
+  {
+    title: "Judges score five criteria",
+    body: "Problem relevance, technical implementation, innovation, feasibility and completion — each scored out of ten.",
+  },
+  {
+    title: "Shortlisted teams build",
+    body: "Make the shortlist and you go through to the build round. Everyone hears back either way.",
+  },
+];
+
+/** Answers to the questions the rules actually raise. */
+export const faq = [
+  {
+    q: "How big can a team be?",
+    a: "Between two and five people, and everyone has to be from the same college.",
+  },
+  {
+    q: "Does everyone need an account?",
+    a: "No. Only the team leader signs in and verifies their email. They add everyone else, and those members never touch the portal.",
+  },
+  {
+    q: "Do we need something working to enter?",
+    a: "No. Stage 1 is four written answers and a deck. A prototype is not required and does not earn extra marks at this stage.",
+  },
+  {
+    q: "Can we change our entry after submitting?",
+    a: "Everything stays editable until you press submit. After that, contact the organisers.",
+  },
+  {
+    q: "What do we have to upload?",
+    a: "An ID card for each member (JPG, PNG or WEBP, up to 8 MB, seen only by organisers) and your Stage 1 deck (PDF or PPTX, up to 20 MB, on the official template).",
+  },
+  {
+    q: "Can we enter more than one track?",
+    a: "One track per entry. If your idea does not fit any of the four themes, the Open Innovation Track exists for exactly that.",
+  },
+];
+
+/** Step-by-step encouragement in the wizard, keyed to how much is left. */
+export const stepNotes = {
+  1: "Takes about a minute. You can change any of this later.",
+  2: "Add everyone now so nobody gets missed at check-in.",
+  3: "This is the part judges actually read. Take your time.",
+  4: "Almost there — read these, tick them, and you are in.",
+};

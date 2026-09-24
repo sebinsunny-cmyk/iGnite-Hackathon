@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import PublicShell from "../components/PublicShell";
-import { tracks } from "../data/content";
-import { Icon, TrackMark } from "../components/ui";
+import { tracks, whatNext, faq } from "../data/content";
+import { auditLog } from "../data/content";
+import { totals, registrationWindow, teams } from "../data/registrations";
+import { Icon, TrackMark, TrackDot, RegistrationStatus, CountUp } from "../components/ui";
+import { trackBy } from "../data/content";
 
 const facts = [
   { k: "Team size", v: "2–5", note: "all from one college" },
@@ -27,6 +30,10 @@ const steps = [
   },
 ];
 
+const recentEntries = teams
+  .map((t) => ({ name: t.name, theme: t.theme, when: t.submittedShort }))
+  .slice(0, 3);
+
 export default function Landing() {
   return (
     <PublicShell
@@ -50,8 +57,8 @@ export default function Landing() {
             <span className="text-ink-3">gIGNITE 2026</span>
           </nav>
 
-          <div className="lbl mt-6" style={{ color: "var(--color-viz-pink)" }}>
-            Kerala · FISAT
+          <div className="mt-6 flex justify-center">
+            <RegistrationStatus closesAt={registrationWindow.closesAt} status={registrationWindow.status} />
           </div>
 
           <h1 className="mx-auto mt-5 max-w-[16ch] text-[clamp(36px,7vw,72px)] font-bold leading-[1.02] tracking-[-0.04em]">
@@ -82,7 +89,28 @@ export default function Landing() {
             </a>
           </div>
 
-          <dl className="mx-auto mt-16 grid max-w-[900px] grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-4">
+          <div className="mx-auto mt-12 max-w-[640px] rounded-[16px] border-[0.8px] border-line bg-paper/70 p-5 backdrop-blur">
+            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[14px]">
+              <span className="tnum text-[20px] font-semibold tracking-[-0.02em]">
+                <CountUp value={totals.teams} duration={900} />
+              </span>
+              <span className="text-ink-3">
+                {totals.teams === 1 ? "team has entered" : "teams have entered"} so far
+              </span>
+            </div>
+            <ul className="mt-4 flex flex-col gap-2 border-t-[0.8px] border-line pt-4">
+              {recentEntries.map((e) => (
+                <li key={e.name} className="flex items-center gap-2.5 text-[12.5px] text-ink-3">
+                  <TrackDot track={trackBy(e.theme)} />
+                  <span className="font-medium text-ink-2">{e.name}</span>
+                  <span className="truncate">entered {trackBy(e.theme).short}</span>
+                  <span className="ml-auto shrink-0 text-ink-4">{e.when}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <dl className="mx-auto mt-14 grid max-w-[900px] grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-4">
             {facts.map((f) => (
               <div key={f.k}>
                 <dt className="lbl">{f.k}</dt>
@@ -157,7 +185,57 @@ export default function Landing() {
           ))}
         </ol>
 
-        <div className="card mt-6 flex flex-col gap-6 overflow-hidden p-8 sm:flex-row sm:items-center sm:p-10">
+      </section>
+
+      {/* ---------- what happens next ---------- */}
+      <section className="bg-ground px-4 py-16 sm:px-6 sm:py-20 xl:px-10">
+        <div className="lbl">After you submit</div>
+        <h2 className="mt-3.5 max-w-[20ch] text-[clamp(26px,3.6vw,40px)] font-semibold tracking-[-0.035em]">
+          What happens to your entry
+        </h2>
+
+        <ol className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {whatNext.map((w, i) => (
+            <li key={w.title} className="card anim-rise p-6" style={{ "--d": `${i * 80}ms` }}>
+              <span className="lbl tnum">Step {i + 1}</span>
+              <h3 className="mt-4 text-[17px] font-semibold leading-snug tracking-[-0.02em]">
+                {w.title}
+              </h3>
+              <p className="mt-2.5 text-[14px] leading-relaxed text-ink-3">{w.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* ---------- FAQ ---------- */}
+      <section className="px-4 py-16 sm:px-6 sm:py-20 xl:px-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-16">
+          <div>
+            <div className="lbl">Questions</div>
+            <h2 className="mt-3.5 text-[clamp(26px,3.6vw,40px)] font-semibold tracking-[-0.035em]">
+              The things teams ask first
+            </h2>
+            <p className="mt-4 max-w-[38ch] text-[14.5px] leading-relaxed text-ink-3">
+              Still stuck? The organisers answer on the address your team leader verified.
+            </p>
+          </div>
+
+          <div className="divide-y divide-line border-y-[0.8px] border-line">
+            {faq.map((f) => (
+              <details key={f.q} className="group py-4">
+                <summary className="flex cursor-pointer list-none items-center gap-4 text-[15.5px] font-medium marker:content-none">
+                  {f.q}
+                  <Icon.chevron className="ml-auto h-4 w-4 shrink-0 text-ink-4 transition-transform duration-[var(--dur-base)] group-open:rotate-180" />
+                </summary>
+                <p className="mt-2.5 max-w-[62ch] text-[14px] leading-relaxed text-ink-3">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-16 sm:px-6 sm:pb-20 xl:px-10">
+        <div className="card flex flex-col gap-6 overflow-hidden p-8 sm:flex-row sm:items-center sm:p-10">
           <div>
             <h3 className="text-[24px] font-semibold tracking-[-0.03em]">Ready when you are.</h3>
             <p className="mt-2 text-[14.5px] text-ink-3">

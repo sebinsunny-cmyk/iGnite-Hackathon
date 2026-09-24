@@ -563,3 +563,54 @@ export function Stagger({ children, step = 55, initial = 0, className = "" }) {
     </div>
   );
 }
+
+
+/**
+ * Registration status. Counts down when a closing date exists; says so plainly
+ * when one does not, rather than inventing urgency the event has not announced.
+ */
+export function RegistrationStatus({ closesAt, status = "Open" }) {
+  const [left, setLeft] = useState(() => remaining(closesAt));
+
+  useEffect(() => {
+    if (!closesAt) return;
+    const id = setInterval(() => setLeft(remaining(closesAt)), 1000);
+    return () => clearInterval(id);
+  }, [closesAt]);
+
+  const open = status === "Open";
+
+  if (!open) {
+    return (
+      <span className="inline-flex items-center gap-2.5 rounded-full bg-rej-soft px-4 py-2 text-[13.5px] font-medium text-rej">
+        <span className="h-2 w-2 rounded-full bg-rej" />
+        Registration closed
+      </span>
+    );
+  }
+
+  return (
+    <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-full bg-shl-soft px-4 py-2 text-[13.5px] font-medium text-shl">
+      <span className="relative flex h-2 w-2">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-shl opacity-60" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-shl" />
+      </span>
+      Registration open
+      <span className="text-shl/70">
+        {left ? `· closes in ${left}` : "· no closing date announced yet"}
+      </span>
+    </span>
+  );
+}
+
+function remaining(iso) {
+  if (!iso) return null;
+  const ms = new Date(iso).getTime() - Date.now();
+  if (Number.isNaN(ms) || ms <= 0) return null;
+  const d = Math.floor(ms / 86400000);
+  const h = Math.floor((ms % 86400000) / 3600000);
+  const m = Math.floor((ms % 3600000) / 60000);
+  if (d > 0) return `${d}d ${h}h`;
+  if (h > 0) return `${h}h ${m}m`;
+  return `${m}m`;
+}

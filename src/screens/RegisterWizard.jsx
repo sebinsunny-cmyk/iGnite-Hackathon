@@ -1,7 +1,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import PublicShell from "../components/PublicShell";
-import { Icon, InfoTip, TrackMark } from "../components/ui";
+import { Icon, InfoTip, TrackMark, TrackDot } from "../components/ui";
+import { trackBy } from "../data/content";
 import {
   wizardSteps,
   tracks,
@@ -13,6 +14,7 @@ import {
   ideaFields,
   declarations,
   uploadRules,
+  stepNotes,
 } from "../data/content";
 
 export default function RegisterWizard() {
@@ -25,7 +27,7 @@ export default function RegisterWizard() {
   const required = declarations.filter((d) => d.required);
   const allChecked = required.every((d) => checks[d.key]);
 
-  if (done) return <Submitted theme={theme} />;
+  if (done) return <Submitted theme={theme} members={members} />;
 
   return (
     <PublicShell
@@ -146,13 +148,25 @@ export default function RegisterWizard() {
           <h1 className="mt-6 text-[clamp(28px,3.6vw,42px)] font-extrabold tracking-[-0.014em]">
             {wizardSteps[step - 1].title}
           </h1>
+          <p className="mt-2.5 text-[14.5px] text-ink-3">{stepNotes[step]}</p>
 
           <div key={step} className="anim-rise mt-9">
             {step === 1 && <StepTeam theme={theme} setTheme={setTheme} />}
             {step === 2 && <StepMembers members={members} setMembers={setMembers} />}
             {step === 3 && <StepIdea />}
             {step === 4 && (
-              <StepDeclare theme={theme} members={members} checks={checks} setChecks={setChecks} />
+              <>
+                <div className="anim-rise mb-7 flex items-center gap-3.5 rounded-[13px] bg-shl-soft px-5 py-4">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-shl text-white">
+                    <Icon.check className="h-4 w-4" />
+                  </span>
+                  <p className="text-[14px] leading-relaxed text-shl">
+                    <strong className="font-semibold">That was the hard part.</strong> Your idea is
+                    written and your team is in. Three boxes and you are done.
+                  </p>
+                </div>
+                <StepDeclare theme={theme} members={members} checks={checks} setChecks={setChecks} />
+              </>
             )}
           </div>
 
@@ -547,39 +561,112 @@ function StepDeclare({ theme, members, checks, setChecks }) {
   );
 }
 
-function Submitted({ theme }) {
+function Submitted({ theme, members }) {
+  const track = trackBy(theme);
+  const [copied, setCopied] = useState(false);
+  // format taken from the product's own example entry ID
+  const entryId = "GIG-71A2";
+
+  const share = async () => {
+    const text = `Our team is in for gIGNITE 2026 — ${track.short} track. Entry ${entryId}.`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "gIGNITE 2026", text });
+        return;
+      }
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
+    } catch {
+      /* the viewer dismissed the sheet, or the clipboard is unavailable */
+    }
+  };
+
   return (
     <PublicShell bare>
-      <div className="grid grid-cols-1 items-center gap-10 px-4 py-14 sm:gap-14 sm:px-6 sm:py-20 xl:grid-cols-[1.1fr_1fr] xl:gap-24 xl:px-10 xl:py-28">
+      <div className="grid grid-cols-1 items-center gap-10 px-4 py-14 sm:gap-14 sm:px-6 sm:py-20 xl:grid-cols-[1.05fr_1fr] xl:gap-24 xl:px-10 xl:py-28">
         <div>
-          <span className="grid h-14 w-14 place-items-center rounded-full bg-shl-soft">
+          <span className="anim-pulse grid h-14 w-14 place-items-center rounded-full bg-shl-soft">
             <Icon.check className="h-6 w-6 text-shl" />
           </span>
-          <h1 className="mt-8 max-w-[15ch] text-[clamp(34px,5vw,62px)] font-extrabold leading-[1.0] tracking-[-0.028em]">
-            Registration submitted.
+          <h1 className="anim-rise mt-8 max-w-[15ch] text-[clamp(34px,5vw,62px)] font-extrabold leading-[1.0] tracking-[-0.016em]">
+            You&rsquo;re in.
           </h1>
-          <p className="mt-6 max-w-[54ch] text-[16.5px] leading-relaxed text-ink-2">
-            Your entry is in. We have emailed a copy to the team leader. Judges review Stage 1 decks
-            after the window closes — you will hear from us either way.
+          <p
+            className="anim-rise mt-6 max-w-[54ch] text-[16.5px] leading-relaxed text-ink-3"
+            style={{ "--d": "90ms" }}
+          >
+            Your entry is submitted and a copy is on its way to the team leader&rsquo;s inbox.
+            Judges review Stage 1 decks after the window closes — you will hear back either way.
           </p>
-          <div className="mt-9 flex flex-wrap gap-3">
+
+          <div className="anim-rise mt-9 flex flex-wrap gap-3" style={{ "--d": "180ms" }}>
+            <button
+              onClick={share}
+              className="pressable flex min-h-[52px] items-center gap-2.5 rounded-full bg-primary px-6 text-[15px] font-semibold text-white hover:bg-primary-600"
+            >
+              {copied ? "Copied to clipboard" : "Share your entry"}
+              {!copied && <Icon.arrow className="h-4 w-4" />}
+            </button>
             <Link
               to="/"
-              className="rounded-full border-[0.8px] border-line px-5 py-3.5 text-[15px] font-medium text-ink-2 transition hover:border-line-2"
+              className="pressable flex min-h-[52px] items-center rounded-full border-[0.8px] border-line px-6 text-[15px] font-medium text-ink-2 hover:bg-sunk"
             >
               Back to gIGNITE
             </Link>
           </div>
         </div>
 
-        <div className="rounded-[16px] border-[0.8px] border-line bg-paper p-8">
-          <span className="lbl">What we received</span>
-          <dl className="mt-6 flex flex-col gap-4">
-            <Sum k="Theme" v={theme} />
-            <Sum k="Stage 1 answers" v="4 of 4" />
-            <Sum k="Declarations" v="3 required, accepted" />
-            <Sum k="Status" v="Submitted" />
-          </dl>
+        {/* the entry card — the thing worth screenshotting */}
+        <div
+          className="anim-rise relative overflow-hidden rounded-[20px] border-[0.8px] border-line bg-paper p-8 shadow-[0_10px_40px_rgba(14,14,20,0.08)]"
+          style={{ "--d": "260ms" }}
+        >
+          <span
+            className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-25 blur-2xl"
+            style={{ background: `var(--color-viz-${track.hue})` }}
+            aria-hidden="true"
+          />
+          <div className="relative">
+            <div className="flex items-center justify-between gap-4">
+              <span className="lbl">Entry</span>
+              <span className="tnum rounded-full bg-sunk px-3 py-1 text-[12.5px] font-semibold">
+                {entryId}
+              </span>
+            </div>
+
+            <div className="mt-6 flex items-center gap-3">
+              <TrackDot track={track} />
+              <span
+                className="text-[13px] font-medium"
+                style={{ color: `var(--color-on-${track.hue})` }}
+              >
+                {track.short}
+              </span>
+            </div>
+            <p className="mt-2 text-[24px] font-semibold leading-snug tracking-[-0.03em]">
+              {track.promise}
+            </p>
+
+            <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-t-[0.8px] border-line pt-6">
+              <div>
+                <dt className="lbl">Team size</dt>
+                <dd className="tnum mt-1.5 text-[15px] font-semibold">{members.length + 1} members</dd>
+              </div>
+              <div>
+                <dt className="lbl">Stage 1 answers</dt>
+                <dd className="mt-1.5 text-[15px] font-semibold">4 of 4</dd>
+              </div>
+              <div>
+                <dt className="lbl">Declarations</dt>
+                <dd className="mt-1.5 text-[15px] font-semibold">3 accepted</dd>
+              </div>
+              <div>
+                <dt className="lbl">Status</dt>
+                <dd className="mt-1.5 text-[15px] font-semibold text-shl">Submitted</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </div>
     </PublicShell>
