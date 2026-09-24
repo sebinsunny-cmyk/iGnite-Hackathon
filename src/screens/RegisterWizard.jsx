@@ -292,7 +292,7 @@ function StepTeam({ theme, setTheme }) {
 function StepMembers({ members, setMembers }) {
   return (
     <div className="flex flex-col gap-6">
-      <p className="max-w-[62ch] text-[14.5px] leading-relaxed text-ink-2">
+      <p className="text-[14.5px] leading-relaxed text-ink-2">
         Between 2 and 5 people, all from the same college as the team. You are member 1 — add the
         rest below. We check emails and phone numbers against every other entry, so nobody ends up
         on two teams.
