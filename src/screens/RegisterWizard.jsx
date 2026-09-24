@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import PublicShell from "../components/PublicShell";
-import { Icon, InfoTip, TrackMark, TrackDot } from "../components/ui";
+import { Icon, InfoTip, TrackMark, TrackDot, CircuitField } from "../components/ui";
 import { trackBy } from "../data/content";
 import {
   wizardSteps,
@@ -619,13 +619,17 @@ function Submitted({ theme, members }) {
 
         {/* the entry card — the thing worth screenshotting */}
         <div
-          className="anim-rise relative overflow-hidden rounded-[20px] border-[0.8px] border-line bg-paper p-8 shadow-[0_10px_40px_rgba(14,14,20,0.08)]"
+          className="anim-rise relative overflow-hidden rounded-[20px] border-[0.8px] border-line bg-paper p-8 shadow-[var(--elev-3)]"
           style={{ "--d": "260ms" }}
         >
           <span
             className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-25 blur-2xl"
             style={{ background: `var(--color-viz-${track.hue})` }}
             aria-hidden="true"
+          />
+          <CircuitField
+            className="pointer-events-none absolute -bottom-8 left-1/2 h-[170px] w-[130%] -translate-x-1/2"
+            opacity={0.1}
           />
           <div className="relative">
             <div className="flex items-center justify-between gap-4">

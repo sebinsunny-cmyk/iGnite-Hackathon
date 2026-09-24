@@ -440,7 +440,7 @@ function EntriesChart() {
 
       {hover !== null && (
         <div
-          className="pointer-events-none absolute z-10 rounded-[11px] border-[0.8px] border-line bg-paper px-3.5 py-2.5 shadow-[0_8px_24px_rgba(14,14,20,0.10)]"
+          className="pointer-events-none absolute z-10 rounded-[11px] border-[0.8px] border-line bg-paper px-3.5 py-2.5 shadow-[var(--elev-3)]"
           style={{
             left: `${(pts[hover].x / W) * 100}%`,
             top: `${(pts[hover].y / H) * 100}%`,

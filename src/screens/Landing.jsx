@@ -3,7 +3,7 @@ import PublicShell from "../components/PublicShell";
 import { tracks, whatNext, faq } from "../data/content";
 import { auditLog } from "../data/content";
 import { totals, registrationWindow, teams } from "../data/registrations";
-import { Icon, TrackMark, TrackDot, RegistrationStatus, CountUp } from "../components/ui";
+import { Icon, TrackMark, TrackDot, RegistrationStatus, CountUp, CircuitField } from "../components/ui";
 import { trackBy } from "../data/content";
 
 const facts = [
@@ -48,8 +48,9 @@ export default function Landing() {
       }
     >
       {/* ---------- hero ---------- */}
-      <section className="wash relative overflow-hidden border-b-[0.8px] border-line">
+      <section className="wash grain relative overflow-hidden border-b-[0.8px] border-line">
         <div className="wash-grid absolute inset-0" aria-hidden="true" />
+        <CircuitField className="pointer-events-none absolute -bottom-6 left-1/2 h-[240px] w-[min(1100px,120%)] -translate-x-1/2" opacity={0.1} />
         <div className="relative px-4 pb-16 pt-14 text-center sm:px-6 sm:pb-20 sm:pt-20 xl:px-10">
           <nav className="flex items-center justify-center gap-2 text-[13px] text-ink-4">
             <span>Home</span>
@@ -91,7 +92,7 @@ export default function Landing() {
 
           <div className="mx-auto mt-12 max-w-[640px] rounded-[16px] border-[0.8px] border-line bg-paper/70 p-5 backdrop-blur">
             <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[14px]">
-              <span className="tnum text-[20px] font-semibold tracking-[-0.02em]">
+              <span className="bloom tnum text-[20px] font-semibold tracking-[-0.02em]">
                 <CountUp value={totals.teams} duration={900} />
               </span>
               <span className="text-ink-3">

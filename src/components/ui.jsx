@@ -393,7 +393,7 @@ export function InfoTip({ text, label = "More about this field" }) {
         <span
           id={id}
           role="tooltip"
-          className="absolute left-1/2 top-[calc(100%+9px)] z-30 w-[min(280px,72vw)] -translate-x-1/2 rounded-[11px] border-[0.8px] border-line bg-paper px-3.5 py-3 text-[13px] font-normal normal-case leading-relaxed tracking-normal text-ink-2 shadow-[0_10px_28px_rgba(14,14,20,0.13)]"
+          className="absolute left-1/2 top-[calc(100%+9px)] z-30 w-[min(280px,72vw)] -translate-x-1/2 rounded-[11px] border-[0.8px] border-line bg-paper px-3.5 py-3 text-[13px] font-normal normal-case leading-relaxed tracking-normal text-ink-2 shadow-[var(--elev-3)]"
         >
           <span
             className="absolute -top-[5px] left-1/2 h-[9px] w-[9px] -translate-x-1/2 rotate-45 border-l-[0.8px] border-t-[0.8px] border-line bg-paper"
@@ -516,7 +516,9 @@ export function useCountUp(value, { duration = 900, delay = 0 } = {}) {
     }
     let raf;
     let start;
+    let settled = false;
     const tick = (t) => {
+      if (settled) return;
       if (start === undefined) start = t;
       const p = Math.min(1, (t - start - delay) / duration);
       if (p < 0) {
@@ -533,7 +535,11 @@ export function useCountUp(value, { duration = 900, delay = 0 } = {}) {
        hidden, which would leave a partly-counted — and therefore wrong —
        figure on screen. A missing animation is cosmetic; a wrong number is
        not. This guarantees the true value lands either way. */
-    const settle = setTimeout(() => setN(value), delay + duration + 200);
+    const settle = setTimeout(() => {
+      settled = true;
+      cancelAnimationFrame(raf);
+      setN(value);
+    }, delay + duration + 200);
 
     return () => {
       cancelAnimationFrame(raf);
@@ -613,4 +619,71 @@ function remaining(iso) {
   if (d > 0) return `${d}d ${h}h`;
   if (h > 0) return `${h}h ${m}m`;
   return `${m}m`;
+}
+
+
+/* ---------------- circuit motif ---------------- */
+
+/**
+ * Decorative trace field, built from the grammar of the gIGNITE mark: lines
+ * rise from a common base, dogleg at 45 degrees, and terminate in a filled
+ * dot. Purely ornamental, so it is hidden from assistive tech.
+ *
+ * `from` is the horizontal origin as a percentage of the viewBox.
+ */
+export function CircuitField({
+  className = "",
+  line = "var(--color-primary)",
+  dot = "var(--color-orange)",
+  opacity = 0.16,
+  flip = false,
+}) {
+  // [x-offset at the top, height of the vertical run before the dogleg]
+  const traces = [
+    [-46, 62],
+    [-30, 34],
+    [-17, 78],
+    [-6, 20],
+    [7, 70],
+    [19, 40],
+    [33, 86],
+    [48, 52],
+  ];
+
+  const baseX = 50;
+  const baseY = 100;
+
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+      style={{ opacity, transform: flip ? "scaleX(-1)" : undefined }}
+    >
+      {traces.map(([dx, run]) => {
+        const bend = baseY - run * 0.55;
+        const endX = baseX + dx;
+        const endY = baseY - run;
+        // vertical, 45-degree dogleg, vertical again — as in the mark
+        const turn = bend - Math.abs(dx) * 0.5;
+        const d = `M${baseX},${baseY} L${baseX},${bend} L${endX},${turn} L${endX},${endY}`;
+        return (
+          <g key={`${dx}-${run}`}>
+            <path
+              d={d}
+              fill="none"
+              stroke={line}
+              strokeWidth="0.9"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              vectorEffect="non-scaling-stroke"
+            />
+            <circle cx={endX} cy={endY} r="1.6" fill={dot} />
+          </g>
+        );
+      })}
+    </svg>
+  );
 }

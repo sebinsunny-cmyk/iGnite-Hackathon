@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { GigniteLogo, PartnerLogos } from "../components/Brand";
 import { LOGO, LOGO_ALT } from "../assets";
-import { Icon } from "../components/ui";
+import { Icon, CircuitField } from "../components/ui";
 
 export default function StaffLogin() {
   const navigate = useNavigate();
@@ -9,10 +9,16 @@ export default function StaffLogin() {
   return (
     <div className="grid min-h-full grid-cols-1 lg:grid-cols-[1.05fr_1fr]">
       {/* brand side — full bleed, logo carries it */}
-      <section className="flex flex-col justify-between gap-8 bg-primary px-4 py-8 text-white sm:gap-12 sm:px-8 sm:py-12 xl:px-14">
-        <GigniteLogo className="h-11 brightness-0 invert sm:h-16 lg:h-20" />
+      <section className="grain relative flex flex-col justify-between gap-8 overflow-hidden bg-primary px-4 py-8 text-white sm:gap-12 sm:px-8 sm:py-12 xl:px-14">
+        <CircuitField
+          className="pointer-events-none absolute -bottom-10 left-1/2 h-[320px] w-[140%] -translate-x-1/2"
+          line="#ffffff"
+          dot="var(--color-orange)"
+          opacity={0.22}
+        />
+        <GigniteLogo className="relative h-11 brightness-0 invert sm:h-16 lg:h-20" />
 
-        <div>
+        <div className="relative">
           <h1 className="max-w-[16ch] text-[clamp(30px,4vw,50px)] font-extrabold leading-[1.02] tracking-[-0.014em]">
             The organiser's side of gIGNITE 2026.
           </h1>
@@ -22,7 +28,7 @@ export default function StaffLogin() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 sm:gap-8">
+        <div className="relative flex flex-wrap items-center gap-4 sm:gap-8">
           {[
             [LOGO.gadgeon, LOGO_ALT.gadgeon],
             [LOGO.fisat, LOGO_ALT.fisat],

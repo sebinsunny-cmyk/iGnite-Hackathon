@@ -78,7 +78,7 @@ function ScreenIndex() {
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
       {open && (
-        <div className="w-[min(260px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-line bg-paper shadow-[0_18px_50px_rgba(20,24,31,0.16)]">
+        <div className="w-[min(260px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-line bg-paper shadow-[var(--elev-3)]">
           <div className="flex items-center gap-2 border-b border-line px-4 py-3">
             <span className="lbl">All screens</span>
             <button
@@ -115,7 +115,7 @@ function ScreenIndex() {
 
       <button
         onClick={() => setOpen((v) => !v)}
-        className="rounded-full bg-primary px-5 py-3 text-[13px] font-semibold text-white shadow-[0_8px_24px_rgba(20,24,31,0.22)] transition hover:bg-primary-600"
+        className="rounded-full bg-primary px-5 py-3 text-[13px] font-semibold text-white shadow-[var(--elev-3)] transition hover:bg-primary-600"
       >
         {open ? "Hide screens" : "All screens"}
       </button>
