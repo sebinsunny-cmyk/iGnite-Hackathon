@@ -50,7 +50,7 @@ export default function TeamDetail() {
           </button>
           <button
             onClick={() => navigate("/dashboard")}
-            className="min-h-[44px] flex-1 rounded-[11px] border-[0.8px] border-line bg-paper px-4 text-[13.5px] font-medium text-ink-2 transition hover:border-line-2 sm:flex-none"
+            className="min-h-[44px] flex-1 rounded-full bg-primary px-5 text-[13.5px] font-semibold text-white transition hover:bg-primary-600 sm:flex-none"
           >
             <span className="sm:hidden">Next &rarr;</span>
             <span className="hidden sm:inline">Next submission &rarr;</span>
@@ -65,7 +65,8 @@ export default function TeamDetail() {
           <section className="rounded-[16px] border-[0.8px] border-line bg-paper p-5 sm:p-7">
             <div className="flex flex-wrap items-center gap-4">
               <span className="lbl">Stage 1 deck</span>
-              <button className="ml-auto min-h-[44px] rounded-[10px] border-[0.8px] border-line px-3.5 text-[13px] font-medium text-ink-2 transition hover:border-line-2">
+              <button className="ml-auto flex min-h-[44px] items-center gap-2 rounded-full bg-primary px-5 text-[13px] font-semibold text-white transition hover:bg-primary-600">
+                <Icon.download className="h-4 w-4" />
                 Download
               </button>
             </div>
